@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%! 
-	int sum=0;	
-%>
+<%@ include file="IncludeFile.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,15 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
 	<%
-		for(int i=1; i<=100; i++) {
-			sum += i;
-		}
-		out.println(sum);
-		
+		out.print("오늘 날짜 : " + today);
+		out.print("<br>");
+		out.print("내일 날짜 : " + tomorrow);
 	%>
-
 </body>
 </html>
