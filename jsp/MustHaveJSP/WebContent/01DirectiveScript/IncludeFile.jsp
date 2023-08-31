@@ -10,11 +10,13 @@
 </head>
 <body>
 	<%
-		LocalDate today = LocalDate.now();						   // 오늘 날짜
-																   // LocalDate : 날짜 형식
+		LocalDate today = LocalDate.now();						   
+		// 오늘 날짜
+	    // LocalDate : 날짜 형식
 																   
-		LocalDateTime tomorrow = LocalDateTime.now().plusDays(1);  // 내일 날짜
-																   // LocalDateTime : 날짜 + 시간 형식
+		LocalDateTime tomorrow = LocalDateTime.now().plusDays(1);  
+		// 내일 날짜
+	    // LocalDateTime : 날짜 + 시간 형식
 	%>
 </body>
 </html>

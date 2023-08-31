@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%! 
-	int sum=0;	
+	public int sum() {
+	int result = 0;
+	for(int i=1; i<=100; i++) {
+		result += i;
+	}
+		return result;
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -10,15 +16,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<!-- 1에서 100까지의 합계 구하기 -->
-	<%
-		for(int i=1; i<=100; i++) {
-			sum += i;
-		}
-		out.println(sum);
-		
-	%>
-
+	<% int result = sum(); %>
+	<h1> 합계 결과는 <%= result %> 입니다. </h1>
 </body>
 </html>

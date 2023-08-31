@@ -8,6 +8,10 @@
 </head>
 <body>
 	<%
+	// Error500 직접 에러 처리
+	// 에러 발생 부분을 try/catch 구문으로 감싸줌
+	// 실행 즉시 예외가 발생하므로 catch절이 실행됨
+	
 		try {
 			int myAge = Integer.parseInt(request.getParameter("age")) + 10;
 			out.println("10년 후 당신의 나이는 " + myAge + "입니다.");

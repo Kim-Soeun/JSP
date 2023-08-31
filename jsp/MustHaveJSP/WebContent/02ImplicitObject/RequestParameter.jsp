@@ -16,8 +16,9 @@
 </head>
 <body>
 	<%
-		request.setCharacterEncoding("utf-8");  	// 한글 처리
-													// pageEncoding과 상관없이 넘겨주는 request는 별도로 한글처리 필요함
+		request.setCharacterEncoding("utf-8");  	
+		// 한글 처리
+		// pageEncoding과 상관없이 넘겨주는 request는 별도로 한글처리 필요함
 		String id = request.getParameter("id");
 		String gender = request.getParameter("gender");
 		String[] favo = request.getParameterValues("favo");

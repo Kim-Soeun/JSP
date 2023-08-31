@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="IncludeFile.jsp" %>
+<!-- 반복되는 부분을 별도의 파일에 작성해두고 
+	 필요한 페이지에서 include 지시어로 포함시킴 -->
+	 
 <!DOCTYPE html>
 <html>
 <head>
