@@ -15,11 +15,11 @@
 		out.clearBuffer();
 		// 버퍼를 비움(윗 줄의 출력 결과 사라짐), 출력 안됨
 		
-		out.print("<h2>out 내장 객체</h2>");
+		out.print("<h2>out 내장 객체</h2>");                                                                                                                                    
 		
 		// 버퍼 크기 정보 확인
 		out.print("출력 버퍼의 크기 : " + out.getBufferSize() + "<br>");
-		// 현재 페이지에 설정된 버퍼의 크기를 가져옴
+		// 현재 페이지에 설정된 버퍼의 크기를 가져옴, 따로 선언하지 않았으면 기본값인 8KB가 됨
 		out.print("남은 버퍼의 크기 : " + out.getRemaining() + "<br>");
 		// 사용하고 남은 버퍼의 크기를 알려줌
 		

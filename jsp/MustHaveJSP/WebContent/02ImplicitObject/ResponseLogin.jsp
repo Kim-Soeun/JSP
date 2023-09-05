@@ -21,10 +21,11 @@
 		if(id.equalsIgnoreCase(id2) && pw.equalsIgnoreCase(pw2)) {
 			// equalsIgnoreCase : 대소문자 구분없이 비교할 때 사용
 			response.sendRedirect("ResponseWelcome.jsp");
-			// 인증에 성공하면 sendRedirect() 메소드에 건넨 응답 페이지로 이동
+			// 인증에 성공하면 "ResponseWelcome.jsp" 페이지로 이동
 		} else {
 			request.getRequestDispatcher("ResponseMain.jsp?loginErr=1").forward(request,response);
-			// 인증 실패하면 request 내장 객체를 통해 로그인 페이지(ResponseMain.jsp)로 전달(forward)됨
+			// 인증 실패하면 ResponseMain.jsp 페이지로 사용자를 보내고 
+			// loginErr=1 파라미터를 추가하여 로그인 오류 메시지를 표시
 		}
 		
 		

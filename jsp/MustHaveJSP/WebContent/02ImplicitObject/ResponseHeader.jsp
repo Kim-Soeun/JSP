@@ -12,6 +12,8 @@
 	<%
 		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		long add_date = s.parse(request.getParameter("add_date")).getTime();
+		// getTime : 유닉스 에포크 (1970년 1월 1일 00:00:00 UTC) 이후의 밀리초 단위 시간을 반환
+		// 결과값이 00:00:00 GMT 나오는 이유는 GMT 기준으로 처리되어 상당한 시간이 경과한 것으로 간주되기 때문
 		int add_int = Integer.parseInt(request.getParameter("add_int"));
 		// 8282(문자열) -> 숫자(int)
 		String add_str = request.getParameter("add_str");

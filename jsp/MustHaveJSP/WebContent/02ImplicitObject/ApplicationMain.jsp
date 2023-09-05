@@ -9,6 +9,7 @@
 <body>
 	<h2> web.xml에 설정한 내용 가져오기 </h2>
 	초기화 매개변수 : <%=application.getInitParameter("INIT_PARAM") %>
+	<!-- application.getInitParamete : 이름이 "INIT_PARAM"인 웹 어플리케이션의 초기화 파라미터 값을 읽어옴 -->
 	<!-- web.xml에 설정한 초기화 매개변수를 읽어옴 -->
 	<!-- web.xml에서 "INIT_PARAM" 설정하지 않았다면 null을 반환할 것임 -->
 </body>

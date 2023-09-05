@@ -8,7 +8,7 @@
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 목록</title>
 </head>
 <body>
 	
@@ -32,9 +32,15 @@
 					Product product = listOfProducts.get(i);
  			%>
 	 			<div class="col-md-4">
+	 				<img src="resources/images/<%=product.getProductId() %>.png" style="width:100%">
 	 				<h3><%=product.getPname() %></h3>
 	 				<h3><%=product.getDescription() %></h3>
 	 				<h3><%=product.getUnitPrice() %></h3>
+	 				<p> 
+	 				<a href="product.jsp?id=<%=product.getProductId() %>" 
+	 				   class="btn btn-secondary" role="button">상세정보</a>
+	 				<!-- form action을 사용할 때는 위처럼 파라미터를 보낼 수 없기 때문에 input에 따로 값을 넣어줘야 함 -->
+	 				</p>
 	 			</div>
  			<% 
  				}
