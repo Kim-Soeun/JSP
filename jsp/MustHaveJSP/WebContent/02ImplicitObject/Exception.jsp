@@ -8,6 +8,9 @@
 </head>
 <body>
 	<%
+		
+		// 에러 발생 시 웹에 출력할 페이지와 경로를 web.xml에 지정
+	
 		int status = response.getStatus();
 		// 에러 코드 숫자 가져옴 ex) 404, 405
 	

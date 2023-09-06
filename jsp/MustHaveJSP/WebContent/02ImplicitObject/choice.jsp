@@ -13,7 +13,7 @@
 		if(none != null) out.print("좋아하는 과일이 없군요");
 	%>
 
-	<h1> 좋아하는 과일은 선택하세요!! </h1>
+	<h1> 좋아하는 과일을 선택하세요!! </h1>
 	<form action="choiceResult.jsp" method="post">
 	<select name="fruit">
 		<option value="">과일선택</option>
