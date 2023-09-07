@@ -22,7 +22,7 @@
 	
 	<%
 		String id = request.getParameter("id");
-		ProductRepository dao = new ProductRepository();
+		ProductRepository dao = new ProductRepository().getInstance();
 		Product product = dao.getProductById(id);
 	%>
 	<div class="container">

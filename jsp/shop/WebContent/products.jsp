@@ -22,11 +22,12 @@
 	</div>
 	
 	<% 
-		ProductRepository dao = new ProductRepository();
+		ProductRepository dao = new ProductRepository().getInstance();
 		ArrayList<Product> listOfProducts = dao.getAllProducts();
 	%>
 	<div class="container">
 		<div class="row" align="center">
+	
 			<%
 				for(int i=0; i<listOfProducts.size(); i++) {
 					Product product = listOfProducts.get(i);
