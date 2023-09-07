@@ -6,6 +6,11 @@
 		request.setAttribute("requestString", "리퀘스트 영역의 문자열");
 		request.setAttribute("requestPerson", new Person("안중근",31));
 	%>
+	
+	<!-- 클라이언트가 요청을 할 때마다 새로운 request 객체가 생성됨 -->
+	<!-- 같은 요청을 처리하는데 사용되는 모든 jsp 페이지가 공유함 -->
+	<!-- request 영역에 저장된 정보는 현재 페이지와 포워드된 페이지까지 공유할 수 있음 -->
+	<!-- request는 하나의 요청에 대한 응답이 완료될 때 소멸하므로 page 영역보다는 접근범위 넓음 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +30,7 @@
 	</ul>
 	
 	<%
-		request.getRequestDispatcher("RequestForward.jsp?name="+nPerson.getName()).forward(request, response);
+		 request.getRequestDispatcher("RequestForward.jsp?name="+nPerson.getName()).forward(request, response);
 	%>
 </body>
 </html>

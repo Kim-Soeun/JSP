@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="common.Person" %>
+
+<!-- page는 페이지간 이동 -->
 <%
 	int pInteger2 = (Integer)(pageContext.getAttribute("pageInteger"));  
 	String pString2 = pageContext.getAttribute("pageString").toString();
