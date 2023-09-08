@@ -3,7 +3,7 @@
 
 
 <%
-
+	
 	String chkVal = request.getParameter("inactiveToday");
 	                                    
 	if(chkVal != null && chkVal.equals("1")) {
@@ -11,6 +11,5 @@
 		cookie.setPath(request.getContextPath());
 		cookie.setMaxAge(20);
 		response.addCookie(cookie);
-		out.print("쿠키 : 하루 동안 열지 않음");
 	}
 %>
