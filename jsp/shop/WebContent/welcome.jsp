@@ -10,7 +10,7 @@
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>전자제품 쇼핑몰 메인 화면</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <!-- 제이쿼리 코드를 작성할 수 있음 -->
 <!-- 제이쿼리는 body를 먼저 읽고 script 실행 -->

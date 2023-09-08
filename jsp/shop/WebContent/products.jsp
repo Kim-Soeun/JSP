@@ -17,7 +17,7 @@
 	<!-- 회색배경 -->
 		<div class="container">
 		<!-- 네모 박스 설정 -->
-			<h1 class="display-3">상품목록</h1>
+			<h1 class="display-3">상품 목록</h1>
 		</div>
 	</div>
 	

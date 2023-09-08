@@ -8,6 +8,7 @@
 	String productId = request.getParameter("productId");
 	String pname = request.getParameter("pname");
 	int unitPrice = Integer.parseInt(request.getParameter("unitPrice"));
+	// 파라미터 값을 받을 때는 문자열로 받기 때문에 int 형태로 변환해줌
 	String description = request.getParameter("description");
 	String manufacturer = request.getParameter("manufacturer");
 	String category= request.getParameter("category");

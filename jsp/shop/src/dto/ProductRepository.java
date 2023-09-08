@@ -6,6 +6,11 @@ public class ProductRepository {
 
 	private ArrayList<Product> listOfProducts = new ArrayList();
 	private static ProductRepository instance = new ProductRepository();
+	// 싱글톤 : 하나의 객체를 만들어서 정보 공유
+	// 예를 들어, '회사'라는 클래스를 생성하고 '회사명','회사 위치' 등의 정보 데이터 변수 생성한다면
+	// 다른 클래스에서 '회사'클래스에 접근할 때 getter, setter로 접근하여 수정 또는 반환하여 사용
+	// 이럴 경우 다른 클래스에서 각자 인스턴스를 생성하면 다른 클래스끼리 '회사'클래스 정보를 공유하기 어려움
+	// 이러한 이유로 싱글톤 사용
 	
 	public static ProductRepository getInstance() {
 		return instance;
