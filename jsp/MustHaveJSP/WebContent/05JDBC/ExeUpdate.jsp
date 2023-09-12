@@ -16,7 +16,7 @@
 		// DB에 연결
 		JDBConnect jdbc = new JDBConnect();
 		
-		// 테스트요 입력값 준비
+		// 테스트용 입력값 준비
 		String id = "test1";
 		String pass = "1111";
 		String name = "테스트1회원";
@@ -31,7 +31,7 @@
 		
 		// 쿼리 수행
 		int inResult = psmt.executeUpdate();
-		// update의 실행 결과는 숫자가 나옴(몇 줄이 바뀌었는지)
+		// executeUpdate : update의 실행 결과는 숫자가 나옴(몇 줄이 바뀌었는지)
 		out.print(inResult + "행이 입력되었습니다");
 		
 		// 연결 닫기
