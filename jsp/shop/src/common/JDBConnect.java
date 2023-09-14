@@ -14,7 +14,7 @@ public class JDBConnect {
 	public JDBConnect() {
 		try {
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:3306/member";
+		String url = "jdbc:mysql://localhost:3306/member?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 		String id = "manager";
 		String pw = "1234";
 		con = DriverManager.getConnection(url, id, pw);

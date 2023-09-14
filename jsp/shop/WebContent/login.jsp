@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+</head>
 <body>
 	
 	<%@ include file="menu.jsp" %>
@@ -41,6 +41,7 @@
 				name="pw" required> <br>
 				</div>
 				<button class="btn btn-log btn-success btn-block"
+
 					type="submit">로그인</button>
 			</form>
 		</div>

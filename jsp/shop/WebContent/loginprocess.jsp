@@ -1,21 +1,39 @@
+<%@page import="dto.MemberDTO"%>
+<%@page import="dao.MemberDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="common.JDBConnect"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<%
+<%
 		request.setCharacterEncoding("utf-8");
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
+		// 사용자가 입력한 데이터를 가져옴(아이디, 패스워드)
 		
-		JDBConnect jdbc = new JDBConnect();
+		MemberDAO dao = new MemberDAO();  // mysql 데이터베이스 연결 
+		MemberDTO dto = dao.getMemberDTO(id, pw);
+		// 사용자가 입력한 데이터가 mysql에 있으면 dto에 해당 정보가 삽입됨
+		// 사용자가 입력한 데이터가 mysql에 없으면 dto에 객체는 비어있음
+		
+		dao.close();
+		
+		String result = "";
+		if(dto.getId() != null) {
+			session.setAttribute("UserId", dto.getId());
+			session.setAttribute("UserPw", dto.getPw());
+			session.setAttribute("UserName", dto.getName());
+			result = dto.getName() + "님 환영합니다";
+		} else {
+			request.getRequestDispatcher("login.jsp?error=1").forward(request, response);
+		}
+		dao.close();
+		
+		
+		
+		
+		// java dao. dto 파일 만들지 않고 여기서 아이디, 비번 바로 일치 확인
+		/* JDBConnect jdbc = new JDBConnect();
 		String sql = "select * from member";
 		PreparedStatement psmt = jdbc.con.prepareStatement(sql);
 		ResultSet rs = psmt.executeQuery();
@@ -34,7 +52,6 @@
 				result = name + "님 환영합니다";
 				session.setAttribute("user_id", id2);
 				session.setAttribute("user_name", name);
-				response.sendRedirect("welcome.jsp");
 				break;
 			}
 		}
@@ -42,8 +59,28 @@
 		if(result == "") {
 			request.getRequestDispatcher("login.jsp?error=1").forward(request, response);
 		}
-		jdbc.close();
+		jdbc.close(); */
 		
-	%>
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+	<jsp:include page="menu.jsp" />
+	
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3">로그인 처리</h1>
+		</div>
+	</div>
+	
+	<div class="container">
+		<h1 class="display-5"><%= result %></h1>
+		<a href="welcome.jsp" class="btn btn-secondary"> 돌아가기 </a>
+	</div>
 </body>
 </html>

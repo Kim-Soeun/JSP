@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String user_id = (String) session.getAttribute("user_id");
+	String user_id = (String) session.getAttribute("UserId");
  %>
 <nav class="navbar navbar-expand navbar-dark bg-dark">
 		<div class="container">
@@ -25,7 +25,8 @@
 		%>
 				<a class="navbar-brand" href="welcome.jsp">홈</a>
 				<a class="navbar-brand" href="logout.jsp">로그아웃</a>
-				<a class="navbar-brand" href="addMember.jsp">회원가입</a>
+				<a class="navbar-brand" href="editmember.jsp">회원정보수정</a>
+				<a class="navbar-brand" href="deletemember.jsp">회원탈퇴</a>
 				<a class="navbar-brand" href="products.jsp">상품정보</a>
 				<a class="navbar-brand" href="addProduct.jsp">상품등록</a>
 		<% } %>
