@@ -23,11 +23,11 @@
 		method="post">
 	<%
 		String error = request.getParameter("error");
-	if (error != null) {
-		out.print("<div class='alert alert-danger'>");
-		out.print("아이디가 중복되었습니다");
-		out.print("</div>");
-	}
+		if (error != null) {
+			out.print("<div class='alert alert-danger'>");
+			out.print("아이디가 중복되었습니다");
+			out.print("</div>");
+		}
 	%>
 		<div class="container" align="center">
 			<div class="col-md-4 col-md-offset-4">
