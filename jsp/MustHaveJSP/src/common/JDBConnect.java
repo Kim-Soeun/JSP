@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.servlet.ServletContext;
+
 public class JDBConnect {
 
 	public Connection con; // 데이터베이스와의 연결
@@ -48,6 +50,24 @@ public class JDBConnect {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	
+	public JDBConnect(ServletContext application) {
+		try {
+			String driver = application.getInitParameter("OracleDriver");
+			Class.forName(driver);
+			
+			String url = application.getInitParameter("OracleURL");
+			String id = application.getInitParameter("OracleId");
+			String pwd = application.getInitParameter("OraclePwd");
+			con = DriverManager.getConnection(url, id, pwd);
+			System.out.println("application db 연결 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("application db 연결 실패");
+		}
 	}
 	
 	// 연결 해제 (자원 반납)
