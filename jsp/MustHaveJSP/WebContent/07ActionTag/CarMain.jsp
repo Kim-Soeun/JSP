@@ -21,6 +21,7 @@
 	<jsp:setProperty name="Car" property="carPrice" value="<%=carPrice %>"/>
 	<jsp:setProperty name="Car" property="carColor" value="<%=carColor %>"/>
 	
+	
 	<h2>자바빈즈 출력</h2>
 	<ul>
 		
