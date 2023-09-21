@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dto.Product" %>
-<%@ page import="dto.ProductRepository" %>
+<%@ page import="dao.ProductRepository" %>
 
 <%
 	request.setCharacterEncoding("utf-8");
@@ -16,7 +16,7 @@
 	String condition= request.getParameter("condition");
 
 	
-	ProductRepository pr = new ProductRepository().getInstance();
+	ProductRepository pr = new ProductRepository();
 		
 	Product newProduct = new Product();
 	newProduct.setProductId(productId);

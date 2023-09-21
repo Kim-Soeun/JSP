@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dto.Product" %>
-<%@ page import="dto.ProductRepository" %>
+<%@ page import="dao.ProductRepository" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +22,10 @@
 	</div>
 	
 	<% 
-		ProductRepository dao = new ProductRepository().getInstance();
+		ProductRepository dao = new ProductRepository();
+		dao.selectProduct();
 		ArrayList<Product> listOfProducts = dao.getAllProducts();
+		dao.close();
 	%>
 	<div class="container">
 		<div class="row" align="center">

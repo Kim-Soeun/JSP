@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class JDBConnect {
 
 	public Connection con;
+	public Statement stmt;
 	public PreparedStatement psmt;
 	public ResultSet rs;
 	
@@ -29,8 +31,9 @@ public class JDBConnect {
 	public void close() {
 		try {
 			if(rs != null) rs.close();
-			if(con != null) con.close();
+			if(stmt != null) stmt.close();
 			if(psmt != null) psmt.close();
+			if(con != null) con.close();
 			System.out.println("자원 해제 성공");
 			
 		} catch(Exception e) {

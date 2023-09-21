@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dto.Product" %>
-<%@ page import="dto.ProductRepository" %>
+<%@ page import="dao.ProductRepository" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +22,10 @@
 	
 	<%
 		String id = request.getParameter("id");
-		ProductRepository dao = new ProductRepository().getInstance();
+		ProductRepository dao = new ProductRepository();
+		dao.selectProduct();
 		Product product = dao.getProductById(id);
+		dao.close();
 	%>
 	<div class="container">
 		<div class="row">
