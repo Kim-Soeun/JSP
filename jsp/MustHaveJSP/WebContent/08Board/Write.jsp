@@ -13,6 +13,7 @@
 	<h2> 회원제 게시판 - 글쓰기 </h2>
 	<form name="writeFrm" method="post" action="WriteProcess.jsp">
 		<table border="1" width="90%">
+		<!-- width="90%" : 전체 화면 비율의 90% 너비 -->
 			<tr>
 				<td>제목</td>
 				<td>
