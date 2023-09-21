@@ -100,4 +100,99 @@ public class BoardDAO extends JDBConnect {
 		}
 		return result;
 	}
+	
+	public BoardDTO selectView(String num) {
+		BoardDTO dto = new BoardDTO();
+		
+		String query = "select B.*, M.name from member M inner join board B on M.id=B.id where num=?";
+		// "회원" 테이블(별명 'M')과 "게시판" 테이블(별병 "B")에서 데이터를 선택하고,
+		// "id" 열을 기준으로 내부 조인을 사용하여 이 두 테이블을 결합
+		// "회원" 테이블의 "id"와 "게시판" 테이블의 "id"가 일치하는 행만 결과에 포함
+		// select B.* 결과 집합에서 "게시판" 테이블의 모든 열을 선택
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, num);
+			rs = psmt.executeQuery();
+			System.out.println("게시물 상세보기 성공");
+			
+			if(rs.next()) {
+				dto.setNum(rs.getString(1));
+				dto.setTitle(rs.getString(2));
+				dto.setContent(rs.getString("content"));
+				dto.setId(rs.getString("id"));
+				dto.setPostdate(rs.getDate("postdate"));
+				dto.setVisitcount(rs.getString("visitcount"));
+				dto.setName(rs.getString("name"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("게시물 상세보기 오류");
+		}
+		
+		return dto;
+	}
+	
+	// 게시물의 조회수 증가 메소드
+	public void updateVisitCount(String num) {
+		
+		String query = "update board set visitcount = visitcount+1 where num=?";
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, num);
+			psmt.executeQuery();
+			// 기존 행에 영향을 주는 쿼리문은 executeUpdate() 메소드를 사용
+			// 하지만 update가 적용된 행의 개수를 알 필요가 없다면 executeQuery() 사용해도 무방
+			System.out.println("게시물 조회수 증가 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("게시물 조회수 증가 오류");
+		}
+		
+		
+	}
+	
+	
+	// 게시물 수정
+	public int updateEdit(BoardDTO dto) {
+		int result = 0;
+		
+		String query = "update board set title=?, content=? where num=?";
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getNum());
+			result = psmt.executeUpdate();
+			
+			System.out.println("게시물 수정 성공");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("게시물 수정 실패");
+		}
+		
+		return result;
+	}
+	
+	
+	// 게시물 삭제
+	public int deletePost(BoardDTO dto) {
+		int result = 0;
+		String query = "delete from board where num=?";
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getNum());
+			result = psmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("게시물 삭제 실패");
+		}
+		
+		return result;
+	}
 }
