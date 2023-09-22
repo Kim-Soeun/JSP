@@ -82,6 +82,7 @@ public class BoardDAO extends JDBConnect {
 		return bbs;
 	}
 	
+	
 	public int insertWrite(BoardDTO dto) {
 		int result = 0;
 		
