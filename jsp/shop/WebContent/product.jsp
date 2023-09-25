@@ -12,6 +12,7 @@
 <body>
 	
 	<%@ include file="menu.jsp" %>
+	<%@ include file="LoginCheck.jsp" %>
 	<div class="jumbotron">
 	<!-- 회색배경 -->
 		<div class="container">

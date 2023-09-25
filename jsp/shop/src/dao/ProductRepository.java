@@ -2,6 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 
+import org.eclipse.jdt.core.compiler.CategorizedProblem;
+
 import common.JDBConnect;
 import dto.Product;
 
@@ -49,6 +51,7 @@ public class ProductRepository extends JDBConnect {
 	// 전체 상품 목록 가져오기
 	public ArrayList<Product> getAllProducts() {
 		return listOfProducts;
+
 	}
 	
 	public Product getProductById(String productId) {
@@ -65,7 +68,49 @@ public class ProductRepository extends JDBConnect {
 		return productById;
 	}
 	
-	public void addProduct(Product product) {
+	public int addProduct(Product product) {
+		int result = 0;
+		String sql = "insert into product values(?,?,?,?,?,?,?,?)";
 		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, product.getProductId());
+			psmt.setString(2, product.getPname());
+			psmt.setInt(3, product.getUnitPrice());
+			psmt.setString(4, product.getDescription());
+			psmt.setString(5, product.getManufacturer());
+			psmt.setString(6, product.getCategory());
+			psmt.setLong(7, product.getUnitsInStock());
+			psmt.setString(8, product.getCondition());
+			result = psmt.executeUpdate();
+			
+			System.out.println("상품등록 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("상품등록 실패");
+		}
+		
+		return result;
+		
+	}
+	
+	public int deleteProduct(String pid) {
+		int result = 0;
+		
+		String sql = "delete from product where p_id=?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, pid);
+			result = psmt.executeUpdate();
+			System.out.println("상품삭제 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("상품삭제 실패");
+		}
+		
+		return result;
 	}
 }

@@ -9,6 +9,8 @@
 </head>
 <body>
 	<%@ include file="menu.jsp" %>
+	<%@ include file="LoginCheck.jsp" %>
+	
 	
 	<div class="jumbotron">
 		<div class="container">

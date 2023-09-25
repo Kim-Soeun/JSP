@@ -27,7 +27,7 @@
 		
 		<form class="form-signin" action="editProcess.jsp" method="post">
 		<div class="form-group">
-			<label for="inputId" class="sr-only">비밀번호 </label>
+			<label for="inputId" class="sr-only">아이디 </label>
 			<input type="text" class="form-control" 
 			name="id" readonly value="<%=id %>(아이디)"> <br>
 		</div>
