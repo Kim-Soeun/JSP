@@ -107,8 +107,7 @@ public class BoardDAO extends JDBConnect {
 			psmt.setString(2, title);
 			psmt.setString(3, content);
 			psmt.setString(4, bookid);
-			rs = psmt.executeQuery();
-			rs = 
+			result = psmt.executeUpdate();
 			
 			System.out.println("도서 정보 수정 성공");
 			System.out.println(result);
@@ -117,8 +116,27 @@ public class BoardDAO extends JDBConnect {
 			System.out.println("도서 정보 수정 실패");
 		}
 		
-		
 		return result;
 	}
 	
+	
+	public int deleteBook(String bookId) {
+		int result = 0;
+		
+		String sql = "delete from bookinfo where bookid=?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, bookId);
+			result = psmt.executeUpdate();
+			
+			System.out.println("도서 삭제 성공");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("도서 삭제 실패");
+		}
+		
+		
+		return result;
+	}
 }

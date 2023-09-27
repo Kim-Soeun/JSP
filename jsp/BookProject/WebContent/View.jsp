@@ -35,7 +35,7 @@
 					<label for="bookid" class="col-form-label">도서 아이디</label>
 				</div>
 				<div class="cool-auto">
-					<input type="text" id="bookid" class="form-control"
+					<input type="text" name="bookid" class="form-control"
 						value="<%=dto.getBookid()%>" readonly>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 					<label for="author" class="col-form-label">작가</label>
 				</div>
 				<div class="cool-auto">
-					<input type="text" id="author" class="form-control"
+					<input type="text" name="author" class="form-control"
 						value="<%=dto.getAuthor()%>" autofocus>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 					<label for="title" class="col-form-label">제목</label>
 				</div>
 				<div class="cool-auto">
-					<input type="text" id="title" class="form-control"
+					<input type="text" name="title" class="form-control"
 						value="<%=dto.getBooktitle()%>">
 				</div>
 			</div>
@@ -62,11 +62,12 @@
 					<label for="content" class="col-form-label">내용</label>
 				</div>
 				<div class="cool-auto">
-					<input type="text" id="content" class="form-control"
+					<input type="text" name="content" class="form-control"
 						value="<%=dto.getBookcontent()%>">
 				</div>
 			</div>
-			<button type="submit">수정하기</button>
+			<button type="submit">수정</button>
+			<button type="button" onclick="location.href='Delete.jsp?bookId=<%=dto.getBookid()%>';">삭제</button>
 		</form>
 	</div>
 	
