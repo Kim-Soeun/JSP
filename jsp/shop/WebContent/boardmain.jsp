@@ -46,11 +46,11 @@
 					
 				%>
 				<tr align="center">
-					<td><%=dto.getNum() %>				
-					<td><%=dto.getTitle() %>				
-					<td><%=dto.getId() %>				
-					<td><%=dto.getVisitcount() %>				
-					<td><%=dto.getPostdate() %>				
+					<td><%=dto.getNum() %></td>
+					<td><a href="View.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle() %></a></td>				
+					<td><%=dto.getId() %></td>
+					<td><%=dto.getVisitcount() %></td>				
+					<td><%=dto.getPostdate() %></td>				
 				</tr>
 				
 				<% } %>
