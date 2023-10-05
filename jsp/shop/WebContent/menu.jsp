@@ -25,7 +25,7 @@
 				<a class="navbar-brand" href="logout.jsp">로그아웃</a>
 				<a class="navbar-brand" href="editmember.jsp">회원정보수정</a>
 				<a class="navbar-brand" href="deletemember.jsp">회원탈퇴</a>
-				<a class="navbar-brand" href="boardmain.jsp">게시판</a>
+				<a class="navbar-brand" href="boardmain.jsp?pageNum=1">게시판</a>
 		<% } %>
 			</div>
 		</div>

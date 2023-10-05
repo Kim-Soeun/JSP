@@ -1,3 +1,5 @@
+<%@page import="common.BoardPage"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="dto.BoardDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.BoardDAO"%>
@@ -6,7 +8,24 @@
     
 <%
 		BoardDAO dao = new BoardDAO();
-		List<BoardDTO> boardLists = dao.selectList();
+
+		// 한 페이지 게시물 개수(20개)
+		int pageSize = Integer.parseInt(application.getInitParameter("POST_PAGE"));
+		// 하단 표시 페이지 개수(10개)
+		int blockSize = Integer.parseInt(application.getInitParameter("BLOCK_COUNT"));
+		// 게시물 전체 개수
+		int totalCount = dao.selectCount();
+		// 게시물 페이지 전체 개수
+		int totalPage = (int)Math.ceil((double)(totalCount/pageSize));
+		
+		// 기본 페이지 번호는 1로 세팅
+		int pageNum = 1;
+		pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		
+		int start = (pageNum - 1) * pageSize + 1;
+
+		
+		List<BoardDTO> boardLists = dao.selectList(start);
 		dao.close();
 %>
 		
@@ -42,7 +61,6 @@
 				</tr>
 				<%
 					for(BoardDTO dto : boardLists) {
-						
 					
 				%>
 				<tr align="center">
@@ -54,6 +72,11 @@
 				</tr>
 				
 				<% } %>
+				<tr align="center">
+					<td colspan="5">
+						<%=BoardPage.pagingStr(totalCount, pageSize, blockSize, pageNum, totalPage) %>
+					</td>
+				</tr>
 			</table>
 			<br>
 			<button type="button" onclick="location.href='Write.jsp';">글쓰기</button>

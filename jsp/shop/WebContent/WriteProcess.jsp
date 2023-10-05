@@ -28,13 +28,17 @@
 		String postdate = dateFormat.format(new Date());
 	
 		BoardDTO dto = new BoardDTO();
-		dto.setTitle(title);
+		// dto.setTitle(title);
 		dto.setContent(content);
 		dto.setId(id);
 		dto.setPostdate(postdate);
 		
 		BoardDAO dao = new BoardDAO();
+		
+		// int result = dao.insertWrite(dto);
+		
 		int result = dao.insertWrite(dto);
+		dao.close();
 		
 		if(result == 1) {
 			response.sendRedirect("boardmain.jsp");
@@ -42,7 +46,6 @@
 			JSFunction.alertBack("게시판 글쓰기에 실패했습니다",  out);
 		}
 		
-		dao.close();
 	%>
 	
 	
