@@ -2,6 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import common.JDBConnect;
 import dto.BoardDTO;
@@ -35,25 +36,33 @@ public class BoardDAO extends JDBConnect {
 	}
 	
 	// 게시물의 모든 내용 가져오기
-	public List<BoardDTO> selectList() {
+	public List<BoardDTO> selectList(int start) {
 		
 		List<BoardDTO> dto = new ArrayList<>();
-		
+		int totalNum = selectCount() - start + 1;
 		String query = "select * from board order by num desc";
+		int limit = 0;
 		
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
+			rs.absolute(start - 1);
+			// : ResultSet의 커서를 특정 위치로 이동시킴
 			
 			while(rs.next()) {
 				BoardDTO bto = new BoardDTO();
-				bto.setNum(rs.getString("num"));
+				bto.setNum(totalNum);
 				bto.setTitle(rs.getString("title"));
 				bto.setContent(rs.getString("content"));
 				bto.setId(rs.getString("id"));
 				bto.setPostdate(rs.getString("postdate"));
 				bto.setVisitcount(rs.getInt("visitcount"));
 				dto.add(bto);
+				totalNum--;
+				limit++;
+				if(limit == 20) {
+					break;
+				}
 			}
 			
 			System.out.println("게시물 가져오기 성공");
@@ -99,7 +108,7 @@ public class BoardDAO extends JDBConnect {
 				psmt.setString(1, num);
 				rs = psmt.executeQuery();
 				if (rs.next()) {
-					dto.setNum(rs.getString("num"));
+					dto.setNum(rs.getInt("num"));
 					dto.setTitle(rs.getString("title"));
 					dto.setContent(rs.getString("content"));
 					dto.setId(rs.getString("id"));
@@ -137,7 +146,7 @@ public class BoardDAO extends JDBConnect {
 				psmt = con.prepareStatement(query);
 				psmt.setString(1, dto.getTitle());
 				psmt.setString(2, dto.getContent());
-				psmt.setString(3, dto.getNum());
+				psmt.setInt(3, dto.getNum());
 				result = psmt.executeUpdate();
 				System.out.println("게시물 수정 성공");
 			} catch (Exception e) {
