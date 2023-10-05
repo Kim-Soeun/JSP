@@ -51,17 +51,19 @@ public class BoardDAO extends JDBConnect {
 	public List<BoardDTO> selectList(Map<String, Object> map) {
 		List<BoardDTO> bbs = new Vector<>();	// 게시물 작성시 동시에 접수되지 않도록 Vector 사용
 		
-		String query = "select * from board";
+		String query = "select * from ( select Tb.*, rownum rNum from ( select * from board ";
 		if(map.get("searchWord") != null) {
 			query += " where " + map.get("searchField") + " "
 					+ " like '%" + map.get("searchWord") + "%'";
 		}
-		query += " order by num desc";
+		query += " order by num desc ) Tb ) where rNum between ? and ?";
 		// 게시물 번호로 내림차순 정렬 (최근 게시물이 위로 오게 정렬)
 		
 		try {
-			 stmt = con.createStatement();
-			 rs= stmt.executeQuery(query);
+			 psmt = con.prepareStatement(query);
+			 psmt.setString(1, map.get("start").toString());
+			 psmt.setString(2, map.get("end").toString());
+			 rs = psmt.executeQuery();
 			 
 			 while(rs.next()) {
 				 BoardDTO dto = new BoardDTO();
