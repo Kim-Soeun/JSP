@@ -33,8 +33,8 @@
 	
 	<form action="LoginProcess.jsp" method="post" name="loginFrm" onsubmit="return validateForm(this)">
 	<!-- onsubmit : 사용자가 form 제출하면 validateForm 함수 호출, 유효성 검사하여 true나 false 반환해줌 -->
-		아이디 : <input type="text" name="user_id"> <br>
-		비밀번호 : <input type="password" name="user_pw"> <br>
+		아이디 : <input type="text" name="user_id" required> <br>
+		비밀번호 : <input type="password" name="user_pw" required> <br>
 		<input type="submit" value="로그인하기">
 	</form>
 	
@@ -43,7 +43,7 @@
 	// 로그인 상태
 	%>  
 	
-		<%=session.getAttribute("UserName") %> 회원님, 로그인하셨습니다. <br>
+		${sessionScope.UserName} 회원님, 로그인하셨습니다. <br>
 		<a href="Logout.jsp">[로그아웃]</a>
 		<a href="../08Board/Write.jsp">글쓰기</a>
 		<a href="../08Board/List.jsp">목록보기</a>
