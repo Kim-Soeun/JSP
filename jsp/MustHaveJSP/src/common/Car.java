@@ -2,9 +2,9 @@ package common;
 
 public class Car {
 	
-	private String CarName;
-	private int CarPrice;
-	private String CarColor;
+	private String carName;
+	private int carPrice;
+	private String carColor;
 
 	
 	public Car() {
@@ -13,48 +13,44 @@ public class Car {
 	
 
 	public Car(String carName, int carPrice, String carColor) {
-		CarName = carName;
-		CarPrice = carPrice;
-		CarColor = carColor;
+		this.carName = carName;
+		this.carPrice = carPrice;
+		this.carColor = carColor;
 	}
 
 
 
 	public String getCarName() {
-		return CarName;
+		return carName;
 	}
 
 
 	public void setCarName(String carName) {
-		CarName = carName;
+		this.carName = carName;
 	}
 
 
 	public int getCarPrice() {
-		return CarPrice;
+		return carPrice;
 	}
 
 
 	public void setCarPrice(int carPrice) {
-		CarPrice = carPrice;
+		this.carPrice = carPrice;
 	}
 
 
 	public String getCarColor() {
-		return CarColor;
+		return carColor;
 	}
 
 
 	public void setCarColor(String carColor) {
-		CarColor = carColor;
+		this.carColor = carColor;
 	}
 
 
 
-	
-	
-	
-	
 	
 	
 }
