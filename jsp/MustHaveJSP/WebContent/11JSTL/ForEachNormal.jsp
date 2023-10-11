@@ -17,7 +17,7 @@
 
 	<h3> 1 ~ 100까지 짝수의 합계 </h3>
 	<c:forEach begin="1" end="100" step="1" var="i">
-		<c:if test="${j mod 2 eq 0}">
+		<c:if test="${i mod 2 eq 0}">
 			<c:set var="sum" value="${sum + i}"/>
 			<!-- 자바와는 다르게 sum 초기값 설정해주지 않아도 됨 -->
 		</c:if>

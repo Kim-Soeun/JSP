@@ -10,7 +10,7 @@
 <body>
 	<h3> 향상된 for문 형태의 forEach 태그 </h3>
 	<%
-		String[] rgba = {"빨강", "녹색", "파랑", "검정"};
+		String[] rgba = {"red", "green", "blue", "black"};
 	%>
 	
 	
@@ -22,6 +22,7 @@
 	<!-- 향상된 for 문은 인덱스 번호 0부터 시작 -->
 	<h3> varStatus 속성 보기 </h3>
 	<c:forEach items="<%=rgba%>" var="c" varStatus="s">
+	<!-- varStatus : 상태를 알려줄 변수명 -->
 		<span>${s.count}</span>
 		<span>${s.index}</span><br>
 	</c:forEach>
