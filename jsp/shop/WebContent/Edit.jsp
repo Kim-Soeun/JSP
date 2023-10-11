@@ -1,13 +1,16 @@
 <%@page import="dto.BoardDTO"%>
 <%@page import="dao.BoardDAO"%>
+<%@page import="common.JSFunction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="LoginCheck.jsp"%>
+<%@ include file="menu.jsp"%>
+<%@ include file="LoginCheck.jsp"%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 <%
 	request.setCharacterEncoding("utf-8");
 	String id = request.getParameter("id");
-	String id2 = (String) session.getAttribute("user_id");
-	String num = request.getParameter("num");
+	String id2 = (String) session.getAttribute("UserId");
+	int num = Integer.parseInt(request.getParameter("num"));
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
 	
@@ -24,20 +27,7 @@
 		if (result == 1) {
 			JSFunction.alertLocation("게시글이 수정되었습니다.", "View.jsp?num=" + dto.getNum(), out);
 		}  else {
-		JSFunction.alertBack("작성자만 편집 가능합니다.", out);
-	}
+			JSFunction.alertBack("작성자만 편집 가능합니다.", out);
+		}
 	}
 %>
-<%@ include file="menu.jsp"%>
-<%@ include file="LoginCheck.jsp"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-</head>
-<body>
-</body>
-</html>

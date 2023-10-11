@@ -41,7 +41,7 @@
 					<label for="num" class="col-form-label">게시물 번호</label>
 				</div>
 				<div class="cool-auto">
-					<input type="text" id="num" class="form-control"
+					<input type="text" name="num" class="form-control"
 						value="<%=dto.getNum()%>" readonly>
 				</div>
 			</div>
@@ -50,7 +50,7 @@
 					<label for="num" class="col-form-label">작성자 이름</label>
 				</div>
 				<div class="cool-auto">
-					<input type="text" id="name" class="form-control"
+					<input type="text" name="name" class="form-control"
 						value="<%=dto.getName()%>" readonly>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 					<label for="name" class="col-form-label">게시물 제목</label>
 				</div>
 				<div class="cool-auto">
-					<input type="text" id="title" class="form-control"
+					<input type="text" name="title" class="form-control"
 						value="<%=dto.getTitle()%>">
 				</div>
 			</div>
@@ -69,7 +69,7 @@
 					<label for="content" class="col-form-label"> 내용 </label>
 				</div>
 				<div class="cool-auto">
-					<input type="text" id="content" class="form-control"
+					<input type="text" name="content" class="form-control"
 						value="<%=dto.getContent()%>">
 				</div>
 				<button type="submit">수정하기</button>

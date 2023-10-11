@@ -9,6 +9,7 @@ public class BoardDTO {
 	private String postdate;
 	private int visitcount;
 	private String name;
+	private int virNum;
 	
 	
 	public int getNum() {
@@ -52,6 +53,12 @@ public class BoardDTO {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public int getVirNum() {
+		return virNum;
+	}
+	public void setVirNum(int virNum) {
+		this.virNum = virNum;
 	}
 
 	

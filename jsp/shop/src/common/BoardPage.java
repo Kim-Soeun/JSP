@@ -7,6 +7,9 @@ public class BoardPage {
 		String pagingStr = "";
 		
 		// pageTemp 결과는 -> 1, 11, 21, 31, 41, 51 등등
+		// (pageNum - 1) / blockSize) : 이 부분이 int로 몫이 나옴
+		// ex) pageNum = 3  ->  위의 계산식에서 몫은 0 , (0 * 10) + 1 = 1 
+		// ex) pageNum = 12  ->  위의 계산식에서 몫은 1 , (1 * 10) + 1 = 11 
 		int pageTemp = (((pageNum - 1) / blockSize) * blockSize) + 1;
 		
 		// 처음 페이지, 이전 페이지 출력
