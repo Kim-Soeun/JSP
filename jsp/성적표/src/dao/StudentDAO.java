@@ -42,7 +42,7 @@ public class StudentDAO extends MysqlCon {
 	
 	
 	// 학점으로 모든 정보 가져오기
-	public List<StudentDTO> searchScore(String grade) {
+	public List<StudentDTO> allFromGrade(String grade) {
 		List<StudentDTO> lists = new ArrayList<StudentDTO>();
 		String sql = "select * from 시험 where 학점 = ?";
 		
@@ -71,7 +71,7 @@ public class StudentDAO extends MysqlCon {
 	
 	
 	// db 수정없이 평균점수로 모든 정보 가져오기
-	public List<StudentDTO> allFromGrade(int start, int end) {
+	public List<StudentDTO> allFromScore(int start, int end) {
 		List<StudentDTO> lists = new ArrayList<StudentDTO>();
 		
 		String sql = "select * from 시험 where ((국어+영어+수학)/3) >= ? and ((국어+영어+수학)/3) <?";

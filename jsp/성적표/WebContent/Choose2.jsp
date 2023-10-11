@@ -63,7 +63,7 @@
 	<%
 		StudentDAO dao = new StudentDAO();
 	
-		List<StudentDTO> lists = dao.allFromGrade(start, end);
+		List<StudentDTO> lists = dao.allFromScore(start, end);
 		for(StudentDTO dto : lists) {
 			double avg = (dto.getKor() + dto.getEng() + dto.getMath()) /3;
 			

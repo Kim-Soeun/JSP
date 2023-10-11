@@ -67,7 +67,7 @@
 		
 		<% } 
 		} else {
-			List<StudentDTO> lists2 = dao.searchScore(grade);
+			List<StudentDTO> lists2 = dao.allFromGrade(grade);
 			dao.close();
 			
 			for(StudentDTO dto2 : lists2) { 
