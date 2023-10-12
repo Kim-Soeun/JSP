@@ -96,27 +96,27 @@
 						<%=BoardPage.pagingStr(totalCount, pageSize, blockSize, pageNum, totalPage) %>
 					</td> --%>
 
-
 						<td colspan="5"><c:set var="pageNum" value="<%=pageNum%>"
 								scope="request" /> <c:set var="searchWord"
 								value="<%=searchWord%>" scope="request" /> 
 								<c:forEach var="i" begin="1" end="<%=blockSize%>">
+									<c:url value="/boardmain.jsp" var="url"/>
 
 								<c:choose>
 									<c:when test="${empty searchWord && pageNum==i}">
-										<a href="boardmain.jsp?pageNum=${i}"><font color='red'>
+										<a href="${url}?pageNum=${i}"><font color='red'>
 												[${i}]</font></a>
 									</c:when>
 									<c:when test="${empty searchWord && pageNum!=i}">
-										<a href="boardmain.jsp?pageNum=${i}"><font color='black'>
+										<a href="${url}?pageNum=${i}"><font color='black'>
 												[${i}]</font></a>
 									</c:when>
 									<c:when test="${not empty searchWord && pageNum==i}">
-										<a href="boardmain.jsp?pageNum=${i}&searchField=<%=searchField%>&searchWord=<%=searchWord%>">
+										<a href="${url}?pageNum=${i}&searchField=<%=searchField%>&searchWord=<%=searchWord%>">
 										<font color='red'> [${i}]</font></a>
 									</c:when>
 									<c:otherwise>
-										<a href="boardmain.jsp?pageNum=${i}&searchField=<%=searchField%>&searchWord=<%=searchWord%>">
+										<a href="${url}?pageNum=${i}&searchField=<%=searchField%>&searchWord=<%=searchWord%>">
 										<font color='black'> [${i}]</font></a>
 									</c:otherwise>
 								</c:choose>

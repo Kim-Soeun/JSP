@@ -1,6 +1,8 @@
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%! 
 	String greeting = "쇼핑몰 방문을 환영합니다";
 	String tagline = "자바 쇼핑몰에 어서오세요";
@@ -15,7 +17,7 @@
 <!-- 제이쿼리 코드를 작성할 수 있음 -->
 <!-- 제이쿼리는 body를 먼저 읽고 script 실행 -->
 <script>
-	$(function(){
+	/* $(function(){
 		function getClock() {
 		var date = new Date();
 		var hour = date.getHours();
@@ -35,11 +37,12 @@
 	}
 	getClock();
 	setInterval(getClock,1000);
-	});
+	}); */
 </script>
 </head>
 <body>
-	
+
+
 	<%@ include file="menu.jsp" %>
 	<div class="jumbotron">
 	<!-- 회색배경 -->
@@ -58,7 +61,12 @@
 			<h3>
 				<%=tagline %>
 			</h3>
-			<h3 id="clock"></h3>
+			<!-- <h3 id="clock"></h3> -->
+			<c:set var="today" value="<%=new java.util.Date()%>" />
+			<h3><fmt:formatDate value="${today}" type="both" pattern="yyyy-MM-dd hh:mm:ss" /></h3>
+			<%
+				response.setIntHeader("Refresh", 1);
+			%>
 		</div>
 	</div>
 	<%@ include file="footer.jsp" %>
