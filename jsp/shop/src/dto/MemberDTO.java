@@ -6,6 +6,7 @@ public class MemberDTO {
 	private String pw;
 	private String phone;
 	private String address;
+	private String photoimage;
 	
 	
 	public String getId() {
@@ -37,6 +38,12 @@ public class MemberDTO {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public String getPhotoimage() {
+		return photoimage;
+	}
+	public void setPhotoimage(String photoimage) {
+		this.photoimage = photoimage;
 	}
 	
 	

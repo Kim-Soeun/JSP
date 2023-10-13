@@ -23,7 +23,19 @@
 	
 	<%
 		String id = (String)session.getAttribute("UserId");
+		String pw = (String)session.getAttribute("UserPw");
+		MemberDAO dao = new MemberDAO();
+		MemberDTO dto = dao.getMemberDTO(id, pw);
+		dao.close();
 	%>	
+	
+		<div class="container" align="center">
+			<div class="row">
+				<div class="col-md-5">
+					<img src="Uploads/<%=dto.getPhotoimage()%>" style="width: 300px;">
+				</div>
+			</div>
+		</div>
 		
 		<form class="form-signin" action="editProcess.jsp" method="post">
 		<div class="form-group">

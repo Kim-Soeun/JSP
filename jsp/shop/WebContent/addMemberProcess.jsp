@@ -1,3 +1,6 @@
+<%@page import="java.io.File"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="dao.MemberDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -12,13 +15,26 @@
 </head>
 <body>
 	<%
+		String saveDirectory = application.getRealPath("/Uploads"); // 실제 저장 폴더 공간
+		int maxPostSize = 5 * 1024 * 1024;		// 파일 최대 용량 5MB
+		String encoding = "UTF-8";
 		
-		request.setCharacterEncoding("utf-8");
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		String name = request.getParameter("name");
-		String phone = request.getParameter("phone");
-		String address = request.getParameter("address");
+		
+		MultipartRequest mr = new MultipartRequest(request, saveDirectory, maxPostSize, encoding, new DefaultFileRenamePolicy()); 
+		// DefaultFileRenamePolicy : 파일 업로드 시 서버에 이미 동일한 이름의 파일이 존재하면 덮어쓰기나 충돌을 방지하기 위해 사용
+		// 업로드된 각 파일에 대해 새로운 이름을 생성하여 서버에 저장
+		
+		
+		String id = mr.getParameter("id");
+		String pw = mr.getParameter("pw");
+		String name = mr.getParameter("name");
+		String phone = mr.getParameter("phone");
+		String address = mr.getParameter("address");
+		String photoimage = mr.getFilesystemName("photoImage");
+		
+		// 디렉토리 경로, 파일 구분자, 파일 이름을 결합하여 전체 파일 경로를 생성
+		// 아래 코드가 없으면 Uploads에 업로드된 파일들이 프로젝트 종료시 사라짐
+		File photoFile = new File(saveDirectory + File.separator + photoimage);
 		
 		MemberDAO dao = new MemberDAO();
 		
@@ -36,7 +52,7 @@
 				break;
 			} 
 		}
-		dao.addMember(id, name, pw, phone, address);
+		dao.addMember(id, name, pw, phone, address, photoimage);
 		result = "회원 가입을 환영합니다";
 		dao.close();
 		
