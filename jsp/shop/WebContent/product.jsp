@@ -31,7 +31,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-5">
-				<img src="resources/images/<%=id %>.png" style="width:100%">
+				<img src="resources/images/<%=product.getProductImage() %>" style="width:300px; height: 300px;">
 			</div>
 	 			<div class="col-md-6">
 	 				<h3><%=product.getPname() %></h3>

@@ -19,7 +19,8 @@
 	</div>
 	
 	<div class="container">
-		<form name="newProduct" action="processAddProduct.jsp" class="form-horizontal" method="post">
+		<form name="newProduct" action="processAddProduct.jsp" class="form-horizontal"
+		  method="post" enctype="multipart/form-data">
 		<!-- form action으로 이동하면 form 안에 있는 필드들의 값도 모두 같이 넘어감  -->
 		<!-- 그래서 processAddProduct 에서 파라미터로 값(ex.상품코드에 입력한 내용)을 받을 수 있음  -->
 			<div class="form-group row">
@@ -70,6 +71,12 @@
 					<input type="radio" name="condition" value="신상품"> 신상품
 					<input type="radio" name="condition" value="중고상품"> 중고상품
 					<input type="radio" name="condition" value="재생품"> 재생품
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2">제품 사진</label>
+				<div class="col-sm-3">
+					<input type="file" name="photoImage" class="form-control">
 				</div>
 			</div>
 			<div class="form-group row">

@@ -15,26 +15,25 @@
 </head>
 <body>
 	<%
-		String saveDirectory = application.getRealPath("/Uploads"); // 실제 저장 폴더 공간
-		int maxPostSize = 5 * 1024 * 1024;		// 파일 최대 용량 5MB
+		String saveDirectory = application.getRealPath("/Uploads");
+		int maxPostSize = 5 * 1024 * 1024;
 		String encoding = "UTF-8";
-		
-		
-		MultipartRequest mr = new MultipartRequest(request, saveDirectory, maxPostSize, encoding, new DefaultFileRenamePolicy()); 
+	
+		MultipartRequest mr = new MultipartRequest(request, saveDirectory, maxPostSize, encoding, new DefaultFileRenamePolicy());
 		// DefaultFileRenamePolicy : 파일 업로드 시 서버에 이미 동일한 이름의 파일이 존재하면 덮어쓰기나 충돌을 방지하기 위해 사용
 		// 업로드된 각 파일에 대해 새로운 이름을 생성하여 서버에 저장
 		
 		
 		String id = mr.getParameter("id");
-		String pw = mr.getParameter("pw");
 		String name = mr.getParameter("name");
+		String pw = mr.getParameter("pw");
 		String phone = mr.getParameter("phone");
 		String address = mr.getParameter("address");
 		String photoimage = mr.getFilesystemName("photoImage");
 		
+		File photoFile = new File(saveDirectory + File.separator + photoimage);
 		// 디렉토리 경로, 파일 구분자, 파일 이름을 결합하여 전체 파일 경로를 생성
 		// 아래 코드가 없으면 Uploads에 업로드된 파일들이 프로젝트 종료시 사라짐
-		File photoFile = new File(saveDirectory + File.separator + photoimage);
 		
 		MemberDAO dao = new MemberDAO();
 		

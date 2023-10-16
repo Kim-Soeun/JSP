@@ -39,6 +39,7 @@ public class ProductRepository extends JDBConnect {
 				dto.setManufacturer(rs.getString(6));
 				dto.setUnitsInStock(rs.getLong(7));
 				dto.setCondition(rs.getString(8));
+				dto.setProductImage(rs.getString(9));
 				listOfProducts.add(dto);
 			}
 		} catch(Exception e) {
@@ -70,7 +71,7 @@ public class ProductRepository extends JDBConnect {
 	
 	public int addProduct(Product product) {
 		int result = 0;
-		String sql = "insert into product values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into product values(?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			psmt = con.prepareStatement(sql);
@@ -82,6 +83,7 @@ public class ProductRepository extends JDBConnect {
 			psmt.setString(6, product.getCategory());
 			psmt.setLong(7, product.getUnitsInStock());
 			psmt.setString(8, product.getCondition());
+			psmt.setString(9, product.getProductImage());
 			result = psmt.executeUpdate();
 			
 			System.out.println("상품등록 성공");
