@@ -11,6 +11,10 @@ public class MemberDAO extends JDBConnect {
 			super();
 		}
 		
+		public MemberDAO(String driver, String url, String id, String pwd) {
+			super(driver, url, id, pwd);
+		}
+
 		public MemberDTO getMemberDTO(String uid, String upass) {
 			MemberDTO dto = new MemberDTO();
 			String query = "SELECT * FROM member WHERE id=? AND pass=?";
