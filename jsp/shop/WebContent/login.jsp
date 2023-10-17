@@ -19,15 +19,22 @@
 	
 	<div class="container" align="center">
 		<div class="col-md-4 col-md-offset-4">
+			<h5 class="form-signin-heading">아이디와 비밀번호를 입력해주세요</h5>
 		<%
 			String error = request.getParameter("error");
-			if (error != null) {
+			if(error == null) {
+				out.print("<div></div>");
+			} else if(error.equals("2")) {
 				out.print("<div class='alert alert-danger'>");
 				out.print("아이디와 비밀번호를 확인해 주세요");
 				out.print("</div>");
+			} else {
+				out.print("<div class='alert alert-danger'>");
+				out.print("고객님 환영합니다");
+				out.print("</div>");
 			}
 		%>
-			<form class="form-signin" action="loginprocess.jsp" method="post">
+			<form class="form-signin" action="loginCheck.mvc" method="post">
 			
 				<div class="form-group">
 				<label for="inputUserName" class="sr-only">아이디 </label>
