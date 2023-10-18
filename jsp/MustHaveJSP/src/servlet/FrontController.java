@@ -17,7 +17,7 @@ public class FrontController extends HttpServlet {
 		
 		// request 내장 객체로부터 현재 경로에서 호스트명을 제외한 나머지 부분을 알아냄
 		String uri = request.getRequestURI();
-		// 마지막 슬래시(/)이 인덱스를 구함
+		// 마지막 슬래시(/)의 인덱스를 구함
 		int lastSlash = uri.lastIndexOf("/");
 		// 이 인덱스로 경로의 마지막 부분의 문자열을 얻어옴
 		String commandStr = uri.substring(lastSlash);
