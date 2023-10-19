@@ -41,6 +41,11 @@ public class JSFunction {
 	
 	
 	public static void alertLocation(HttpServletResponse resp, String msg, String url) {
+		// HttpServletResponse를 사용하는 이유는 
+		// 클라이언트에게 동적인 응답을 보내기 위해 필요한 PrintWriter를 얻기 위해서
+		// PrintWriter : 클라이언트에게 전송할 JavaScript 코드를 응답으로 보냄
+		// 메시지를 경고창으로 띄우고 이전 페이지로 되돌아가는 동작을 수행
+		
 		try {
 			resp.setContentType("text/html;charset=utf8");
 			PrintWriter writer = resp.getWriter();

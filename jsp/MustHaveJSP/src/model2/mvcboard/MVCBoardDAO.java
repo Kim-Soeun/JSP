@@ -14,6 +14,7 @@ public class MVCBoardDAO extends JDBConnect {
 		super();
 	}
 
+	// 게시물 전체 개수 확인
 	public int selectCount(Map<String, Object> map) {
 		int totalCount = 0;
 
@@ -40,6 +41,7 @@ public class MVCBoardDAO extends JDBConnect {
 		return totalCount;
 	}
 
+	// 게시물 조회
 	public List<MVCBoardDTO> selectList(Map<String, Object> map) {
 		List<MVCBoardDTO> bbs = new Vector<>(); // 게시물 작성시 동시에 접수되지 않도록 Vector 사용
 
@@ -79,6 +81,7 @@ public class MVCBoardDAO extends JDBConnect {
 		return bbs;
 	}
 
+	// 글쓰기
 	public int insertWrite(MVCBoardDTO dto) {
 		int result = 0;
 
@@ -153,11 +156,10 @@ public class MVCBoardDAO extends JDBConnect {
 			e.printStackTrace();
 			System.out.println("게시물 조회수 증가 오류");
 		}
-		
+
 	}
 
-	
-	
+	// 다운로드 횟수를 1씩 증가시킴
 	public void downCountPlus(String idx) {
 
 		String query = "update mvcboard set downcount = downcount+1 where idx=?";
@@ -176,35 +178,77 @@ public class MVCBoardDAO extends JDBConnect {
 			e.printStackTrace();
 			System.out.println("첨부파일 다운 증가 실패");
 		}
-		
+
+	}
+
+	// 입력한 비밀번호가 지정한 일련번호의 게시물의 비밀번호와 일치하는지 확인
+	public boolean confirmPassword(String pass, String idx) {
+		boolean isCorr = true;
+
+		try {
+			String sql = "SELECT COUNT(*) FROM mvcboard WHERE pass=? AND idx=?";
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, pass);
+			psmt.setString(2, idx);
+			rs = psmt.executeQuery();
+			rs.next();
+			if (rs.getInt(1) == 0) { // 비밀번호 일치하지 않은 경우
+				isCorr = false;
+
+			}
+
+			System.out.println("비밀번호 맞는지 정상 확인");
+		} catch (Exception e) {
+			System.out.println("비밀번호 확인 오류 발생");
+			isCorr = false;
+			e.printStackTrace();
+		}
+
+		return isCorr;
+	}
+
+	// 게시물 번호로 게시물 삭제
+	public int deletePost(String idx) {
+		int result = 0;
+
+		try {
+			String query = "delete from mvcboard where idx=?";
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, idx);
+			result = psmt.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("게시물 삭제 실패");
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	// 게시물 수정
+	public int updatePost(MVCBoardDTO dto) {
+		int result = 0;
+
+
+		try {
+			String query = "update mvcboard set title=?, name=?, content=?, ofile=?, sfile=? where idx=? and pass=?";
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getName());
+			psmt.setString(3, dto.getContent());
+			psmt.setString(4, dto.getOfile());
+			psmt.setString(5, dto.getSfile());
+			psmt.setString(6, dto.getIdx());
+			psmt.setString(7, dto.getPass());
+			result = psmt.executeUpdate();
+
+			System.out.println("게시물 수정 성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("게시물 수정 실패");
+		}
+
+		return result;
 	}
 
 }
-	/*
-	 * // 게시물 수정 public int updateEdit(MVCBoardDTO dto) { int result = 0;
-	 * 
-	 * String query = "update board set title=?, content=? where num=?";
-	 * 
-	 * try { psmt = con.prepareStatement(query); psmt.setString(1, dto.getTitle());
-	 * psmt.setString(2, dto.getContent()); psmt.setString(3, dto.getNum()); result
-	 * = psmt.executeUpdate();
-	 * 
-	 * System.out.println("게시물 수정 성공"); } catch(Exception e) { e.printStackTrace();
-	 * System.out.println("게시물 수정 실패"); }
-	 * 
-	 * return result; }
-	 * 
-	 * 
-	 * // 게시물 삭제 public int deletePost(MVCBoardDTO dto) { int result = 0; String
-	 * query = "delete from board where num=?";
-	 * 
-	 * try { psmt = con.prepareStatement(query); psmt.setString(1, dto.getNum());
-	 * result = psmt.executeUpdate();
-	 * 
-	 * } catch(Exception e) { e.printStackTrace(); System.out.println("게시물 삭제 실패");
-	 * }
-	 * 
-	 * return result; }
-	 */
-
-

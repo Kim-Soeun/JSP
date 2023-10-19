@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import utils.BoardPage;
 
 public class ListController extends HttpServlet {
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -30,6 +31,7 @@ public class ListController extends HttpServlet {
 		int totalCount = dao.selectCount(map);
 		
 		// 페이지 처리 start
+		// 아래 코드는 자바 파일에서 웹 파일에 접근하기 위해 사용
 		ServletContext application = getServletContext();
 		int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
 		int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));

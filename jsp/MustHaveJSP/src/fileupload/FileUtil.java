@@ -36,7 +36,7 @@ public class FileUtil {
 		String sDirectory = request.getServletContext().getRealPath(directory);
 		try {
 			File file = new File(sDirectory, sfileName);
-			//  sDirectory 디렉토리에 위치한 sfileName 이름을 가진 파일을 나타내는 File 객체를 생성
+			// sDirectory 디렉토리에 위치한 sfileName 이름을 가진 파일을 나타내는 File 객체를 생성
 			// 이렇게 생성된 File 객체를 사용하면 파일에 대한 여러 동작(읽기, 쓰기, 삭제 등)을 수행
 			InputStream iStream = new FileInputStream(file);
 			// file 변수에 저장된 파일을 읽어오기 위한 FileInputStream 객체 생성
@@ -77,12 +77,27 @@ public class FileUtil {
 			// 입출력 스트림 닫음
 			iStream.close();
 			oStream.close();
-			
+			System.out.println("파일 찾기 성공");
 			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("파일을 찾을 수 없습니다");
+		}
+	}
+	
+	
+	// 저장된 위치의 파일 삭제
+	public static void deleteFile(HttpServletRequest request, String directory, String filename) {
+	
+		// 파일이 저장된 디렉토리의 물리적 경로를 얻어온 다음
+		String sDirectory = request.getServletContext().getRealPath(directory);
+		// 경로와 파일명을 결합하여 파일 객체를 생성
+		File file = new File(sDirectory + File.separator + filename);
+		
+		// 경로에 파일이 존재하면 삭제
+		if(file.exists()) {
+			file.delete();
 		}
 	}
 }
