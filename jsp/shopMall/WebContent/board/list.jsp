@@ -31,7 +31,7 @@
 			alert("로그인해주세요");
 			return false;
 		}
-		location.href="./BoardWriteForm.do?id=${user_id}"
+		location.href="./BoardWriteForm.do?id=${UserId}"
 	}
 </script>
 <!-- 
@@ -50,8 +50,6 @@
 
 	<div class="container">
 		
-		
-	
 		<form action='<c:url value="./BoardListAction.do"/>' method="post">
 			<div class="text-right">
 				<span class="badge badge-success">전체${total_record}건</span>
@@ -75,9 +73,45 @@
 					<td>${list.name}</td>
 				</tr>
 				</c:forEach>
-			</table>
-		</div>
+				</table>
+			</div>
 			
+			<div align="center">
+				<c:forEach var="i" begin="1" end="<%=total_page%>">
+				
+					<a href="<c:url value='./BoardListAction.do?pageNum=${i}'/>">
+					
+						<c:choose>
+							<c:when test="${pageNum==i}">
+								<font color="red"><b>[${i}]</b></font>
+							</c:when>
+							<c:otherwise>
+								<font color="black">[${i}]</font>
+							</c:otherwise>
+						</c:choose>
+					</a>
+				</c:forEach>
+			</div>
+			
+			<div align="left">
+				<table>
+					<tr>
+						<td width="100%" align="left">&nbsp;&nbsp;
+							<select name="items" class="txt">
+								<option value="subject">제목에서</option>
+								<option value="content">본문에서</option>
+								<option value="name">글쓴이에서</option>
+							</select>
+							<input name="text" type="text">
+							<input type="submit" id="btnAdd" class="btn btn-primary" value="검색">
+							</td>
+							
+							<td width="100%" align="right">
+								<a href="/BoardWriteForm.do" onclick="checkForm(); return false;" class="btn btn-primary">글쓰기</a>
+							</td>
+					</tr>
+				</table>
+			</div>
 			
 		</form>
 	

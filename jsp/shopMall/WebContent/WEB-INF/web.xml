@@ -10,24 +10,6 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
 
-<context-param>
-	<param-name>POST_PAGE</param-name>
-	<param-value>20</param-value>
-</context-param>
-<context-param>
-	<param-name>BLOCK_COUNT</param-name>
-	<param-value>10</param-value>
-</context-param>
-
-
-<servlet>
-	<servlet-name>loginCheck</servlet-name>
-	<servlet-class>servlet.loginCheck</servlet-class>
-</servlet>
-<servlet-mapping>
-	<servlet-name>loginCheck</servlet-name>
-	<url-pattern>/loginCheck.mvc</url-pattern>
-</servlet-mapping>
 
 
 <servlet>

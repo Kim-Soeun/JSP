@@ -17,7 +17,7 @@
 <!-- 제이쿼리 코드를 작성할 수 있음 -->
 <!-- 제이쿼리는 body를 먼저 읽고 script 실행 -->
 <script>
-	/* $(function(){
+	 $(function(){
 		function getClock() {
 		var date = new Date();
 		var hour = date.getHours();
@@ -37,7 +37,7 @@
 	}
 	getClock();
 	setInterval(getClock,1000);
-	}); */
+	}); 
 </script>
 </head>
 <body>
@@ -61,12 +61,9 @@
 			<h3>
 				<%=tagline %>
 			</h3>
-			<!-- <h3 id="clock"></h3> -->
-			<c:set var="today" value="<%=new java.util.Date()%>" />
-			<h3><fmt:formatDate value="${today}" type="both" pattern="yyyy-MM-dd hh:mm:ss" /></h3>
-			<%
-				response.setIntHeader("Refresh", 1);
-			%>
+			 <h3 id="clock"></h3>
+			
+			
 		</div>
 	</div>
 	<%@ include file="footer.jsp" %>
