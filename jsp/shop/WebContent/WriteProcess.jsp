@@ -29,6 +29,7 @@
 	
 		BoardDTO dto = new BoardDTO();
 		// dto.setTitle(title);
+		dto.setTitle(title);
 		dto.setContent(content);
 		dto.setId(id);
 		dto.setPostdate(postdate);

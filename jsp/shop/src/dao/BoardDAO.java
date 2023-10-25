@@ -209,6 +209,7 @@ public List<BoardDTO> searchList(int start, String searchField, String searchWor
 		}
 		
 	
+		// 게시물 삭제
 		public int updateDelete(String num) {
 			int result = 0;
 			

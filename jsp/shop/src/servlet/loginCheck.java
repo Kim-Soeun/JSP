@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
 
@@ -35,13 +36,19 @@ public class loginCheck extends HttpServlet {
 		
 		MemberDTO dto = dao.getMemberDTO(id, pw);
 		
-		String userName = dto.getName();
+		String userId = dto.getId();
+		String userPw = dto.getPw();
 		
-		 if(userName != null) {
-			 request.getRequestDispatcher("login.jsp?error=1").forward(request, response);
-		 } else {
-			 request.getRequestDispatcher("login.jsp?error=2").forward(request, response);
-		 }
+		HttpSession session = request.getSession();
+		
+		if(userId != null) {
+			session.setAttribute("UserId", userId);
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("/login.jsp?error=1").forward(request, response);
+		}
+		
+		
 	}
 
 }

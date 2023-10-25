@@ -19,18 +19,16 @@
 	
 	<div class="container" align="center">
 		<div class="col-md-4 col-md-offset-4">
-			<h5 class="form-signin-heading">아이디와 비밀번호를 입력해주세요</h5>
+			<h5 class="form-signin-heading"></h5>
 		<%
 			String error = request.getParameter("error");
-			if(error == null) {
-				out.print("<div></div>");
-			} else if(error.equals("2")) {
-				out.print("<div class='alert alert-danger'>");
-				out.print("아이디와 비밀번호를 확인해 주세요");
-				out.print("</div>");
-			} else {
+			if(error == null && session.getAttribute("UserId") != null) {
 				out.print("<div class='alert alert-danger'>");
 				out.print("고객님 환영합니다");
+				out.print("</div>");
+			} else if(error != null) {
+				out.print("<div class='alert alert-danger'>");
+				out.print("아이디와 비밀번호를 확인해 주세요");
 				out.print("</div>");
 			}
 		%>
