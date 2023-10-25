@@ -28,9 +28,11 @@ public class MemberDAO extends JDBConnect {
 				dto.setAddress(rs.getString(5));
 				dto.setPhotoimage(rs.getString(6));
 			}
-			
+			System.out.println(uid);
+			System.out.println(upw);
+			System.out.println("멤버 정보 가져오기 성공");
 		} catch(Exception e) {
-			System.out.println("실패");
+			System.out.println("멤버 정보 가져오기 실패");
 		}
 		return dto;
 	}
