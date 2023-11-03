@@ -2,7 +2,6 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,13 +12,15 @@ import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.sun.net.httpserver.HttpContext;
 
 import model.member;
 import model.memberDAO;
 
 public class RegisterServlet extends HttpServlet {
-	
+
 	private memberDAO cymemberDAO;
+	
 	
 	public void init() {
 		cymemberDAO = new memberDAO();
@@ -28,13 +29,13 @@ public class RegisterServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+	
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		ServletContext application = req.getServletContext();
-		
 		String saveDirectory = application.getRealPath("./resources/img");
 		int maxPostSize = 5 * 1024 * 1024;
 		String encoding = "UTF-8";
@@ -44,19 +45,13 @@ public class RegisterServlet extends HttpServlet {
 		String id = mr.getParameter("id");
 		String pw = mr.getParameter("pw");
 		String email = mr.getParameter("email") + "@" + mr.getParameterValues("com")[0];
-		String phone = mr.getParameterValues("phone-1")[0] +
-				"-" + mr.getParameter("phone-2") + "-" + mr.getParameter("phone-3");
+		String phone = mr.getParameterValues("phone-1")[0] 
+				+ "-" + mr.getParameter("phone-2") + "-" + mr.getParameter("phone-3");
 		String isAdmin = mr.getParameter("grant");
-		
-		
 		String profileImg = mr.getFilesystemName("profileImg");
-		File photoFile = new File(saveDirectory + File.separator + profileImg); 
-
 		
-		// 파일 받는 방식2
-//		Enumeration files = mr.getFileNames();
-//		String imgName = (String) files.nextElement();
-//		String fileName = mr.getFilesystemName(imgName);
+		File photoFile = new File(saveDirectory + File.separator + profileImg);
+		
 		
 		member cyMember = new member();
 		cyMember.setId(id);
@@ -65,18 +60,16 @@ public class RegisterServlet extends HttpServlet {
 		cyMember.setPhone(phone);
 		cyMember.setIsAdmin(isAdmin);
 		cyMember.setImgName(profileImg);
-		System.out.println("파일이름:" + profileImg);
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("id", id);
 		
 		try {
 			cymemberDAO.CreateMember(cyMember);
-			req.getSession().setAttribute("id", id);
-			resp.sendRedirect("./RegisterSuccess.jsp");
+			resp.sendRedirect("./registersuccess.jsp");
+		} catch(Exception e) {
 			
-			System.out.println("회원가입 성공");
-		} catch (Exception e) {
-			System.out.println("회원가입 실패");
-			e.printStackTrace();
-			resp.sendRedirect("error.jsp");
 		}
 	}
+	
 }

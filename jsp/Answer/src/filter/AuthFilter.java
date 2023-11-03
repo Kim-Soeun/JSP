@@ -2,6 +2,7 @@ package filter;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -14,44 +15,39 @@ import javax.servlet.http.HttpSession;
 import model.member;
 import model.memberDAO;
 
+public class AuthFilter implements javax.servlet.Filter{
 
-public class AuthFilter implements javax.servlet.Filter {
-
-	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+
 	
 	}
-	
 	
 	@Override
 	public void destroy() {
 	
-	}
 	
+	}
 	
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-
+		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
 		HttpSession session = req.getSession(false);
-		// 이미 세션이 존재할 때만 세션을 얻고자 할 때 이렇게 사용
 		
-		memberDAO cyMemberDAO = new memberDAO();
+		memberDAO dao = new memberDAO();
 		
-		
-		if (session == null || session.getAttribute("user_id") == null) {
+		if(session == null || session.getAttribute("user_id") == null) {
 			resp.sendRedirect("login.jsp");
 		} else {
-			member memberDTO = cyMemberDAO.GetMember(req.getParameter("id"));
-			session.setAttribute("dto", memberDTO);
+			member dto = dao.GetMember(req.getParameter("id"));
+			session.setAttribute("dto", dto);
 			chain.doFilter(request, response);
 		}
-		
 		
 	}
 

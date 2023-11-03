@@ -60,7 +60,7 @@
 						</div>
 						<div class="menu-wrapper" style="display: flex;">
 							<div class="menu">사진첩</div>
-							<div class="menu">방명록</div>
+							<div class="menu"><a href="guestbook.jsp">방명록</a></div>
 						</div>
 					</div>
 				</div>

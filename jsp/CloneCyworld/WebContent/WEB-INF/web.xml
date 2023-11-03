@@ -57,4 +57,13 @@
 		<url-pattern>/home.jsp</url-pattern>
 	</filter-mapping>
 
+	<servlet>
+		<servlet-name>GuestbookServlet</servlet-name>
+		<servlet-class>controller.GuestbookServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GuestbookServlet</servlet-name>
+		<url-pattern>/GuestbookServlet</url-pattern>
+	</servlet-mapping>
+
 </web-app>
