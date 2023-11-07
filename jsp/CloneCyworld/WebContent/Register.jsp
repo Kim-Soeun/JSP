@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="./resources/css/layout.css" />
 <link rel="stylesheet" href="./resources/css/index.css" />
 <link rel="stylesheet" href="./resources/css/register.css" />
+<link rel="stylesheet" href="./resources/css/color.css" />
 <script type="text/javascript" src="./resources/js/register.js"></script>
 <title>회원가입</title>
 </head>

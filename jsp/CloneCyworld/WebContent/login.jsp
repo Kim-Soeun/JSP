@@ -36,6 +36,7 @@
 					<div class="right">
 						<button type="submit">로그인</button>
 					</div>
+					
 				</div>
 			</form>
 			<p class="register right">

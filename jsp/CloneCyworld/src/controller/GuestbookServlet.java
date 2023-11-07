@@ -24,19 +24,21 @@ public class GuestbookServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		
 		guestbookDAO cyGuestbookDAO = new guestbookDAO();
 		
-		
+		// id : 로그인한 유저(방명록 작성하는 사람)
+		// ownerId : 홈페이지 주인
 		String id = (String)req.getSession().getAttribute("user_id");
-		member memDTO = (member)req.getSession().getAttribute("dto");
-		String ownerId = memDTO.getId();
+		String ownerId = req.getParameter("ownerId");
 		
 		
 		LocalDateTime currentTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm:ss");
 		String formattedTime = currentTime.format(formatter);
-		//String created = new SimpleDateFormat("yyyy.MM.dd hh:mm").format(currentTime);
-		String content = req.getParameter("guestbook");
+		String content = req.getParameter("content");
 
 		guestbook dto = new guestbook();
 		dto.setId(id);
@@ -46,10 +48,10 @@ public class GuestbookServlet extends HttpServlet {
 		
 		int result = cyGuestbookDAO.InsertGuestbook(dto);
 		if(result == 1) {			// 방명록 글 입력 성공
-			resp.sendRedirect("guestbook.jsp");
+			resp.sendRedirect("guestbook.jsp?id=" + ownerId);
 			
 		} else {					// 방명록 글 입력 실패
-			resp.sendRedirect("guestbook.jsp");
+			resp.sendRedirect("guestbook.jsp?id=" + ownerId);
 		}
 		
 		

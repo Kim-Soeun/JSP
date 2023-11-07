@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%
 	String ownerId = request.getParameter("id");	
 %>
@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="./resources/css/color.css" />
 <script type="text/javascript" src="./resources/js/home.js"></script>
 
-<title>미니홈피</title>
+<title>사진첩</title>
 </head>
 <body class="center-layout">
 	<div class="center-layout-column white box-1">
@@ -57,27 +57,19 @@
 					<div class="bgm-wrapper">
 						<p>BGM</p>
 					</div>
-					<div class="right-box-content">
-						<div>
-							<p>- 그간의 일기</p>
-							<p>- 여행 사진들</p>
-						</div>
-						<div style="border: 1px solid black; margin: 5px;">
-							<div class="menu-wrapper" style="display: flex;">
-								<div class="menu">투데이</div>
-								<div class="menu">주크박스</div>
+					<div class="right-box-content" style="width: 90%; height: 80%;" >
+						<form action="FileUploadServlet" method="post" enctype="multipart/form-data">
+							<div>
+								<label>제목</label>
+								<input type="text" name="title" required>
 							</div>
-							<div class="menu-wrapper" style="display: flex;">
-								<div class="menu">
-									<a href="photobook.jsp?id=<%=ownerId%>">사진첩</a></div>
-								<div class="menu">
-									<a href="guestbook.jsp?id=<%=ownerId%>">방명록</a>
-								</div>
+							<div>
+								<label>파일</label>
+								<input type="file" name="fileImg">
 							</div>
-						</div>
+							<button type="submit">등록</button>
+						</form>
 					</div>
-	
-					<img class="big-img" alt="big" src="./resources/img/cyworldImg.jpeg">
 	
 				</div>
 			</div>
@@ -91,6 +83,6 @@
 		<div><a href="photobook.jsp?id=<%=ownerId%>">사진첩</a></div>
 		<div><a href="guestbook.jsp?id=<%=ownerId%>">방명록</a></div>
 	</div>
-		
+	
 </body>
 </html>

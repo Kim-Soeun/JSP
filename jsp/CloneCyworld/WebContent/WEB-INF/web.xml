@@ -66,4 +66,22 @@
 		<url-pattern>/GuestbookServlet</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>ReplyServlet</servlet-name>
+		<servlet-class>controller.ReplyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReplyServlet</servlet-name>
+		<url-pattern>/ReplyServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<servlet-class>controller.FileUploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<url-pattern>/FileUploadServlet</url-pattern>
+	</servlet-mapping>
+
 </web-app>
