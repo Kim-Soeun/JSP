@@ -19,11 +19,11 @@
 				<div class="box">
 					<div class="input-wrapper">
 						<label>아이디</label>
-						<input type="text" name="id" />
+						<input type="text" name="id" required/>
 					</div>
 					<div class="input-wrapper">
 						<label>비밀번호</label>
-						<input type="password" name="pw" />
+						<input type="password" name="pw" required/>
 					</div>
 					<c:if test="${param.errorCode==1}">
 						<span style="color: red;">${errorMsg}</span>

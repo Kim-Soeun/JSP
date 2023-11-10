@@ -84,4 +84,49 @@
 		<url-pattern>/FileUploadServlet</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>DeleteServlet</servlet-name>
+		<servlet-class>controller.DeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteServlet</servlet-name>
+		<url-pattern>/DeleteServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DeleteReplyServlet</servlet-name>
+		<servlet-class>controller.DeleteReplyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteReplyServlet</servlet-name>
+		<url-pattern>/DeleteReplyServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ImageServlet</servlet-name>
+		<servlet-class>controller.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ImageServlet</servlet-name>
+		<url-pattern>/ImageServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DeleteImageServlet</servlet-name>
+		<servlet-class>controller.DeleteImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteImageServlet</servlet-name>
+		<url-pattern>/DeleteImageServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddMusicServlet</servlet-name>
+		<servlet-class>controller.AddMusicServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddMusicServlet</servlet-name>
+		<url-pattern>/AddMusicServlet</url-pattern>
+	</servlet-mapping>
+
 </web-app>

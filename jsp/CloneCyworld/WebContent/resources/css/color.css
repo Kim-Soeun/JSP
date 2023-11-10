@@ -1,9 +1,25 @@
 @charset "UTF-8";
 
 .blue {
-	background-color: #62b0da;
+	background-color: #afd3df;
 }
 
 .white {
 	background-color: white;
+}
+
+.lightgray {
+	background-color: #F5F5F5;
+}
+
+.c-lightgray {
+	color: #F5F5F5;
+}
+
+.c-gray {
+	color: gray;
+}
+
+.c-white {
+	color: white;
 }

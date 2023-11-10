@@ -39,3 +39,8 @@ footer {
 .center-layout-column h3 {
 	margin-bottom: 30px;
 }
+
+.border {
+	border: 1px solid #d5d7db;
+	border-radius: 5px;
+}

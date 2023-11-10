@@ -1,28 +1,16 @@
-<%@page import="model.guestbookDTO"%>
 <%@page import="model.imageDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="model.imageDAO"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="java.time.LocalDateTime"%>
-<%@page import="model.guestbookDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 	String ownerId = request.getParameter("id");
-	LocalDateTime today = LocalDateTime.now();
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-	String created = today.format(formatter);
-	int gResult = new guestbookDAO().UpdateNewCount(ownerId, created);
-	pageContext.setAttribute("gResult", gResult);
-	int iResult = new imageDAO().ImageCount(ownerId, created);
-	pageContext.setAttribute("iResult", iResult);
-	List<imageDTO> imgList = new imageDAO().SelectImages(ownerId);
-	pageContext.setAttribute("imgList", imgList);
+	imageDAO dao = new imageDAO();
+	List<imageDTO> imageList = dao.SelectImages(ownerId);
+	dao.close();
 %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,15 +19,16 @@
 <link rel="stylesheet" href="./resources/css/index.css" />
 <link rel="stylesheet" href="./resources/css/home.css" />
 <link rel="stylesheet" href="./resources/css/color.css" />
+<link rel="stylesheet" href="./resources/css/photobook.css" />
 <script type="text/javascript" src="./resources/js/home.js"></script>
+<script type="text/javascript" src="./resources/js/photobook.js"></script>
 
-<title>미니홈피</title>
+<title>사진첩 - 불러오기</title>
 </head>
 <body class="center-layout">
 	<div class="center-layout-column white box-1">
 	<div class="center-layout blue box-2">
 		<div class="container center-layout">
-			<!-- 왼쪽 프로필 박스 -->
 			<div class="left-box center-layout-column" style="height: 100%;">
 				<div class="box-radius-5 center today-div-1"><h3 style="color: #004080;">${dto.getId()} 님의 미니홈피</h3></div>
 				<div class="box-radius-5 center today-div-2">Today 222 || Total 1111</div>
@@ -70,45 +59,66 @@
 				</div>
 			</div>
 			
-			<!-- 오른쪽 홈박스 -->
 			<div class="right-box" style="height: 100%;">
 				<div class="box-radius-5 logo-wrapper" style="height: 10%; width: 100%;">
 					<img class="literal-logo" alt="cy-literal-logo"
 						src="./resources/img/Cyworld-literal.svg">
 				</div>
-				<div class="box-radius-5 center-layout-column" style="height: 90%;">
+				<div class="box-radius-5 center-layout-column overflow" style="height: 90%;">
 					<div class="bgm-wrapper">
 						<p>BGM</p>
 					</div>
-					<div class="right-box-content">
-						<div class="update">
-							<p> ● ${imgList[0].title}</p>
-							<p> ● 그간의 일기</p>
-						</div>
-						<div style="border: 1px solid black; margin: 5px;">
-							<div class="menu-wrapper" style="display: flex;">
-								<div class="menu">투데이</div>
-								<div class="menu">주크박스</div>
-							</div>
-							<div class="menu-wrapper" style="display: flex;">
-								<div class="menu">
-									<a href="photolist.jsp?id=<%=ownerId%>">사진첩</a>
-									<c:if test="${iResult gt 0}">
-										<img src="./resources/img/newIcon.png"/>
-									</c:if>
-								</div>
-								<div class="menu">
-									<a href="guestbook.jsp?id=<%=ownerId%>">방명록</a>
-									<c:if test="${gResult gt 0}">
-										<img src="./resources/img/newIcon.png">
-									</c:if>
+					<div class="right-box-content flex-col" style="width: 90%; height: 80%;" >
+					
+						<!-- 홈피 주인과 접속자가 같으면 사진올리기 아이콘 보이게 설정 -->
+						<c:if test="${param.id eq user_id}">
+							<div style="width: 100%;">
+								<div style="width: 100%; height: 10%;">
+									<a href="photobook.jsp?id=<%=ownerId%>"><img src="./resources/img/icon.png"></a>
 								</div>
 							</div>
-						</div>
+						</c:if>
+						
+						<!-- 사진 모두 불러오기 -->
+						<c:set var="imageList" value="<%=imageList %>" />
+						<c:forEach items="${imageList}" var="images">
+							<div style="width: 100%;">
+								<div class="center-layout-column border" style="height: 90%;">
+									<div style="width: 100%; display: flex;">
+										<span class="center lightgray" style="width: 100%;">${images.getTitle()}</span>
+										<button style="width: 40px;" type="button" onclick="location.href='DeleteImageServlet?id=${images.id}&no=${images.no}'">삭제</button>
+									</div>
+									<div class="flex" style="width: 100%; height: 10%;">
+										<p class="c-deepblue" style="padding: 3px;">${images.id}</p>
+										<p class="c-gray" style="padding: 3px;">${images.created}
+									</div>
+									<img style="width: 100%; height: 75%;" src="./resources/img/${images.imgName}">
+									<span class="center" style="margin: 10px; width: 40%; height: 10%;">${images.content}</span>
+								</div>
+							</div>
+						</c:forEach>
+						
+						<!-- 사진이 없을 경우 -->
+						<c:if test="${empty imageList}">
+							<c:choose>
+								<c:when test="${param.id eq user_id}">
+									<div style="width: 100%;">
+										<div class="center-layout-column" style="height: 90%;">
+											<img style="width: 40%; height: 40%;" src="./resources/img/uploadImageIcon.svg">
+											<p class="center" style="margin: 10px; width: 40%;">사진 올리기</p>
+										</div>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div style="width: 100%;">
+										<div class="center-layout-column" style="height: 100%;">
+											<p class="center" style="margin: 10px; width: 40%;">사진이 없습니다</p>
+										</div>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
 					</div>
-	
-					<img class="big-img" alt="big" src="./resources/img/cyworldImg.jpeg">
-	
 				</div>
 			</div>
 		</div>
@@ -126,6 +136,6 @@
 			<div class="c-white">즐겨찾기</div>
 		</div>
 	</div>
-		
+	
 </body>
 </html>
