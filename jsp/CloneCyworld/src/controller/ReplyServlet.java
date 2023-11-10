@@ -25,8 +25,8 @@ public class ReplyServlet extends HttpServlet {
 		String id = (String)req.getSession().getAttribute("user_id");
 		int b_no = Integer.parseInt(req.getParameter("b_no"));
 		
-		LocalDateTime currentTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm:ss");
+		LocalDateTime currentTime = LocalDateTime.now().withNano(0);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm");
 		String created = currentTime.format(formatter);
 		
 		ReplyDAO dao = new ReplyDAO();

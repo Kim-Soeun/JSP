@@ -11,7 +11,7 @@ public class ReplyDAO extends DBConnector {
 		super();
 	}
 
-	
+	// 방명록 댓글 등록
 	public int InsertReply(Reply dto) {
 		int result = 0;
 		
@@ -34,6 +34,7 @@ public class ReplyDAO extends DBConnector {
 		return result;
 	}
 	
+	// 방명록 댓글 불러오기
 	public List<Reply> SelectReply() {
 		List<Reply> list = new ArrayList<Reply>();
 		String SELECT_REPLY_SQL = "select * from guestbookReply";
@@ -61,5 +62,26 @@ public class ReplyDAO extends DBConnector {
 		return list;
 	}
 	
+	
+	// 댓글 삭제
+	public int DeleteReply(int no, String id) {
+		int result = 0;
+
+		String DELETE_REPLY_SQL = "delete from guestbookReply where b_no = ? and id = ?";
+		
+		try {
+			psmt = con.prepareStatement(DELETE_REPLY_SQL);
+			psmt.setInt(1, no);
+			psmt.setString(2, id);
+			result = psmt.executeUpdate();
+			
+			System.out.println("DeleteReply 성공");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("DeleteReply 실패");
+		}
+		
+		return result;
+	}
 	
 }

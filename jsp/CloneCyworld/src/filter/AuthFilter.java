@@ -43,9 +43,10 @@ public class AuthFilter implements javax.servlet.Filter {
 		
 		memberDAO cyMemberDAO = new memberDAO();
 		
-		
+		// 세션이 비어 있을 때
 		if (session == null || session.getAttribute("user_id") == null) {
 			resp.sendRedirect("login.jsp");
+		// 세션이 비어있지 않을 때 (로그인 유저의 dto 세션에 저장)
 		} else {
 			member memberDTO = cyMemberDAO.GetMember(req.getParameter("id"));
 			session.setAttribute("dto", memberDTO);

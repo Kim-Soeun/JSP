@@ -35,8 +35,8 @@ public class GuestbookServlet extends HttpServlet {
 		String ownerId = req.getParameter("ownerId");
 		
 		
-		LocalDateTime currentTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm:ss");
+		LocalDateTime currentTime = LocalDateTime.now().withNano(0);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm");
 		String formattedTime = currentTime.format(formatter);
 		String content = req.getParameter("content");
 
