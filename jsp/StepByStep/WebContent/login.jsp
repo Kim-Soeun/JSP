@@ -17,7 +17,9 @@
 		<button type="submit">로그인</button>
 	</form>
 
-		<a href="Register.jsp">회원가입</a>
+		<a href="Register.jsp">회원가입</a><br>
+		<a href="FindId.jsp">아이디 찾기</a><br>
+		<a href="FindPw.jsp">비밀번호 찾기</a>
 		
 </body>
 </html>

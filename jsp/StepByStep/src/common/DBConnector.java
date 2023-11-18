@@ -18,11 +18,10 @@ public class DBConnector {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String url="jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=utf-8&useSSL=false";  
-			// url 정확히 다시 적어주기
-			String id="manager";   
-			String pwd="1234";   
-			con = DriverManager.getConnection(url,id,pwd);  
+			String url = "jdbc:mysql://localhost:3306/project?useUnicode=true&characterEncoding=utf-8&useSSL=false";  
+			String id = "manager";   
+			String pw = "1234";   
+			con = DriverManager.getConnection(url,id,pw);  
 			System.out.println("데이터베이스 연결 성공");
 			
 		} catch(Exception e) {
@@ -34,6 +33,7 @@ public class DBConnector {
 	
 	
 	public void close() {
+		
 		try {
 			if (rs != null)
 				rs.close();
@@ -44,6 +44,7 @@ public class DBConnector {
 			if (con != null)
 				con.close();
 			System.out.println("자원 해제");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

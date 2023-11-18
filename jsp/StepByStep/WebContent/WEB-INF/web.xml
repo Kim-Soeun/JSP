@@ -36,5 +36,23 @@
 		<servlet-name>RegisterServlet</servlet-name>
 		<url-pattern>/RegisterServlet</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FindIdServlet</servlet-name>
+		<servlet-class>controller.FindIdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FindIdServlet</servlet-name>
+		<url-pattern>/FindIdServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FindPwServlet</servlet-name>
+		<servlet-class>controller.FindPwServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FindPwServlet</servlet-name>
+		<url-pattern>/FindPwServlet</url-pattern>
+	</servlet-mapping>
 	
 </web-app>

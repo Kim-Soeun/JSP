@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import common.JSFunction;
+
 public class LogoutServlet extends HttpServlet {
 	
 	@Override
@@ -20,7 +22,7 @@ public class LogoutServlet extends HttpServlet {
 		if(session != null) {
 			session.invalidate();
 		}
-		resp.sendRedirect("login.jsp");
+		JSFunction.alertLocation(resp, "로그아웃 되었습니다", "login.jsp");
 	}
 
 }

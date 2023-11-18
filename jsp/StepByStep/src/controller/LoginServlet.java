@@ -1,14 +1,18 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import common.JSFunction;
 import model.memberDAO;
+import model.memberDTO;
 
 public class LoginServlet extends HttpServlet {
 	
@@ -20,12 +24,19 @@ public class LoginServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
 		
+		// 마지막 접속일
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+		String lastVisitDate = formatter.format(date);
+		
 		memberDAO dao = new memberDAO();
 		int result = dao.LoginCheck(id, pw);
+		memberDTO dto = dao.GetMember(id);
 		
-		if(result == 1) {			// 로그인 성공시 아이디 세션에 저장 후 메인화면으로 이동
-			req.getSession().setAttribute("user_id", id);
-			resp.sendRedirect("main.jsp?id=" + id);
+		if(result == 1) {			// 로그인 성공시 유저 정보 세션에 저장 후 메인화면으로 이동
+			dao.Update_LastVisitDate(id, lastVisitDate);
+			req.getSession().setAttribute("memberDTO", dto);
+			resp.sendRedirect("main.jsp");
 			System.out.println("로그인 성공");
 			
 		} else {					// 로그인 실패시

@@ -2,7 +2,7 @@ package model;
 
 public class memberDTO {
 
-	private String id, password, name, location, total;
+	private String id, password, name, birthDate, email, nickname, phone, registerDate, lastVisitDate,  location, total;
 	private int score;
 	
 	
@@ -24,6 +24,42 @@ public class memberDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getRegisterDate() {
+		return registerDate;
+	}
+	public void setRegisterDate(String registerDate) {
+		this.registerDate = registerDate;
+	}
+	public String getLastVisitDate() {
+		return lastVisitDate;
+	}
+	public void setLastVisitDate(String lastVisitDate) {
+		this.lastVisitDate = lastVisitDate;
+	}
 	public String getLocation() {
 		return location;
 	}
@@ -42,6 +78,9 @@ public class memberDTO {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	
+	
+	
 	
 	
 	
