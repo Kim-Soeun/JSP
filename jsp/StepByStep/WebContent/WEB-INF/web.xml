@@ -54,5 +54,23 @@
 		<servlet-name>FindPwServlet</servlet-name>
 		<url-pattern>/FindPwServlet</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>IdCheckServlet</servlet-name>
+		<servlet-class>controller.IdCheckServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>IdCheckServlet</servlet-name>
+		<url-pattern>/IdCheckServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PwResetServlet</servlet-name>
+		<servlet-class>controller.PwResetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PwResetServlet</servlet-name>
+		<url-pattern>/PwResetServlet</url-pattern>
+	</servlet-mapping>
 	
 </web-app>

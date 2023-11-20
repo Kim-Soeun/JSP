@@ -5,16 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="./resources/js/register.js"></script>
+<script type="text/javascript" src="./resources/js/pwCheck.js"></script>
 <script type="text/javascript" src="./resources/js/updateNicknameValue.js"></script>
 <title>회원가입</title>
 </head>
 <body>
 	<form action="RegisterServlet" method="post" name="frm">
 		<label>아이디</label>
-		<input type="text" name="id" id="id" oninput="updateNicknameValue()" required/><br>
+		<input type="text" name="id" id="id" oninput="updateNicknameValue()" onsubmit="return pwCheck()" required/>
+		<input type="hidden" name="depliId">
+		<button type="button" onclick="idCheck()">중복확인</button><br>
 		
 		<label>비밀번호</label>
-		<input type="password" name="pw" required/><br>
+		<input type="password" name="pw" id="pw" required/><br>
+		<label>비밀번호 확인</label>
+		<input type="password" name="pwCheck" id="pwCheck" required/><br>
 		
 		<label>이름</label>
 		<input type="text" name="name" required/><br>

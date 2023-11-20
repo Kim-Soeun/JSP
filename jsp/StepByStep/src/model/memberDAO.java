@@ -216,5 +216,27 @@ public class memberDAO extends DBConnector {
 		
 		return pw;
 	}
+	
+	
+	// 비밀번호 재설정
+	public int ResetPw(String id, String pw) {
+		int result = 0;
+		String RESET_PW_SQL = "update member set password = ? where id = ?";
+		
+		try {
+			psmt = con.prepareStatement(RESET_PW_SQL);
+			psmt.setString(1, pw);
+			psmt.setString(2, id);
+			result = psmt.executeUpdate();
+			
+			System.out.println("ResetPw 성공");
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("ResetPw 실패");
+		}
+		
+		return result;
+	}
 
 }

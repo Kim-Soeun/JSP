@@ -36,7 +36,9 @@ public class FindPwServlet extends HttpServlet {
 		if(pw == null) {		// 정보와 맞는 비밀번호 없는 경우 뒤로 페이지 이동하고 메시지 출력
 			JSFunction.alertBack(resp, "다시 입력해주세요");
 		} else {				// 정보와 맞는 비밀번호 찾을 경우 페이지 이동 후 비밀번호 알려줌
-			resp.sendRedirect("FindResult.jsp?pw=" + pw);
+			req.setAttribute("id", id);
+			req.setAttribute("pw", pw);
+			req.getRequestDispatcher("FindResult.jsp").forward(req, resp);
 		}
 		
 		
