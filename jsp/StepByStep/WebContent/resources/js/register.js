@@ -14,6 +14,21 @@ function email_check() {
 	}
 }
 
+// 비밀번호 불일치시 form 제출했을 때 비밀번호 재확인 input 아래에 빨간 글씨로 경고메시지 나오게 함
+/*function pwDoubleCheck() {
+	var form = document.querySelector("form");
+	
+	if(document.frm.pw.value !== document.frm.pwCheck.value) {
+		var errorMsg = document.createElement("p");
+		errorMsg.id = "errorMsg";
+		errorMsg.style.color = "red";
+		errorMsg.textContent = "비밀번호가 맞지 않습니다.";
+		form.insertBefore(errorMsg, form.querySelector(".name"));
+		return false;
+	}
+}*/
+
+
 
 // 아이디 중복체크창 새로 뜨게 함
 function idCheck() {
@@ -21,9 +36,13 @@ function idCheck() {
 	window.open(url, "_blank", "scrollbars=yes, width=400, height=200");
 }
 
+
 // 아이디가 중복되지 않아 사용가능한 경우 자동으로 회원가입창 아이디 input에 입력되도록 함
 function idUseOk() {
 	opener.frm.id.value = document.idCheckForm.id.value;
-	opener.frm.depliId.value = document.idCheckForm.id.value;
+	opener.frm.dupliId.value = document.idCheckForm.id.value;
+	opener.frm.nickname.value = document.idCheckForm.id.value;
+	
 	self.close();
 }
+

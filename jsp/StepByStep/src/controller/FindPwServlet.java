@@ -15,14 +15,25 @@ public class FindPwServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
 		
 		String id = req.getParameter("id");
 		String name = req.getParameter("name");
-		String email = req.getParameter("email");
 		String birthDate = req.getParameter("birthDate");
+		
+		// 이메일 한 주소로 합치기(직접입력 or 선택)
+		String email = "";
+		String email1 = req.getParameter("email1");
+		String email2 = req.getParameter("email2");
+		String emailList = req.getParameter("emailList");
+		
+		if(email2 == null) {
+			email += email1 + "@" + emailList;
+		} else {
+			email += email1 + "@" + email2;
+		}
 		
 		memberDTO dto = new memberDTO();
 		dto.setId(id);

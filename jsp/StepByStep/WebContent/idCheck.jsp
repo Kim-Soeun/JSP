@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<script type="text/javascript" src="./resources/js/register.js"></script>
 
 <title>아이디 중복검사</title>
 </head>
@@ -24,5 +23,7 @@
 			<button type="button" onclick="idUseOk()">사용</button>
 		</c:if>
 	</form>
+	
+<script type="text/javascript" src="./resources/js/register.js"></script>
 </body>
 </html>

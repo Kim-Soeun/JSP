@@ -12,7 +12,15 @@
 		<input type="text" name="name" required/><br>
 
 		<label>이메일</label>
-		<input type="text" name="email" required/><br>
+		<input type="text" name="email1" required/>@
+		<input type="text" name="email2" value="" required/>
+		<select name="emailList" size="1" onchange="email_check()">
+			<option id="write">직접입력</option>
+			<option value="naver.com">naver.com</option>
+			<option value="gmail.com">gmail.com</option>
+			<option value="hanmail.net">hanmail.net</option>
+			<option value="nate.com">nate.com</option>
+		</select><br>
 
 		<label>생년월일</label>
 		<input type="text" name="birthDate" required/><br>

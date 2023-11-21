@@ -1,8 +1,10 @@
 // 비밀번호 유효성 검사
 // 8자이상, 특수문자+숫자+영문자 조합, 같은 문자 4번 이상 x, 띄어쓰기 x
-function pwCheck() {
+
+ document.querySelector('form').onsubmit = function pwCheck() {
 	var pw = document.getElementById('pw').value;
 	var pwCheck = document.getElementById('pwCheck').value;
+	
 	
 	if(pw.length < 8) {
 		alert("비밀번호는 8자 이상으로 작성해주세요!");
@@ -24,13 +26,13 @@ function pwCheck() {
 	}
 
 	if(pwCheck == "") {
-		alert("비밀번호 확인을 해주세요");
+		alert("비밀번호를 확인해주세요");
 		document.getElementById('pwCheck').focus();
 		return false;
 	}
 	
 	if(pw != pwCheck) {
-		alert("비밀번호 확인을 다시 해주세요");
+		alert("비밀번호를 다시 확인해주세요");
 		document.getElementById('pw').focus();
 		return false;
 	}

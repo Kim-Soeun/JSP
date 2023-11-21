@@ -12,6 +12,8 @@
 
 	<h1>${memberDTO.name}님 환영합니다!</h1>
 		<a href="LogoutServlet">로그아웃</a>
+		<a href="crewBoard.jsp">게시판 등록</a>
+		<a href="boardList.jsp">크루 게시판</a>
 	
 </body>
 </html>

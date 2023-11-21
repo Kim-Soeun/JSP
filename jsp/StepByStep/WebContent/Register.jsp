@@ -4,16 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="./resources/js/register.js"></script>
-<script type="text/javascript" src="./resources/js/pwCheck.js"></script>
-<script type="text/javascript" src="./resources/js/updateNicknameValue.js"></script>
+
 <title>회원가입</title>
 </head>
 <body>
-	<form action="RegisterServlet" method="post" name="frm">
+	<form action="RegisterServlet" method="post" name="frm" onsubmit="return pwCheck()">
 		<label>아이디</label>
-		<input type="text" name="id" id="id" oninput="updateNicknameValue()" onsubmit="return pwCheck()" required/>
-		<input type="hidden" name="depliId">
+		<input type="text" name="id" id="id" oninput="updateNicknameValue()" required/>
+		<input type="hidden" name="dupliId" id="depliId">
 		<button type="button" onclick="idCheck()">중복확인</button><br>
 		
 		<label>비밀번호</label>
@@ -44,10 +42,12 @@
 		<label>전화번호</label>
 		<input type="text" name="phone"/><br>
 		
-		<button type="submit">회원가입</button>
+		<button type="submit" onclick="pwDoubleCheck()">회원가입</button>
 	</form>
 	
 	
-	
+<script type="text/javascript" src="./resources/js/register.js"></script>
+<script type="text/javascript" src="./resources/js/updateNicknameValue.js"></script>
+<script type="text/javascript" src="./resources/js/pwCheck.js"></script>
 </body>
 </html>
