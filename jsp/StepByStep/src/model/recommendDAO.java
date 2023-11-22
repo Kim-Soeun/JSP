@@ -5,7 +5,7 @@ import common.DBConnector;
 public class recommendDAO extends DBConnector {
 
 	// 추천버튼 횟수 업데이트
-	public int UpdateRecommendCount(int no, String id) {
+	public int updateRecommendCount(int no, String id) {
 		int result = 0;
 		String UPDATE_RECOMMEND_SQL = "insert into recommend values (?, ?)";
 		

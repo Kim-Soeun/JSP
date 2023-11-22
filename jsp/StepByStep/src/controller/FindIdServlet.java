@@ -33,7 +33,7 @@ public class FindIdServlet extends HttpServlet {
 			email += email1 + "@" + email2;
 		}
 		
-		String id = new memberDAO().FindId(name, email, birthDate);
+		String id = new memberDAO().findId(name, email, birthDate);
 		
 		if(id == null) {	// 정보와 맞는 아이디가 없을 경우 뒤로 페이지 이동하고 메시지 출력
 			JSFunction.alertBack(resp, "다시 입력해주세요");

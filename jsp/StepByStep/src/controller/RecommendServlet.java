@@ -24,7 +24,7 @@ public class RecommendServlet extends HttpServlet {
 		memberDTO member = (memberDTO)request.getSession().getAttribute("memberDTO");
 		String id = member.getId();
 		
-		int result = new recommendDAO().UpdateRecommendCount(no, id);
+		int result = new recommendDAO().updateRecommendCount(no, id);
 		
 		if(result == 1) {
 			response.sendRedirect("boardList.jsp");

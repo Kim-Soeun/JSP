@@ -65,7 +65,7 @@ public class RegisterServlet extends HttpServlet {
 		dto.setRegisterDate(registerDate);
 		dto.setLastVisitDate(lastVisitDate);
 		
-		int result = new memberDAO().RegisterMember(dto);
+		int result = new memberDAO().registerMember(dto);
 		
 		if(result == 1) {		// 회원가입 성공했을 경우 유저 정보 세션에 저장 후 로그인 상태로 메인페이지 이동
 			req.getSession().setAttribute("memberDTO", dto);

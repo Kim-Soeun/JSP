@@ -14,6 +14,8 @@
 		<a href="LogoutServlet">로그아웃</a>
 		<a href="crewBoard.jsp">게시판 등록</a>
 		<a href="boardList.jsp">크루 게시판</a>
+		<a href="deleteMember.jsp">회원탈퇴</a>
+		<a href="photobook.jsp">사진첩</a>
 	
 </body>
 </html>

@@ -17,7 +17,7 @@ public class IdCheckServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		
 		memberDAO dao = new memberDAO();
-		int result = dao.CheckDuplicateId(id);
+		int result = dao.checkDuplicateId(id);
 		
 		req.setAttribute("userId", id);
 		req.setAttribute("result", result);

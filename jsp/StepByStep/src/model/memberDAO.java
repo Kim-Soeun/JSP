@@ -10,7 +10,7 @@ public class memberDAO extends DBConnector {
 	
 	
 	// 아이디, 비밀번호 일치여부 확인
-	public int LoginCheck(String id, String pw) {
+	public int loginCheck(String id, String pw) {
 		int result = 0;
 
 		String LOGIN_CHECK_SQL = "select id, password from member where id=? and password=?";
@@ -40,7 +40,7 @@ public class memberDAO extends DBConnector {
 	
 	
 	// 일치하는 아이디 있는지 확인
-	public int CheckDuplicateId(String id) {
+	public int checkDuplicateId(String id) {
 		int result = 0;
 		
 		String CHECK_ID_SQL = "select id from member where id=?";
@@ -68,7 +68,7 @@ public class memberDAO extends DBConnector {
 	}
 	
 	// 회원가입
-	public int RegisterMember(memberDTO dto) {
+	public int registerMember(memberDTO dto) {
 		int result = 0;
 		String INSERT_MEMBER_SQL = "insert into member values (?, ? ,?, ?, ?, ?, ?, ?, ?, null, null, null)";
 		
@@ -98,7 +98,7 @@ public class memberDAO extends DBConnector {
 	
 	
 	// ID로 멤버 모든 정보 가져오기
-	public memberDTO GetMember(String id) {
+	public memberDTO getMember(String id) {
 		memberDTO dto = new memberDTO();
 		String GET_MEMBER_SQL = "select * from member where id = ?";
 		
@@ -135,7 +135,7 @@ public class memberDAO extends DBConnector {
 	
 	
 	// 로그인시 마지막 접속일자 데이터에 저장
-	public void Update_LastVisitDate(String id, String lastVisitDate) {
+	public void update_LastVisitDate(String id, String lastVisitDate) {
 		String UPDATE_LastVisitDate_SQL = "update member set lastVisitDate = ? where id = ?";
 		int result = 0;
 		
@@ -158,7 +158,7 @@ public class memberDAO extends DBConnector {
 	
 	
 	// 아이디 찾기
-	public String FindId(String name, String email, String birthDate) {
+	public String findId(String name, String email, String birthDate) {
 		String id = "";
 		String FIND_ID_SQL = "select id from member where name=? and email=? and birthDate=?";
 		
@@ -188,7 +188,7 @@ public class memberDAO extends DBConnector {
 	
 	
 	// 비밀번호 찾기
-	public String FindPw(memberDTO dto) {
+	public String findPw(memberDTO dto) {
 		String pw = "";
 		String FIND_PW_SQL = "select password from member where id=? and name=? and email=? and birthDate=?";
 		
@@ -219,7 +219,7 @@ public class memberDAO extends DBConnector {
 	
 	
 	// 비밀번호 재설정
-	public int ResetPw(String id, String pw) {
+	public int resetPw(String id, String pw) {
 		int result = 0;
 		String RESET_PW_SQL = "update member set password = ? where id = ?";
 		
@@ -239,4 +239,24 @@ public class memberDAO extends DBConnector {
 		return result;
 	}
 
+	
+	// 회원탈퇴
+	public int deleteMember(String id, String pw) {
+		int result = 0;
+		String DELETE_MEMBER_SQL = "delete from member where id = ? and password = ?";
+		
+		try {
+			psmt = con.prepareStatement(DELETE_MEMBER_SQL);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+			result = psmt.executeUpdate();
+			System.out.println("deleteMember 성공");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("deleteMember 실패");
+		}
+		
+		return result;
+	}
 }

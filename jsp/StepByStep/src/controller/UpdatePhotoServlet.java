@@ -15,18 +15,18 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.JSFunction;
-import model.boardDAO;
-import model.boardDTO;
-import model.memberDTO;
+import model.photoDAO;
+import model.photoDTO;
 
-public class CrewBoardServlet extends HttpServlet {
+public class UpdatePhotoServlet extends HttpServlet {
 
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; chatset=UTF-8");
-
+		
 		ServletContext application = req.getServletContext();
 		
 		String saveDirectory = application.getRealPath("./resources/img");
@@ -34,42 +34,35 @@ public class CrewBoardServlet extends HttpServlet {
 		String encoding = "UTF-8";
 		
 		MultipartRequest mr = new MultipartRequest(req, saveDirectory, maxPostSize, encoding, new DefaultFileRenamePolicy());
-		
-		memberDTO userDTO = (memberDTO)req.getSession().getAttribute("memberDTO");
-		String id = userDTO.getId();				// 아이디
-		String nickname = userDTO.getNickname();	// 닉네임
-		
+
 		LocalDateTime today = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-		String created = today.format(formatter);	// 작성일자
+		String created = today.format(formatter);			// 사진 업로드 날짜
 		
-		String content = mr.getParameter("content");	// 내용
-		String category = mr.getParameter("category");	// 카테고리
-		
-		String imgName = mr.getFilesystemName("fileImg");// 이미지파일
+		String id = mr.getParameter("id");					// 작성자
+		String title = mr.getParameter("title");			// 제목
+		String content = mr.getParameter("content");		// 내용
+		String imgName = mr.getFilesystemName("fileImg");	// 이미지파일
 		
 		File file = new File(saveDirectory + File.separator + imgName);
 		
-		boardDTO board = new boardDTO();
-		board.setId(id);
-		board.setNickname(nickname);
-		board.setCreated(created);
-		board.setContent(content);
-		board.setCategory(category);
-		board.setImgName(imgName);
+		photoDTO dto = new photoDTO();
+		dto.setId(id);
+		dto.setTitle(title);
+		dto.setContent(content);
+		dto.setCreated(created);
+		dto.setImgName(imgName);
 		
-		int result = new boardDAO().insertBoard(board);
+		int result = new photoDAO().insertPhoto(dto);
 		
 		if(result == 1) {
-			resp.sendRedirect("boardList.jsp");
-			System.out.println("게시판 등록 성공");
+			JSFunction.alertLocation(resp, "사진이 업로드 되었습니다", "photobook.jsp");
+			System.out.println("사진 등록 성공");
 		} else {
-			JSFunction.alertBack(resp, "게시판을 다시 등록해주세요");
-			System.out.println("게시판 등록 실패");
+			JSFunction.alertBack(resp, "사진 업로드에 실패했습니다");
+			System.out.println("사진 등록 실패");
 		}
-		
-		
-	}
 	
+	}
 	
 }

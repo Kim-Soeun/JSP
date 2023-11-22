@@ -90,6 +90,54 @@
 		<servlet-name>RecommendServlet</servlet-name>
 		<url-pattern>/RecommendServlet</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DeleteMemberServlet</servlet-name>
+		<servlet-class>controller.DeleteMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteMemberServlet</servlet-name>
+		<url-pattern>/DeleteMemberServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteBoardServlet</servlet-name>
+		<servlet-class>controller.DeleteBoardServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteBoardServlet</servlet-name>
+		<url-pattern>/DeleteBoardServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EditBoardServlet</servlet-name>
+		<servlet-class>controller.EditBoardServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditBoardServlet</servlet-name>
+		<url-pattern>/EditBoardServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UpdatePhotoServlet</servlet-name>
+		<servlet-class>controller.UpdatePhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdatePhotoServlet</servlet-name>
+		<url-pattern>/UpdatePhotoServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DeletePhotoServlet</servlet-name>
+		<servlet-class>controller.DeletePhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeletePhotoServlet</servlet-name>
+		<url-pattern>/DeletePhotoServlet</url-pattern>
+	</servlet-mapping>
+	
+	
+	
 	
 	
 </web-app>

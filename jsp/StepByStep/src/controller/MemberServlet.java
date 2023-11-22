@@ -9,18 +9,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import common.JSFunction;
 import model.memberDAO;
 import model.memberDTO;
 
-public class LoginServlet extends HttpServlet {
+public class MemberServlet extends HttpServlet {
+       
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String uri = request.getRequestURI();	// 절대 경로 (현재 파일 이름 포함)
+		String Path = request.getContextPath();	// 절대 경로 (현재 파일 이름 미포함)
+		String command = uri.substring(Path.length()+1);	// 슬래시 제외 현재 파일 이름
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		
+		if(command.equals("login.member")) {
+			
+		}
+		
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String uri = request.getRequestURI();	// 절대 경로 (현재 파일 이름 포함)
+		String Path = request.getContextPath();	// 절대 경로 (현재 파일 이름 미포함)
+		String command = uri.substring(Path.length()+1);	// 슬래시 제외 현재 파일 이름
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 	
 	
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+	}
+	
+	public void login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
 		
@@ -54,7 +74,8 @@ public class LoginServlet extends HttpServlet {
 		dao.close();
 	}
 	
-	
-	
-	
 }
+	
+	
+
+
