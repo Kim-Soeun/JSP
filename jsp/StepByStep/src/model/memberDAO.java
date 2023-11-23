@@ -259,4 +259,63 @@ public class memberDAO extends DBConnector {
 		
 		return result;
 	}
+	
+	// 아이디로 멤버정보 가져오기
+	public memberDTO getMemberById(String id) {
+		memberDTO member = new memberDTO();
+		String GET_BYID_SQL = "select * from member where id = ?";
+		
+		try {
+			 psmt = con.prepareStatement(GET_BYID_SQL);
+			 psmt.setString(1, id);
+			 rs = psmt.executeQuery();
+					 
+			if(rs.next()) {
+				member.setId(rs.getString("id"));
+				member.setPassword(rs.getString("password"));
+				member.setName(rs.getString("name"));
+				member.setBirthDate(rs.getString("birthDate"));
+				member.setEmail(rs.getString("email"));
+				member.setNickname(rs.getString("nickname"));
+				member.setPhone(rs.getString("phone"));
+				member.setLocation(rs.getString("location"));
+				member.setProfileImg(rs.getString("profileImg"));
+				System.out.println(rs.getString("birthDate"));
+			}
+			 
+			 System.out.println("getMemberById 성공");
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.out.println("getMemberById 실패");
+		 }
+		 return member;
+	}
+	
+	
+	// 회원정보 수정
+	public int updateMember(memberDTO dto) {
+		int result = 0;
+		String UPDATE_MEMBER_SQL = "update member set password=?, name=?, birthDate=?, email=?,"
+				+ " nickname=?, phone=?, location=?, profileImg=?  where id=?";
+		try {
+			psmt = con.prepareStatement(UPDATE_MEMBER_SQL);
+			psmt.setString(1, dto.getPassword());
+			psmt.setString(2, dto.getName());
+			psmt.setString(3, dto.getBirthDate());
+			psmt.setString(4, dto.getEmail());
+			psmt.setString(5, dto.getNickname());
+			psmt.setString(6, dto.getPhone());
+			psmt.setString(7, dto.getLocation());
+			psmt.setString(8, dto.getProfileImg());
+			psmt.setString(9, dto.getId());
+			result = psmt.executeUpdate();
+			
+			System.out.println("updateMember 성공");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("updateMember 실패");
+		}
+		
+		return result;
+	}
 }

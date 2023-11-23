@@ -135,6 +135,15 @@
 		<servlet-name>DeletePhotoServlet</servlet-name>
 		<url-pattern>/DeletePhotoServlet</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UpdateMemberServlet</servlet-name>
+		<servlet-class>controller.UpdateMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateMemberServlet</servlet-name>
+		<url-pattern>/UpdateMemberServlet</url-pattern>
+	</servlet-mapping>
 	
 	
 	

@@ -2,7 +2,7 @@ package model;
 
 public class memberDTO {
 
-	private String id, password, name, birthDate, email, nickname, phone, registerDate, lastVisitDate,  location, total;
+	private String id, password, name, birthDate, email, nickname, phone, registerDate, lastVisitDate, location, total, profileImg;
 	private int score;
 	
 	
@@ -78,9 +78,12 @@ public class memberDTO {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
-	
-	
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
 	
 	
 	

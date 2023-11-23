@@ -15,8 +15,8 @@ public class DeletePhotoServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		int p_no = Integer.parseInt(req.getParameter("p_no"));
-		int result = new photoDAO().deletePhoto(p_no);
+		int no = Integer.parseInt(req.getParameter("no"));
+		int result = new photoDAO().deletePhoto(no);
 		
 		if(result == 1) {
 			JSFunction.alertLocation(resp, "사진이 삭제되었습니다", "photobook.jsp");

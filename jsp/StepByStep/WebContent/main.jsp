@@ -16,6 +16,7 @@
 		<a href="boardList.jsp">크루 게시판</a>
 		<a href="deleteMember.jsp">회원탈퇴</a>
 		<a href="photobook.jsp">사진첩</a>
+		<a href="updateMember.jsp">회원정보수정</a>
 	
 </body>
 </html>

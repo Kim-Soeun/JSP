@@ -53,15 +53,14 @@ public class UpdatePhotoServlet extends HttpServlet {
 		dto.setCreated(created);
 		dto.setImgName(imgName);
 		
-		int result = new photoDAO().insertPhoto(dto);
-		
-		if(result == 1) {
-			JSFunction.alertLocation(resp, "사진이 업로드 되었습니다", "photobook.jsp");
-			System.out.println("사진 등록 성공");
-		} else {
-			JSFunction.alertBack(resp, "사진 업로드에 실패했습니다");
-			System.out.println("사진 등록 실패");
-		}
+		/*
+		 * int result = new photoDAO().insertPhoto(dto);
+		 * 
+		 * if(result == 1) { JSFunction.alertLocation(resp, "사진이 업로드 되었습니다",
+		 * "photobook.jsp"); System.out.println("사진 등록 성공"); } else {
+		 * JSFunction.alertBack(resp, "사진 업로드에 실패했습니다"); System.out.println("사진 등록 실패");
+		 * }
+		 */
 	
 	}
 	
