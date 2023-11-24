@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="loginCheck.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +10,7 @@
 </head>
 <body>
 
-	<form action="CrewBoardServlet" name="frm" method="post" onsubmit="categoryCheck()" enctype="multipart/form-data">
+	<form action="CrewBoardServlet" name="frm" method="post" onsubmit="return categoryCheck()" enctype="multipart/form-data">
 		<label>카테고리</label>
 		<select name="category">
 			<option id="choice">게시판을 선택해주세요</option>

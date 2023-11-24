@@ -42,14 +42,18 @@ public class UpdateMemberServlet extends HttpServlet {
 		String email2 = mr.getParameter("email2");
 		String emailList = mr.getParameter("emailList");
 		
-		if(email1 == null) {
+		System.out.println(mr.getParameter("originalEmail"));
+		System.out.println("이메일1 : " + email1);
+		if(email1.equals("")) {
 			newEmail = mr.getParameter("originalEmail");
 		} else {
-			if(email2 == null) {
+			if(email2.equals("")) {
 				newEmail += email1 + "@" + emailList;
 			} else {
 				newEmail += email1 + "@" + email2;
 			}
+			
+			
 		}
 		
 		String phone = mr.getParameter("phone");
@@ -74,15 +78,6 @@ public class UpdateMemberServlet extends HttpServlet {
 			newProfileImg = newImg;
 		}
 		
-		System.out.println(id);
-		System.out.println(pw);
-		System.out.println(name);
-		System.out.println(birthDate);
-		System.out.println(newEmail);
-		System.out.println(phone);
-		System.out.println(nickname);
-		System.out.println(newLocation);
-		System.out.println(newProfileImg);
 		
 		memberDTO dto = new memberDTO();
 		dto.setId(id);

@@ -70,7 +70,7 @@ public class memberDAO extends DBConnector {
 	// 회원가입
 	public int registerMember(memberDTO dto) {
 		int result = 0;
-		String INSERT_MEMBER_SQL = "insert into member values (?, ? ,?, ?, ?, ?, ?, ?, ?, null, null, null)";
+		String INSERT_MEMBER_SQL = "insert into member values (?, ? ,?, ?, ?, ?, ?, ?, ?, null, null, null, ?)";
 		
 		try {
 			psmt = con.prepareStatement(INSERT_MEMBER_SQL);
@@ -83,6 +83,7 @@ public class memberDAO extends DBConnector {
 			psmt.setString(7, dto.getPhone());
 			psmt.setString(8, dto.getRegisterDate());
 			psmt.setString(9, dto.getLastVisitDate());
+			psmt.setString(10, dto.getProfileImg());
 			result = psmt.executeUpdate();
 			
 			System.out.println("RegisterMember 성공");

@@ -33,9 +33,10 @@
 				<button type="submit"> <img alt="하트" src="./resources/img/하트.jpg"> </button>
 			</form>
 			
-			
-			
-			<div><img style="width: 60px; height: 60px;" src="./resources/img/${board.imgName}" alt="${board.imgName}"></div>
+			<!-- 이미지는 있으면 화면에 출력, 없으면 출력 x -->
+			<c:if test="${not empty board.imgName}">
+				<div><img style="width: 60px; height: 60px;" src="./resources/img/${board.imgName}" alt="${board.imgName}"></div>
+			</c:if>
 		</div>
 		
 	</c:forEach>

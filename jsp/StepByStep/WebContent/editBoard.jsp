@@ -2,6 +2,7 @@
 <%@page import="model.boardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="loginCheck.jsp"%>
 <%
 	int no = Integer.parseInt(request.getParameter("no"));
 	boardDTO board = new boardDAO().selectBoard(no);
@@ -15,11 +16,11 @@
 <title>게시판 수정</title>
 </head>
 <body>
-	<form action="EditBoardServlet" name="frm" method="post" onsubmit="categoryCheck()" enctype="multipart/form-data">
+	<form action="EditBoardServlet" name="frm" method="post" onsubmit="return categoryCheck()" enctype="multipart/form-data">
 		
 		<label>카테고리</label>
 		<select name="category">
-			<option id="choice">게시판을 선택해주세요</option>
+			<option id="choice">카테고리를 선택해주세요</option>
 			<option value="notice">공지사항</option>
 			<option value="board">자유게시판</option>
 			<option value="greeting">가입인사</option>

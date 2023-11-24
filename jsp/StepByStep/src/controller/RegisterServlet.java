@@ -1,13 +1,18 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.JSFunction;
 import model.memberDAO;
@@ -21,16 +26,24 @@ public class RegisterServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
 		
-		String id = req.getParameter("id");
-		String pw = req.getParameter("pw");
-		String name = req.getParameter("name");
-		String birthDate = req.getParameter("birthDate");
+		ServletContext application = req.getServletContext();
+		
+		String saveDirectory = application.getRealPath("./resources/img");
+		int maxPostSize = 5 * 1024 * 1024;
+		String encoding = "UTF-8";
+		
+		MultipartRequest mr = new MultipartRequest(req, saveDirectory, maxPostSize, encoding, new DefaultFileRenamePolicy());
+		
+		String id = mr.getParameter("id");
+		String pw = mr.getParameter("pw");
+		String name = mr.getParameter("name");
+		String birthDate = mr.getParameter("birthDate");
 		
 		// 이메일 한 주소로 합치기(직접입력 or 선택)
 		String email = "";
-		String email1 = req.getParameter("email1");
-		String email2 = req.getParameter("email2");
-		String emailList = req.getParameter("emailList");
+		String email1 = mr.getParameter("email1");
+		String email2 = mr.getParameter("email2");
+		String emailList = mr.getParameter("emailList");
 		
 		if(email2 == null) {
 			email += email1 + "@" + emailList;
@@ -38,11 +51,11 @@ public class RegisterServlet extends HttpServlet {
 			email += email1 + "@" + email2;
 		}
 		
-		String nickname = req.getParameter("nickname");
+		String nickname = mr.getParameter("nickname");
 		if(nickname == "") {
 			nickname = id;
 		}
-		String phone = req.getParameter("phone");
+		String phone = mr.getParameter("phone");
 		
 		// 가입날짜 설정
 		Date now = new Date();
@@ -54,6 +67,18 @@ public class RegisterServlet extends HttpServlet {
 		SimpleDateFormat formatter2 = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
 		String lastVisitDate = formatter2.format(date);
 		
+		// 프로필 사진
+		String imgName = mr.getFilesystemName("profileImg");
+		File file = new File(saveDirectory + File.separator + imgName);
+		String profileImg = "";
+		
+		// 프로필사진 설정안하면 자동으로 기본이미지 들어감
+		if(imgName == null) {
+			profileImg = "zzanggu.jpg";
+		} else {
+			profileImg = imgName;
+		}
+		
 		memberDTO dto = new memberDTO();
 		dto.setId(id);
 		dto.setPassword(pw);
@@ -64,6 +89,7 @@ public class RegisterServlet extends HttpServlet {
 		dto.setPhone(phone);
 		dto.setRegisterDate(registerDate);
 		dto.setLastVisitDate(lastVisitDate);
+		dto.setProfileImg(profileImg);
 		
 		int result = new memberDAO().registerMember(dto);
 		

@@ -65,6 +65,7 @@
 		
 		<label>이메일</label>
 		<input type="hidden" name="originalEmail" value="<%=memberDTO.getEmail()%>">
+		<p><%=memberDTO.getEmail()%></p>
 		<input type="text" name="email1"/>@
 		<input type="text" name="email2"/>
 		<select name="emailList" size="1" onchange="email_check()">

@@ -8,7 +8,7 @@
 <title>회원가입</title>
 </head>
 <body>
-	<form action="RegisterServlet" method="post" name="frm" onsubmit="return pwCheck()">
+	<form action="RegisterServlet" method="post" name="frm" enctype="multipart/form-data" onsubmit="return pwCheck()">
 		<label>아이디</label>
 		<input type="text" name="id" id="id" oninput="updateNicknameValue()" required/>
 		<input type="hidden" name="dupliId" id="depliId">
@@ -41,6 +41,9 @@
 		
 		<label>전화번호</label>
 		<input type="text" name="phone"/><br>
+		
+		<label>파일첨부</label>
+		<input type="file" name="profileImg" ><br>
 		
 		<button type="submit" onclick="pwDoubleCheck()">회원가입</button>
 	</form>
