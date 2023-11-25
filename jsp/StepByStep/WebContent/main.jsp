@@ -17,6 +17,8 @@
 		<a href="deleteMember.jsp">회원탈퇴</a>
 		<a href="photobook.jsp">사진첩</a>
 		<a href="updateMember.jsp">회원정보수정</a>
+		<a href="crewRecruit.jsp">크루모집등록</a>
+		<a href="crewRecruitList.jsp">크루모두보기</a>
 	
 </body>
 </html>

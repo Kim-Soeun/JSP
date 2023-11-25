@@ -144,6 +144,15 @@
 		<servlet-name>UpdateMemberServlet</servlet-name>
 		<url-pattern>/UpdateMemberServlet</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CrewServlet</servlet-name>
+		<servlet-class>controller.CrewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrewServlet</servlet-name>
+		<url-pattern>*.crew</url-pattern>
+	</servlet-mapping>
 	
 	
 	
