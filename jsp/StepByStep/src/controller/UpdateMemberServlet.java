@@ -42,8 +42,6 @@ public class UpdateMemberServlet extends HttpServlet {
 		String email2 = mr.getParameter("email2");
 		String emailList = mr.getParameter("emailList");
 		
-		System.out.println(mr.getParameter("originalEmail"));
-		System.out.println("이메일1 : " + email1);
 		if(email1.equals("")) {
 			newEmail = mr.getParameter("originalEmail");
 		} else {

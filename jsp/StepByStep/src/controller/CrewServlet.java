@@ -72,6 +72,7 @@ public class CrewServlet extends HttpServlet {
 		crew.setMemAdmin(true);
 		new crewDAO().joinCrew(crew);
 		
+		// 크루 만들기 dao
 		crewRecruitDAO dao = new crewRecruitDAO();
 		dao.makeCrew(dto);
 		dao.close();

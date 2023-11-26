@@ -27,6 +27,7 @@
 				<p>모집내용(조건) : ${crew.content}</p>
 				<p>모임장소 : ${crew.location}</p>
 				<p>모집인원 : ${crew.memberNum}</p>
+				<p>현재크루원 : ${crew.totalCount}</p>
 				<p>작성일 : ${crew.created}</p>
 				<p>모임날짜 : ${crew.gatherDate}</p>
 				<p>방장ID : ${crew.adminId }</p>

@@ -1,15 +1,22 @@
+<%@page import="model.crewRecruitDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="model.crewRecruitDAO"%>
 <%@page import="model.memberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="loginCheck.jsp" %>
 <%
 	memberDTO memberDTO = (memberDTO)session.getAttribute("memberDTO");
 	String userId = memberDTO.getId();
+	crewRecruitDAO dao = new crewRecruitDAO();
+	List<crewRecruitDTO> cNameList = dao.selectCrewName();
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>크루 등록</title>
 </head>
 <body>
@@ -17,8 +24,15 @@
 	<!-- 크루명이 기존에 있으면 경고창 뜨게 만들어야함 -->
 	<form action="./crewRecruit.crew" method="post" name="frm">
 		
+		<c:forEach items="<%=cNameList%>" var="crew">
+			<div id="existingCrew" style="display: none;">${crew.crewName}</div>
+		</c:forEach>
+		
 		<label>크루명</label>
-		<input type="text" name="crewName" required><br>
+		<input type="text" id="crewName" name="crewName" required>
+		<button onclick="return crewNameCheck()">중복확인</button>
+		<p id="warningMessageContainer"></p><br>
+		
 
 		<label>제목</label>
 		<input type="text" name="title" required><br>
@@ -40,6 +54,7 @@
 		<button type="submit">등록</button>
 	</form>
 	
-	
+<script type="text/javascript" src="./resources/js/crew.js"></script>
+
 </body>
 </html>

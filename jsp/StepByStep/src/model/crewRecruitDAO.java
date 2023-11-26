@@ -33,10 +33,11 @@ public class crewRecruitDAO extends DBConnector {
 		
 	}
 	
-	// 크루모집글 모두 불러오기
+	// 크루모집글 모두 불러오기(+현재 모집인원)
 	public List<crewRecruitDTO> selectAllRecruit() {
 		List<crewRecruitDTO> crewList = new ArrayList<crewRecruitDTO>();
-		String SELECT_ALLRECRUIT_SQL = "select * from crewRecruit";
+		String SELECT_ALLRECRUIT_SQL = "select *, (select count(memId) from crew where crewName = crewRecruit.crewName)"
+				+ " as totalCount from crewRecruit";
 		
 		try {
 			stmt = con.createStatement();
@@ -52,6 +53,7 @@ public class crewRecruitDAO extends DBConnector {
 				dto.setCreated(rs.getString(6));
 				dto.setGatherDate(rs.getString(7));
 				dto.setAdminId(rs.getString(8));
+				dto.setTotalCount(rs.getInt(9));
 				crewList.add(dto);
 			}
 			
@@ -66,7 +68,8 @@ public class crewRecruitDAO extends DBConnector {
 	// 특정 크루 상세보기 불러오기
 	public crewRecruitDTO selectRecruitDetail(String crewName) {
 		crewRecruitDTO dto = new crewRecruitDTO();
-		String SELECT_RECRUIT_DETAIL = "select * from crewRecruit where crewName = ?";
+		String SELECT_RECRUIT_DETAIL = "select *, (select count(memId) from crew where crewName = crewRecruit.crewName)"
+				+ " as totalCount from crewRecruit where crewName = ?";
 		
 		try {
 			psmt = con.prepareStatement(SELECT_RECRUIT_DETAIL);
@@ -82,6 +85,7 @@ public class crewRecruitDAO extends DBConnector {
 				dto.setCreated(rs.getString(6));
 				dto.setGatherDate(rs.getString(7));
 				dto.setAdminId(rs.getString(8));
+				dto.setTotalCount(rs.getInt(9));
 			}
 			
 			System.out.println("selectRecruitDetail 성공");
@@ -94,5 +98,55 @@ public class crewRecruitDAO extends DBConnector {
 		return dto;
 	}
 	
+	// 크루명 중복이름 확인
+	public int checkCrewName(String crewName) {
+		int result = 0;
+		String CHECK_CREWNAME_SQL = "select crewName from crewRecruit where crewName = ?";
+		
+		try {
+			psmt = con.prepareStatement(CHECK_CREWNAME_SQL);
+			psmt.setString(1, crewName);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = 1;
+			} else {
+				result = 0;
+			}
+			
+			System.out.println("checkCrewName 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("checkCrewName 실패");
+		}
+		
+		return result;
+	}
+	
+	// 기존 크루명 모두 가져오기
+	public List<crewRecruitDTO> selectCrewName() {
+		List<crewRecruitDTO> cNameList = new ArrayList<crewRecruitDTO>();
+		String SELECT_CREWNAME = "select crewName from crewRecruit";
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SELECT_CREWNAME);
+			 
+			while(rs.next()) {
+				crewRecruitDTO dto = new crewRecruitDTO();
+				dto.setCrewName(rs.getString("crewName"));
+				cNameList.add(dto);
+			}
+			
+			System.out.println("selectCrewName 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectCrewName 실패");
+		}
+		
+		return cNameList;
+	}
 	
 }

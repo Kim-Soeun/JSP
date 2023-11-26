@@ -3,7 +3,7 @@ package model;
 public class crewRecruitDTO {
 	
 	private String crewName, title, content, location, created, gatherDate, adminId;
-	private int memberNum;
+	private int memberNum, totalCount;
 	
 	
 	public String getCrewName() {
@@ -54,6 +54,13 @@ public class crewRecruitDTO {
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
 	}
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+	
 	
 	
 }

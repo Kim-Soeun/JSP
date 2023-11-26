@@ -17,7 +17,7 @@
 <title>회원정보수정</title>
 </head>
 <body>
-	<form name="frm" action="UpdateMemberServlet" method="post" enctype="multipart/form-data">
+	<form name="frm" action="UpdateMemberServlet" method="post" enctype="multipart/form-data" onsubmit="return pwCheck()">
 
 		<input type="hidden" name="id" value="<%=memberDTO.getId()%>"><br>
 
@@ -93,6 +93,7 @@
 	</form>
 	
 <script type="text/javascript" src="./resources/js/register.js"></script>
+<script type="text/javascript" src="./resources/js/pwCheck.js"></script>
 
 </body>
 </html>
