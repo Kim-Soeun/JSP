@@ -22,7 +22,7 @@
 		<input type="hidden" name="id" value="<%=memberDTO.getId()%>"><br>
 
 		<label>비밀번호</label>
-		<input type="password" name="pw" value="<%=memberDTO.getPassword()%>" required><br>
+		<input type="password" id="pw" name="pw" value="<%=memberDTO.getPassword()%>" required><br>
 		
 		<label>이름</label>
 		<input type="text" name="name" value="<%=memberDTO.getName()%>" required><br>

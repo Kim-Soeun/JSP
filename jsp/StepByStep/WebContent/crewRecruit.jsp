@@ -22,16 +22,14 @@
 <body>
 
 	<!-- 크루명이 기존에 있으면 경고창 뜨게 만들어야함 -->
-	<form action="./crewRecruit.crew" method="post" name="frm">
+	<form action="./crewRecruit.crew" method="post" name="frm" onsubmit="return isResult()">
 		
-		<c:forEach items="<%=cNameList%>" var="crew">
-			<div id="existingCrew" style="display: none;">${crew.crewName}</div>
-		</c:forEach>
+		<div id="existingCrews" style="display: none;"><c:forEach items="<%=cNameList%>" var="crew">${crew.crewName} </c:forEach></div>
 		
 		<label>크루명</label>
 		<input type="text" id="crewName" name="crewName" required>
-		<button onclick="return crewNameCheck()">중복확인</button>
-		<p id="warningMessageContainer"></p><br>
+		<button type="button" onclick="crewNameCheck()">중복확인</button>
+		<div id="warningMessageContainer"></div>
 		
 
 		<label>제목</label>
@@ -54,7 +52,7 @@
 		<button type="submit">등록</button>
 	</form>
 	
-<script type="text/javascript" src="./resources/js/crew.js"></script>
+<script type="text/javascript" src="./resources/js/crew.js?ver=11"></script>
 
 </body>
 </html>

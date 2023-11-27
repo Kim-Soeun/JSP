@@ -1,3 +1,4 @@
+<%@page import="model.crewDAO"%>
 <%@page import="model.memberDTO"%>
 <%@page import="model.crewRecruitDTO"%>
 <%@page import="java.util.List"%>
@@ -10,6 +11,10 @@
 <%
 	crewRecruitDAO dao = new crewRecruitDAO();
 	List<crewRecruitDTO> crewList = dao.selectAllRecruit();
+	for(int i=0; i<crewList.size(); i++) {
+		crewRecruitDTO dto = crewList.get(i);
+		dao.deleteCrew(dto.getCrewName(), dto.getCreated());
+	}
 %>
 <!DOCTYPE html>
 <html>

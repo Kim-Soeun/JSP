@@ -3,6 +3,8 @@
 
  document.querySelector('form').onsubmit = function pwCheck() {
 	var pw = document.getElementById('pw').value;
+	
+	if(document.getElementById('pwCheck'))
 	var pwCheck = document.getElementById('pwCheck').value;
 	
 	
