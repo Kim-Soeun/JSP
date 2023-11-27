@@ -40,7 +40,7 @@ public class CrewBoardServlet extends HttpServlet {
 		String nickname = userDTO.getNickname();	// 닉네임
 		
 		LocalDateTime today = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String created = today.format(formatter);	// 작성일자
 		
 		String content = mr.getParameter("content");	// 내용

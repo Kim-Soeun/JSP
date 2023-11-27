@@ -1,7 +1,13 @@
 package model;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 import common.DBConnector;
 
@@ -23,6 +29,14 @@ public class crewRecruitDAO extends DBConnector {
 			psmt.setString(7, dto.getGatherDate());
 			psmt.setString(8, dto.getAdminId());
 			result = psmt.executeUpdate();
+			
+			// 크루 만들면 방장은 자동으로 크루원으로 등록됨
+			crewDTO crew = new crewDTO();
+			crew.setCrewName(dto.getCreated());
+			crew.setMemberNum(dto.getMemberNum());
+			crew.setMemId(dto.getAdminId());
+			crew.setMemAdmin(true);
+			new crewDAO().joinCrew(crew);
 			
 			System.out.println("makeCrew 성공");
 		
@@ -147,6 +161,45 @@ public class crewRecruitDAO extends DBConnector {
 		}
 		
 		return cNameList;
+	}
+	
+	// 방장 제외 인원 0명이면서 한달 지난 크루 삭제
+	public void deleteCrew(String crewName, String created) {
+		int result = 0;
+		String DELETE_CREW_SQL = "delete from crewRecruit where crewName = ? and (select count(*) from crew where crewName = ?) <= 1";
+		
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			  
+			
+			// 크루 생성 날짜(Calendar로 변환)
+			Date date = formatter.parse(created);
+			Calendar created2 = Calendar.getInstance();
+			created2.setTime(date);
+			
+			// 한달 전 날짜
+			Calendar monthAgo = Calendar.getInstance();
+			monthAgo.add(Calendar.MONTH , -1);    
+		
+			// 두 날짜 간 차이 계산
+			boolean monthsBetween = created2.before(monthAgo);
+			
+			// 한달 이상이면 쿼리문 실행해서 삭제
+			if(monthsBetween == true) {
+				psmt = con.prepareStatement(DELETE_CREW_SQL);
+				psmt.setString(1, crewName);
+				psmt.setString(2, crewName);
+				result = psmt.executeUpdate();
+			}
+			
+			System.out.println("한달전 날짜 : " + monthAgo);
+			
+			System.out.println("deleteCrew 성공");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("deleteCrew 실패");
+		}
+		
 	}
 	
 }

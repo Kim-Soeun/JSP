@@ -51,7 +51,7 @@ public class CrewServlet extends HttpServlet {
 		
 		// 크루 생성날짜
 		Date now = new Date();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String created = formatter.format(now);
 		
 		crewRecruitDTO dto = new crewRecruitDTO();
@@ -64,6 +64,10 @@ public class CrewServlet extends HttpServlet {
 		dto.setAdminId(adminId);
 		dto.setCreated(created);
 		
+		// 크루 만들기 dao
+		crewRecruitDAO dao = new crewRecruitDAO();
+		dao.makeCrew(dto);
+		
 		// 방장은 자동으로 크루에 가입됨
 		crewDTO crew = new crewDTO();
 		crew.setCrewName(crewName);
@@ -71,10 +75,6 @@ public class CrewServlet extends HttpServlet {
 		crew.setMemId(adminId);
 		crew.setMemAdmin(true);
 		new crewDAO().joinCrew(crew);
-		
-		// 크루 만들기 dao
-		crewRecruitDAO dao = new crewRecruitDAO();
-		dao.makeCrew(dto);
 		dao.close();
 		resp.sendRedirect("crewRecruitList.jsp");
 	}
