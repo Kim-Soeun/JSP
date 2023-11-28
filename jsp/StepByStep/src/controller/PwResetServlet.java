@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.JSFunction;
-import model.memberDAO;
+import model.MemberDAO;
 
 public class PwResetServlet extends HttpServlet {
 	
@@ -24,7 +24,7 @@ public class PwResetServlet extends HttpServlet {
 		int result = 0;
 		
 		if(!prevPw.equals(pw)) {
-			result = new memberDAO().resetPw(id, pw);
+			result = new MemberDAO().resetPw(id, pw);
 			
 			if(result == 1) {		// 비밀번호 변경 성공시 로그인 페이지로 이동
 				JSFunction.alertLocation(resp, "비밀번호가 변경되었습니다", "login.jsp");

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.JSFunction;
-import model.memberDAO;
-import model.memberDTO;
+import model.MemberDAO;
+import model.MemberDTO;
 
 public class FindPwServlet extends HttpServlet {
 	
@@ -35,14 +35,14 @@ public class FindPwServlet extends HttpServlet {
 			email += email1 + "@" + email2;
 		}
 		
-		memberDTO dto = new memberDTO();
+		MemberDTO dto = new MemberDTO();
 		dto.setId(id);
 		dto.setName(name);
 		dto.setEmail(email);
 		dto.setBirthDate(birthDate);
 		
 		
-		String pw = new memberDAO().findPw(dto);
+		String pw = new MemberDAO().findPw(dto);
 		
 		if(pw == null) {		// 정보와 맞는 비밀번호 없는 경우 뒤로 페이지 이동하고 메시지 출력
 			JSFunction.alertBack(resp, "다시 입력해주세요");

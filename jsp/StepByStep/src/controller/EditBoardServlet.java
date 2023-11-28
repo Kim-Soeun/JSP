@@ -15,9 +15,9 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.JSFunction;
-import model.boardDAO;
-import model.boardDTO;
-import model.memberDTO;
+import model.BoardDAO;
+import model.BoardDTO;
+import model.MemberDTO;
 
 public class EditBoardServlet extends HttpServlet {
 
@@ -36,8 +36,8 @@ public class EditBoardServlet extends HttpServlet {
 		MultipartRequest mr = new MultipartRequest(req, saveDirectory, maxPostSize, encoding,
 				new DefaultFileRenamePolicy());
 
-		boardDTO board = (boardDTO) req.getSession().getAttribute("boardDTO");
-		memberDTO member = (memberDTO) req.getSession().getAttribute("memberDTO");
+		BoardDTO board = (BoardDTO) req.getSession().getAttribute("boardDTO");
+		MemberDTO member = (MemberDTO) req.getSession().getAttribute("memberDTO");
 		String userId = member.getId();
 
 		String id = board.getId(); // 작성자
@@ -54,7 +54,7 @@ public class EditBoardServlet extends HttpServlet {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 		String created = today.format(formatter); // 수정일
 
-		boardDTO dto = new boardDTO();
+		BoardDTO dto = new BoardDTO();
 		dto.setId(id);
 		dto.setNo(no);
 		dto.setContent(content);
@@ -62,7 +62,7 @@ public class EditBoardServlet extends HttpServlet {
 		dto.setCategory(category);
 		dto.setImgName(imgName);
 
-		int result = new boardDAO().editBoard(dto);
+		int result = new BoardDAO().editBoard(dto);
 		if (userId.equals(id)) { // 로그인 유저와 작성자가 같으면 수정 실행
 			if (result == 1) {
 				JSFunction.alertLocation(resp, "게시글이 수정되었습니다", "boardPage.jsp?id=" + id + "&no=" + no);

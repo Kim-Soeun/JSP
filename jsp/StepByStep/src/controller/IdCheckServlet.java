@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.memberDAO;
+import model.MemberDAO;
 
 public class IdCheckServlet extends HttpServlet {
 	
@@ -16,7 +16,7 @@ public class IdCheckServlet extends HttpServlet {
 
 		String id = req.getParameter("id");
 		
-		memberDAO dao = new memberDAO();
+		MemberDAO dao = new MemberDAO();
 		int result = dao.checkDuplicateId(id);
 		
 		req.setAttribute("userId", id);

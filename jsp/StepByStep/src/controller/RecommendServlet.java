@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.memberDTO;
-import model.recommendDAO;
+import model.MemberDTO;
+import model.RecommendDAO;
 
 public class RecommendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,10 +20,10 @@ public class RecommendServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int no =  Integer.parseInt(request.getParameter("no"));
-		memberDTO member = (memberDTO)request.getSession().getAttribute("memberDTO");
+		MemberDTO member = (MemberDTO)request.getSession().getAttribute("memberDTO");
 		String id = member.getId();
 		
-		int result = new recommendDAO().updateRecommendCount(no, id);
+		int result = new RecommendDAO().updateRecommendCount(no, id);
 		
 		if(result == 1) {
 			response.sendRedirect("boardList.jsp");

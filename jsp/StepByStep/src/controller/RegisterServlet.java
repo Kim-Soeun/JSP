@@ -15,8 +15,8 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.JSFunction;
-import model.memberDAO;
-import model.memberDTO;
+import model.MemberDAO;
+import model.MemberDTO;
 
 public class RegisterServlet extends HttpServlet {
 
@@ -79,7 +79,7 @@ public class RegisterServlet extends HttpServlet {
 			profileImg = imgName;
 		}
 		
-		memberDTO dto = new memberDTO();
+		MemberDTO dto = new MemberDTO();
 		dto.setId(id);
 		dto.setPassword(pw);
 		dto.setName(name);
@@ -91,7 +91,7 @@ public class RegisterServlet extends HttpServlet {
 		dto.setLastVisitDate(lastVisitDate);
 		dto.setProfileImg(profileImg);
 		
-		int result = new memberDAO().registerMember(dto);
+		int result = new MemberDAO().registerMember(dto);
 		
 		if(result == 1) {		// 회원가입 성공했을 경우 유저 정보 세션에 저장 후 로그인 상태로 메인페이지 이동
 			req.getSession().setAttribute("memberDTO", dto);

@@ -15,9 +15,9 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.JSFunction;
-import model.boardDAO;
-import model.boardDTO;
-import model.memberDTO;
+import model.BoardDAO;
+import model.BoardDTO;
+import model.MemberDTO;
 
 public class CrewBoardServlet extends HttpServlet {
 
@@ -35,7 +35,7 @@ public class CrewBoardServlet extends HttpServlet {
 		
 		MultipartRequest mr = new MultipartRequest(req, saveDirectory, maxPostSize, encoding, new DefaultFileRenamePolicy());
 		
-		memberDTO userDTO = (memberDTO)req.getSession().getAttribute("memberDTO");
+		MemberDTO userDTO = (MemberDTO)req.getSession().getAttribute("memberDTO");
 		String id = userDTO.getId();				// 아이디
 		String nickname = userDTO.getNickname();	// 닉네임
 		
@@ -50,7 +50,7 @@ public class CrewBoardServlet extends HttpServlet {
 		
 		File file = new File(saveDirectory + File.separator + imgName);
 		
-		boardDTO board = new boardDTO();
+		BoardDTO board = new BoardDTO();
 		board.setId(id);
 		board.setNickname(nickname);
 		board.setCreated(created);
@@ -58,7 +58,7 @@ public class CrewBoardServlet extends HttpServlet {
 		board.setCategory(category);
 		board.setImgName(imgName);
 		
-		int result = new boardDAO().insertBoard(board);
+		int result = new BoardDAO().insertBoard(board);
 		
 		if(result == 1) {
 			resp.sendRedirect("boardList.jsp");

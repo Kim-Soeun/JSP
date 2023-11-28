@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.JSFunction;
-import model.crewDAO;
-import model.crewDTO;
-import model.crewRecruitDAO;
-import model.crewRecruitDTO;
+import model.CrewDAO;
+import model.CrewDTO;
+import model.CrewRecruitDAO;
+import model.CrewRecruitDTO;
 
 public class CrewServlet extends HttpServlet {
 
@@ -54,7 +54,7 @@ public class CrewServlet extends HttpServlet {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String created = formatter.format(now);
 		
-		crewRecruitDTO dto = new crewRecruitDTO();
+		CrewRecruitDTO dto = new CrewRecruitDTO();
 		dto.setCrewName(crewName);
 		dto.setTitle(title);
 		dto.setContent(content);
@@ -65,16 +65,16 @@ public class CrewServlet extends HttpServlet {
 		dto.setCreated(created);
 		
 		// 크루 만들기 dao
-		crewRecruitDAO dao = new crewRecruitDAO();
+		CrewRecruitDAO dao = new CrewRecruitDAO();
 		dao.makeCrew(dto);
 		
 		// 방장은 자동으로 크루에 가입됨
-		crewDTO crew = new crewDTO();
+		CrewDTO crew = new CrewDTO();
 		crew.setCrewName(crewName);
 		crew.setMemberNum(memberNum);
 		crew.setMemId(adminId);
 		crew.setMemAdmin(true);
-		new crewDAO().joinCrew(crew);
+		new CrewDAO().joinCrew(crew);
 		dao.close();
 		resp.sendRedirect("crewRecruitList.jsp");
 	}
@@ -89,13 +89,13 @@ public class CrewServlet extends HttpServlet {
 		boolean memAdmin = false;
 		
 		
-		crewDTO dto = new crewDTO();
+		CrewDTO dto = new CrewDTO();
 		dto.setCrewName(crewName);
 		dto.setMemberNum(memberNum);
 		dto.setMemId(userId);
 		dto.setMemAdmin(false);
 		
-		crewDAO dao = new crewDAO();
+		CrewDAO dao = new CrewDAO();
 		dao.joinCrew(dto);
 		dao.close();
 		String encodedCrewName = URLEncoder.encode(crewName, "UTF-8");

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.JSFunction;
-import model.photoDAO;
+import model.PhotoDAO;
 
 public class DeletePhotoServlet extends HttpServlet {
 
@@ -16,7 +16,7 @@ public class DeletePhotoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		int no = Integer.parseInt(req.getParameter("no"));
-		int result = new photoDAO().deletePhoto(no);
+		int result = new PhotoDAO().deletePhoto(no);
 		
 		if(result == 1) {
 			JSFunction.alertLocation(resp, "사진이 삭제되었습니다", "photobook.jsp");

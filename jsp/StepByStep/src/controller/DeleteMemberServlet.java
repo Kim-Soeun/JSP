@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.JSFunction;
-import model.memberDAO;
+import model.MemberDAO;
 
 public class DeleteMemberServlet extends HttpServlet {
 
@@ -20,7 +20,7 @@ public class DeleteMemberServlet extends HttpServlet {
 		String pwCheck = req.getParameter("pwCheck");
 		
 		if(pw.equals(pwCheck)) {	// 입력한 비밀번호가 일치하면 회원탈퇴 진행
-			int result = new memberDAO().deleteMember(id, pw);
+			int result = new MemberDAO().deleteMember(id, pw);
 			
 			if(result == 1) {		
 				JSFunction.alertLocation(resp, "회원탈퇴가 완료되었습니다", "main.jsp");

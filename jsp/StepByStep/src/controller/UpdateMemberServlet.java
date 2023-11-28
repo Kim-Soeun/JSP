@@ -12,8 +12,8 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.JSFunction;
-import model.memberDAO;
-import model.memberDTO;
+import model.MemberDAO;
+import model.MemberDTO;
 
 public class UpdateMemberServlet extends HttpServlet {
 
@@ -77,7 +77,7 @@ public class UpdateMemberServlet extends HttpServlet {
 		}
 		
 		
-		memberDTO dto = new memberDTO();
+		MemberDTO dto = new MemberDTO();
 		dto.setId(id);
 		dto.setPassword(pw);
 		dto.setName(name);
@@ -88,7 +88,7 @@ public class UpdateMemberServlet extends HttpServlet {
 		dto.setLocation(newLocation);
 		dto.setProfileImg(newProfileImg);
 		
-		int result = new memberDAO().updateMember(dto);
+		int result = new MemberDAO().updateMember(dto);
 		if(result == 1) {
 			JSFunction.alertLocation(resp, "정보가 수정되었습니다", "main.jsp");
 			System.out.println("회원정보 수정 성공");

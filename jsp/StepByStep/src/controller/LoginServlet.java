@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import common.JSFunction;
-import model.memberDAO;
-import model.memberDTO;
+import model.MemberDAO;
+import model.MemberDTO;
 
 public class LoginServlet extends HttpServlet {
 	
@@ -29,9 +29,9 @@ public class LoginServlet extends HttpServlet {
 		SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
 		String lastVisitDate = formatter.format(date);
 		
-		memberDAO dao = new memberDAO();
+		MemberDAO dao = new MemberDAO();
 		int result = dao.loginCheck(id, pw);
-		memberDTO dto = dao.getMember(id);
+		MemberDTO dto = dao.getMember(id);
 		
 		if(result == 1) {			// 로그인 성공시 유저 정보 세션에 저장 후 메인화면으로 이동
 			dao.update_LastVisitDate(id, lastVisitDate);

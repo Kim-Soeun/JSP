@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.crewRecruitDAO;
+import model.CrewRecruitDAO;
 
 public class CrewNameCheckServlet extends HttpServlet {
 
@@ -18,7 +18,7 @@ public class CrewNameCheckServlet extends HttpServlet {
 		resp.setContentType("text/html; charset=UTF-8");
 	
 		String crewName = req.getParameter("crewName");
-		crewRecruitDAO dao = new crewRecruitDAO();
+		CrewRecruitDAO dao = new CrewRecruitDAO();
 		int result = dao.checkCrewName(crewName);
 		
 		req.setAttribute("result", result);

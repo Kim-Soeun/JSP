@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.JSFunction;
-import model.boardDAO;
+import model.BoardDAO;
 
 public class DeleteBoardServlet extends HttpServlet {
 
@@ -30,7 +30,7 @@ public class DeleteBoardServlet extends HttpServlet {
 		int no = Integer.parseInt(req.getParameter("no"));
 		
 		if(userId.equals(writerId)) {	// 로그인 아이디와 작성자가 같으면 삭제 가능
-			int result = new boardDAO().deleteBoard(no);
+			int result = new BoardDAO().deleteBoard(no);
 
 			if(result == 1) {		// 게시물 삭제 성공
 				JSFunction.alertLocation(resp, "게시물이 삭제되었습니다", "boardList.jsp");
