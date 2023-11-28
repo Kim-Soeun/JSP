@@ -17,10 +17,11 @@
 		<a href="deleteMember.jsp">회원탈퇴</a>
 		<a href="photobook.jsp">사진첩</a>
 		<a href="updateMember.jsp">회원정보수정</a>
-		<a href="crewRecruit.jsp">크루모집등록</a>
+		<a href="onedayCrew.jsp">단기크루</a>
 		<a href="crewRecruitList.jsp">크루모두보기</a>
 		<a href="plannedSchedule.jsp">예정된 일정</a>
 		<a href="closedSchedule.jsp">마감된 일정</a>
+		<a href="myCrew.jsp">참여중인 크루</a>
 	
 </body>
 </html>

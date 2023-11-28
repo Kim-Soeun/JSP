@@ -1,9 +1,9 @@
-<%@page import="model.memberDTO"%>
+<%@page import="model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="loginCheck.jsp" %>
 <%
-	memberDTO dto = (memberDTO)session.getAttribute("memberDTO");
+	MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
 	String userId = dto.getId();
 %>
 <!DOCTYPE html>

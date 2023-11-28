@@ -1,7 +1,7 @@
-<%@page import="model.boardDAO"%>
-<%@page import="model.boardDTO"%>
-<%@page import="model.photoDAO"%>
-<%@page import="model.photoDTO"%>
+<%@page import="model.BoardDAO"%>
+<%@page import="model.BoardDTO"%>
+<%@page import="model.PhotoDAO"%>
+<%@page import="model.PhotoDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,9 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-	List<boardDTO> boardList = new photoDAO().selectPhotos();
-	
-	
+	List<BoardDTO> boardList = new PhotoDAO().selectPhotos();
 %>
 <!DOCTYPE html>
 <html>

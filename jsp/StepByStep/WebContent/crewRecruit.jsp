@@ -1,16 +1,16 @@
-<%@page import="model.crewRecruitDTO"%>
+<%@page import="model.CrewRecruitDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="model.crewRecruitDAO"%>
-<%@page import="model.memberDTO"%>
+<%@page import="model.CrewRecruitDAO"%>
+<%@page import="model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="loginCheck.jsp" %>
 <%
-	memberDTO memberDTO = (memberDTO)session.getAttribute("memberDTO");
+	MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	String userId = memberDTO.getId();
-	crewRecruitDAO dao = new crewRecruitDAO();
-	List<crewRecruitDTO> cNameList = dao.selectCrewName();
+	CrewRecruitDAO dao = new CrewRecruitDAO();
+	List<CrewRecruitDTO> cNameList = dao.selectCrewName();
 %>
 <!DOCTYPE html>
 <html>

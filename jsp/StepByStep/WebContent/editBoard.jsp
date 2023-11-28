@@ -1,11 +1,11 @@
-<%@page import="model.boardDAO"%>
-<%@page import="model.boardDTO"%>
+<%@page import="model.BoardDAO"%>
+<%@page import="model.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="loginCheck.jsp"%>
 <%
 	int no = Integer.parseInt(request.getParameter("no"));
-	boardDTO board = new boardDAO().selectBoard(no);
+	BoardDTO board = new BoardDAO().selectBoard(no);
 	session.setAttribute("boardDTO", board);
 	String content = board.getContent();
 %>

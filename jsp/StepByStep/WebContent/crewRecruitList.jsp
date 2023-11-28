@@ -1,19 +1,20 @@
-<%@page import="model.crewDAO"%>
-<%@page import="model.memberDTO"%>
-<%@page import="model.crewRecruitDTO"%>
+<%@page import="model.CrewDAO"%>
+<%@page import="model.MemberDTO"%>
+<%@page import="model.CrewRecruitDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="model.crewRecruitDAO"%>
+<%@page import="model.CrewRecruitDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="loginCheck.jsp" %>
 
 <%
-	crewRecruitDAO dao = new crewRecruitDAO();
-	List<crewRecruitDTO> crewList = dao.selectAllRecruit();
+	// 홈화면에서 아래 dao 실행하는 것으로 수정필요 -> 화면접속할 때마다 새로고침되어서 필요없는 크루 삭제해야하기 때문에
+	CrewRecruitDAO dao = new CrewRecruitDAO();
+	List<CrewRecruitDTO> crewList = dao.selectAllRecruit();
 	for(int i=0; i<crewList.size(); i++) {
-		crewRecruitDTO dto = crewList.get(i);
-		dao.deleteCrew(dto.getCrewName(), dto.getCreated());
+		CrewRecruitDTO dto = crewList.get(i);
+		dao.deleteCrew2(dto.getCrewName(), dto.getGatherDate());
 	}
 %>
 <!DOCTYPE html>

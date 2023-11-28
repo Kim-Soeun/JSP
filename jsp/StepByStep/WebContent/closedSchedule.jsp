@@ -9,7 +9,7 @@
 <%
 	MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
 	String userId = dto.getId();
-	List<CrewRecruitDTO> scheduleList = new CrewRecruitDAO().selectPlannedSchedule(userId);
+	List<CrewRecruitDTO> closedList = new CrewRecruitDAO().selectClosedSchedule(userId);
 %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,7 @@
 </head>
 <body>
 	
-	<c:forEach items="<%=scheduleList%>" var="crew">
+	<c:forEach items="<%=closedList%>" var="crew">
 		<div style="border: 1px solid black; width:300px; display: flex; flex-direction: column; justify-content: center; align-content: center;">
 			<div><a href="crewRecruitDetail.jsp?crewName=${crew.crewName}">크루명 : ${crew.crewName}</a></div>
 			<div>일정 제목 : ${crew.title}</div>

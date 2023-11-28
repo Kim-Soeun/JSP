@@ -1,13 +1,13 @@
-<%@page import="model.crewRecruitDAO"%>
-<%@page import="model.crewRecruitDTO"%>
+<%@page import="model.CrewRecruitDAO"%>
+<%@page import="model.CrewRecruitDTO"%>
 <%@ page import="java.net.URLDecoder" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="loginCheck.jsp" %>
 <%
 	String crewName = request.getParameter("crewName");
-	crewRecruitDTO crew = new crewRecruitDAO().selectRecruitDetail(crewName);
-	memberDTO dto = (memberDTO)session.getAttribute("memberDTO");
+	CrewRecruitDTO crew = new CrewRecruitDAO().selectRecruitDetail(crewName);
+	MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
 	String userId = dto.getId();	// 로그인된 아이디
 %>
 <!DOCTYPE html>

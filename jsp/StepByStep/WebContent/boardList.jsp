@@ -1,16 +1,15 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.boardDTO"%>
+<%@page import="model.BoardDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="model.boardDAO"%>
+<%@page import="model.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="loginCheck.jsp" %>
     
 <%
-	List<boardDTO> boardlist = new boardDAO().selectAllBoard();
-
-%>
+    	List<BoardDTO> boardlist = new BoardDAO().selectAllBoard();
+    %>
 <!DOCTYPE html>
 <html>
 <head>
