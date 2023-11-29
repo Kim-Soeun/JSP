@@ -3,7 +3,7 @@ package model;
 public class ReplyDTO {
 
 	private int r_no, b_no;
-	private String contet, created, id;
+	private String content, created, id;
 	
 	
 	public int getR_no() {
@@ -18,11 +18,12 @@ public class ReplyDTO {
 	public void setB_no(int b_no) {
 		this.b_no = b_no;
 	}
-	public String getContet() {
-		return contet;
+	
+	public String getContent() {
+		return content;
 	}
-	public void setContet(String contet) {
-		this.contet = contet;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getCreated() {
 		return created;

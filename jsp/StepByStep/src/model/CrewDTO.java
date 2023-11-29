@@ -3,7 +3,7 @@ package model;
 public class CrewDTO {
 
 	private String crewName, memId;
-	private int memberNum;
+	private int no, memberNum;
 	private boolean memAdmin;
 	
 	
@@ -19,6 +19,12 @@ public class CrewDTO {
 	public void setMemId(String memId) {
 		this.memId = memId;
 	}
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public int getMemberNum() {
 		return memberNum;
 	}
@@ -31,6 +37,9 @@ public class CrewDTO {
 	public void setMemAdmin(boolean memAdmin) {
 		this.memAdmin = memAdmin;
 	}
+	
+	
+	
 	
 	
 }

@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 		if(result == 1) {			// 로그인 성공시 유저 정보 세션에 저장 후 메인화면으로 이동
 			dao.update_LastVisitDate(id, lastVisitDate);
 			req.getSession().setAttribute("memberDTO", dto);
+			req.getSession().setAttribute("userId", id);
 			resp.sendRedirect("main.jsp");
 			System.out.println("로그인 성공");
 			

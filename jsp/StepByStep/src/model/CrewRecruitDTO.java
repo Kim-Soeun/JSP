@@ -3,7 +3,8 @@ package model;
 public class CrewRecruitDTO {
 	
 	private String crewName, title, content, location, created, gatherDate, adminId;
-	private int memberNum, totalCount;
+	private int no, memberNum, totalCount;
+	private boolean isCrew;
 	
 	
 	public String getCrewName() {
@@ -48,6 +49,12 @@ public class CrewRecruitDTO {
 	public void setAdminId(String adminId) {
 		this.adminId = adminId;
 	}
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public int getMemberNum() {
 		return memberNum;
 	}
@@ -60,6 +67,13 @@ public class CrewRecruitDTO {
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
 	}
+	public boolean isCrew() {
+		return isCrew;
+	}
+	public void setCrew(boolean isCrew) {
+		this.isCrew = isCrew;
+	}
+	
 	
 	
 	

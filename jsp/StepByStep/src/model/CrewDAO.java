@@ -4,17 +4,18 @@ import common.DBConnector;
 
 public class CrewDAO extends DBConnector {
 
-	// 크루 참여하기
+	// 단기크루 멤버로 등록하기
 	public void joinCrew(CrewDTO dto) {
 		int result = 0;
-		String JOIN_CREW_SQL = "insert into crew values(?, ?, ?, ?)";
+		String JOIN_CREW_SQL = "insert into longCrewSchedule values(?, ?, ?, ?, ?)";
 		
 		try {
 			psmt = con.prepareStatement(JOIN_CREW_SQL);
-			psmt.setString(1, dto.getCrewName());
-			psmt.setInt(2, dto.getMemberNum());
-			psmt.setString(3, dto.getMemId());
-			psmt.setBoolean(4, dto.isMemAdmin());
+			psmt.setInt(1, dto.getNo());
+			psmt.setString(2, dto.getCrewName());
+			psmt.setInt(3, dto.getMemberNum());
+			psmt.setString(4, dto.getMemId());
+			psmt.setBoolean(5, dto.isMemAdmin());
 			result = psmt.executeUpdate();
 			
 			System.out.println("joinCrew 성공");

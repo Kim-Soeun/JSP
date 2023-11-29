@@ -38,7 +38,7 @@ public class CrewServlet extends HttpServlet {
 		
 	}
 		
-	// 크루만들기
+	// 단기크루만들기
 	public void recruit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		String crewName = req.getParameter("crewName"); 			// 크루명
@@ -68,8 +68,12 @@ public class CrewServlet extends HttpServlet {
 		CrewRecruitDAO dao = new CrewRecruitDAO();
 		dao.makeCrew(dto);
 		
+		// 크루 no 받아오기
+		int no = dao.selectNo();
+		
 		// 방장은 자동으로 크루에 가입됨
 		CrewDTO crew = new CrewDTO();
+		crew.setNo(no);
 		crew.setCrewName(crewName);
 		crew.setMemberNum(memberNum);
 		crew.setMemId(adminId);
@@ -82,6 +86,7 @@ public class CrewServlet extends HttpServlet {
 	// 크루 참여하기
 	public void join(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
+		int no = Integer.parseInt(req.getParameter("no"));
 		String crewName = req.getParameter("crewName");
 		int memberNum = Integer.parseInt(req.getParameter("memberNum"));
 		String adminId = req.getParameter("adminId");
@@ -90,6 +95,7 @@ public class CrewServlet extends HttpServlet {
 		
 		
 		CrewDTO dto = new CrewDTO();
+		dto.setNo(no);
 		dto.setCrewName(crewName);
 		dto.setMemberNum(memberNum);
 		dto.setMemId(userId);
