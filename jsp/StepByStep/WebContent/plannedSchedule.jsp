@@ -7,8 +7,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-	MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
-	String userId = dto.getId();
+	String userId = (String)session.getAttribute("userId");
 	List<CrewRecruitDTO> scheduleList = new CrewRecruitDAO().selectPlannedSchedule(userId);
 %>
 <!DOCTYPE html>

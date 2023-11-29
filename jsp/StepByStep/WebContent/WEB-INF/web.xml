@@ -153,6 +153,15 @@
 		<servlet-name>CrewServlet</servlet-name>
 		<url-pattern>*.crew</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ReplyServlet</servlet-name>
+		<servlet-class>controller.ReplyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReplyServlet</servlet-name>
+		<url-pattern>*.reply</url-pattern>
+	</servlet-mapping>
 	
 	
 	

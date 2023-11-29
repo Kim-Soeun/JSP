@@ -21,7 +21,7 @@
 </head>
 <body>
 
-	<!-- 크루명이 기존에 있으면 경고창 뜨게 만들어야함 -->
+	<!-- 크루명 중복검사로 같은 크루명 만들어지지 않음 -->
 	<form action="./crewRecruit.crew" method="post" name="frm" onsubmit="return isResult()">
 		
 		<div id="existingCrews" style="display: none;"><c:forEach items="<%=cNameList%>" var="crew">${crew.crewName} </c:forEach></div>

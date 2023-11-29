@@ -9,13 +9,8 @@
 <%@ include file="loginCheck.jsp" %>
 
 <%
-	// 홈화면에서 아래 dao 실행하는 것으로 수정필요 -> 화면접속할 때마다 새로고침되어서 필요없는 크루 삭제해야하기 때문에
 	CrewRecruitDAO dao = new CrewRecruitDAO();
 	List<CrewRecruitDTO> crewList = dao.selectAllRecruit();
-	for(int i=0; i<crewList.size(); i++) {
-		CrewRecruitDTO dto = crewList.get(i);
-		dao.deleteCrew2(dto.getCrewName(), dto.getGatherDate());
-	}
 %>
 <!DOCTYPE html>
 <html>

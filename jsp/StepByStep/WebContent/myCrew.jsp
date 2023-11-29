@@ -18,6 +18,7 @@
 </head>
 <body>
 	
+	<h3>참여중인 단기크루 리스트</h3>
 	<c:forEach items="<%=mycrewList%>" var="crew">
 		<div style="border: 1px solid black; width:300px; display: flex; flex-direction: column; justify-content: center; align-content: center;">
 			<div><a href="crewRecruitDetail.jsp?crewName=${crew.crewName}">크루명 : ${crew.crewName}</a></div>
@@ -30,6 +31,8 @@
 			
 		</div>
 	</c:forEach>
+	
+	<h3>참여중인 장기크루 리스트</h3>
 	
 	
 </body>
