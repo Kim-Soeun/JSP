@@ -2,7 +2,7 @@ package model;
 
 public class BoardDTO {
 
-	private String id, nickname, created, content, category, imgName;
+	private String id, nickname, created, content, category, imgName, crewName;
 	private int no, count;
 	
 	
@@ -42,6 +42,12 @@ public class BoardDTO {
 	public void setImgName(String imgName) {
 		this.imgName = imgName;
 	}
+	public String getCrewName() {
+		return crewName;
+	}
+	public void setCrewName(String crewName) {
+		this.crewName = crewName;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -54,6 +60,9 @@ public class BoardDTO {
 	public void setCount(int count) {
 		this.count = count;
 	}
+	
+	
+
 	
 	
 	

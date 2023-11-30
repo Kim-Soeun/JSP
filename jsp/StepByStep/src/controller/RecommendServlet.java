@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +24,17 @@ public class RecommendServlet extends HttpServlet {
 		int no =  Integer.parseInt(request.getParameter("no"));
 		MemberDTO member = (MemberDTO)request.getSession().getAttribute("memberDTO");
 		String id = member.getId();
+		String crewName = request.getParameter("crewName");
 		
 		int result = new RecommendDAO().updateRecommendCount(no, id);
 		
 		if(result == 1) {
-			response.sendRedirect("boardList.jsp");
+			crewName = URLEncoder.encode(crewName, "UTF-8");
+			response.sendRedirect("crewBoardList.jsp?crewName=" + crewName);
 			System.out.println("추천 업데이트 성공");
 		} else {
-			response.sendRedirect("boardList.jsp");
+			crewName = URLEncoder.encode(crewName, "UTF-8");
+			response.sendRedirect("crewBoardList.jsp?crewName=" + crewName);
 			System.out.println("추천 업데이트 실패");
 		}
 		

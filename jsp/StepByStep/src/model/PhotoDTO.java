@@ -2,8 +2,9 @@ package model;
 
 public class PhotoDTO {
 
-	private String id, title, content, created, imgName;
+	private String id, title, content, created, imgName, crewName;
 	private int p_no;
+	
 	
 	public String getId() {
 		return id;
@@ -35,12 +36,19 @@ public class PhotoDTO {
 	public void setImgName(String imgName) {
 		this.imgName = imgName;
 	}
+	public String getCrewName() {
+		return crewName;
+	}
+	public void setCrewName(String crewName) {
+		this.crewName = crewName;
+	}
 	public int getP_no() {
 		return p_no;
 	}
 	public void setP_no(int p_no) {
 		this.p_no = p_no;
 	}
+	
 	
 	
 }

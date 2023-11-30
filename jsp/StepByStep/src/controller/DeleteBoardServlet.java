@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +26,7 @@ public class DeleteBoardServlet extends HttpServlet {
 		// 작성자만 삭제 가능
 		String userId = req.getParameter("userId");
 		String writerId = req.getParameter("writerId");
+		String crewName = req.getParameter("crewName");
 		System.out.println(userId);
 		System.out.println(writerId);
 		int no = Integer.parseInt(req.getParameter("no"));
@@ -33,7 +35,8 @@ public class DeleteBoardServlet extends HttpServlet {
 			int result = new BoardDAO().deleteBoard(no);
 
 			if(result == 1) {		// 게시물 삭제 성공
-				JSFunction.alertLocation(resp, "게시물이 삭제되었습니다", "boardList.jsp");
+				String encodedCrewName = URLEncoder.encode(crewName, "UTF-8");
+				JSFunction.alertLocation(resp, "게시물이 삭제되었습니다", "crewBoardList.jsp?crewName=" + encodedCrewName);
 				System.out.println("게시물 삭제 성공");
 			} else {				// 게시물 삭제 실패
 				JSFunction.alertBack(resp, "게시물 삭제에 실패했습니다");

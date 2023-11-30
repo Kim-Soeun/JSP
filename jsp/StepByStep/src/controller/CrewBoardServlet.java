@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -38,6 +39,7 @@ public class CrewBoardServlet extends HttpServlet {
 		MemberDTO userDTO = (MemberDTO)req.getSession().getAttribute("memberDTO");
 		String id = userDTO.getId();				// 아이디
 		String nickname = userDTO.getNickname();	// 닉네임
+		String crewName = mr.getParameter("crewName"); // 크루명
 		
 		LocalDateTime today = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -57,11 +59,13 @@ public class CrewBoardServlet extends HttpServlet {
 		board.setContent(content);
 		board.setCategory(category);
 		board.setImgName(imgName);
+		board.setCrewName(crewName);
 		
 		int result = new BoardDAO().insertBoard(board);
 		
 		if(result == 1) {
-			resp.sendRedirect("boardList.jsp");
+			crewName = URLEncoder.encode(crewName, "UTF-8");
+			resp.sendRedirect("crewBoardList.jsp?crewName=" + crewName);
 			System.out.println("게시판 등록 성공");
 		} else {
 			JSFunction.alertBack(resp, "게시판을 다시 등록해주세요");

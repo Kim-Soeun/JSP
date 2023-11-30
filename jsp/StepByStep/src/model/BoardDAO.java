@@ -10,7 +10,7 @@ public class BoardDAO extends DBConnector {
 	// 게시판 등록
 	public int insertBoard(BoardDTO dto) {
 		int result = 0;
-		String INSERT_BOARD_SQL = "insert into crewboard values(0, ?, ?, ?, ?, ?, ?)";
+		String INSERT_BOARD_SQL = "insert into crewboard values(0, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			psmt = con.prepareStatement(INSERT_BOARD_SQL);
@@ -20,6 +20,7 @@ public class BoardDAO extends DBConnector {
 			psmt.setString(4, dto.getContent());
 			psmt.setString(5, dto.getCategory());
 			psmt.setString(6, dto.getImgName());
+			psmt.setString(7, dto.getCrewName());
 			result = psmt.executeUpdate();
 			
 			System.out.println("InsertBoard 성공");
@@ -50,6 +51,7 @@ public class BoardDAO extends DBConnector {
 				dto.setContent(rs.getString("content"));
 				dto.setCategory(rs.getString("category"));
 				dto.setImgName(rs.getString("imgName"));
+				dto.setCrewName(rs.getString("crewName"));
 				dto.setCount(rs.getInt("count"));
 				boardlist.add(dto);
 				System.out.println("SelectAllBoard 성공");
@@ -62,6 +64,38 @@ public class BoardDAO extends DBConnector {
 		
 		
 		return boardlist;
+	}
+	
+	// 특정 크루의 모든 게시판 불러오기
+	public List<BoardDTO> selectCrewBoardList(String crewName) {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		String SELECT_CREW_BOARD = "select *, (select count(*) from recommend where no=crewboard.no) as count from crewboard where crewName = ?";
+		try {
+			psmt = con.prepareStatement(SELECT_CREW_BOARD);
+			psmt.setString(1, crewName);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setNo(rs.getInt(1));
+				dto.setId(rs.getString(2));
+				dto.setNickname(rs.getString(3));
+				dto.setCreated(rs.getString(4));
+				dto.setContent(rs.getString(5));
+				dto.setCategory(rs.getString(6));
+				dto.setImgName(rs.getString(7));
+				dto.setCrewName(rs.getString(8));
+				dto.setCount(rs.getInt(9));
+				list.add(dto);
+			}
+			
+			System.out.println("selectCrewBoardList 성공");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectCrewBoardList 실패");
+		}
+		
+		return list;
 	}
 
 	
@@ -117,6 +151,7 @@ public class BoardDAO extends DBConnector {
 				dto.setCategory(rs.getString("category"));
 				dto.setImgName(rs.getString("imgName"));
 				dto.setCount(rs.getInt("count"));
+				dto.setCrewName(rs.getString("crewName"));
 				
 			}
 			

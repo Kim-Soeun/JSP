@@ -41,14 +41,14 @@ public class CrewServlet extends HttpServlet {
 	// 단기크루만들기
 	public void recruit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
-		String crewName = req.getParameter("crewName"); 			// 크루명
-		String title = req.getParameter("title"); 					// 모집제목
-		String content = req.getParameter("content");				// 조건(내용)
-		String location = req.getParameter("location");				// 장소
+		String crewName = req.getParameter("crewName"); 				// 크루명
+		String title = req.getParameter("title"); 						// 모집제목
+		String content = req.getParameter("content");					// 조건(내용)
+		String location = req.getParameter("location");					// 장소
 		int memberNum = Integer.parseInt(req.getParameter("memberNum"));// 모집인원
-		String gatherDate = req.getParameter("gatherDate");			// 모임날짜
-		String adminId = req.getParameter("adminId");				// 방장(크루장)
-		
+		String gatherDate = req.getParameter("gatherDate");				// 모임날짜
+		String adminId = req.getParameter("adminId");					// 방장(크루장)
+			
 		// 크루 생성날짜
 		Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

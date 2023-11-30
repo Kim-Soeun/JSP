@@ -7,7 +7,7 @@ public class CrewDAO extends DBConnector {
 	// 단기크루 멤버로 등록하기
 	public void joinCrew(CrewDTO dto) {
 		int result = 0;
-		String JOIN_CREW_SQL = "insert into longCrewSchedule values(?, ?, ?, ?, ?)";
+		String JOIN_CREW_SQL = "insert into crewSchedule values(?, ?, ?, ?, ?)";
 		
 		try {
 			psmt = con.prepareStatement(JOIN_CREW_SQL);
