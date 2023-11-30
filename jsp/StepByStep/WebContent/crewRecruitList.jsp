@@ -10,7 +10,7 @@
 
 <%
 	CrewRecruitDAO dao = new CrewRecruitDAO();
-	List<CrewRecruitDTO> crewList = dao.selectAllRecruit();
+	List<CrewRecruitDTO> crewList = dao.selectAllRecruit();  // 모든 단기크루 가져오기
 %>
 <!DOCTYPE html>
 <html>
@@ -24,13 +24,11 @@
 	<c:forEach items="<%=crewList%>" var="crew">
 			<div style="display: flex; flex-direction: column; justify-content: center; align-content: center;">
 				<p><a href="crewRecruitDetail.jsp?crewName=${crew.crewName}">크루명 : ${crew.crewName}</a></p>
-				<p>모집글 제목 : ${crew.title}</p>
+				<p>크루명 : ${crew.crewName}</p>
 				<p>모집내용(조건) : ${crew.content}</p>
-				<p>모임장소 : ${crew.location}</p>
 				<p>모집인원 : ${crew.memberNum}</p>
 				<p>현재크루원 : ${crew.totalCount}</p>
 				<p>작성일 : ${crew.created}</p>
-				<p>모임날짜 : ${crew.gatherDate}</p>
 				<p>방장ID : ${crew.adminId }</p>
 			</div>
 	</c:forEach>

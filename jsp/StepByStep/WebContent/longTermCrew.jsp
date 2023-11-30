@@ -9,7 +9,6 @@
 <body>
 			<a href="longCrewRecruit.jsp">장기크루 모집등록</a>
 			<a href="longCrewRecruitList.jsp">장기크루 모두보기</a>
-			<a href="longCrewGatherRecruit.jsp">장기크루 일정등록</a>
 			
 </body>
 </html>

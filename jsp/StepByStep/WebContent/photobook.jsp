@@ -18,7 +18,7 @@
 <title>사진첩</title>
 </head>
 <body>
-	<!-- <a href="updatePhoto.jsp">사진 올리기</a> -->
+	<!-- <a href="updatePhoto.jsp">사진 올리기 (앨범에서 바로 사진 올리기 할지 안할지)</a> -->
 	<!-- 크루원 or 방장이 아니면 삭제튼과 사진업로드 버튼 안나오게 설정하기 -->
 	
 	<c:forEach items="<%=boardList%>" var="board">

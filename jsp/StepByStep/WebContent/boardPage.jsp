@@ -28,18 +28,27 @@
 	<!-- 작성자에게만 삭제 수정 버튼이 보이게 하기 -->
 	
 	<div>
+		<div>게시판 넘버 : ${board.no}</div>
+		<div>크루명 : ${board.crewName}</div>
 		<div>작성자 아이디 : ${board.id}</div>
 		<div>작성자 닉네임 : ${board.nickname }</div>
 		<div>작성일 : ${board.created}</div>
 		<div>내용 : ${board.content}</div>
 		<div>카테고리 : ${board.category}</div>
 		<div>추천수 : ${board.count}</div>
-		<a href="DeleteBoardServlet?no=${board.no}&writerId=${board.id}&userId=${userId}">삭제</a>
+		
+		<!-- 이미지는 있으면 화면에 출력, 없으면 출력 x -->
+		<c:if test="${not empty board.imgName}">
+			<div><img style="width: 60px; height: 60px;" src="./resources/img/${board.imgName}" alt="${board.imgName}"></div>
+		</c:if>
+	
+		<a href="DeleteBoardServlet?no=${board.no}&writerId=${board.id}&userId=${userId}&crewName=${board.crewName}">삭제</a>
 		<a href="editBoard.jsp?no=${board.no}">수정</a>
 		
 		<!-- 댓글 출력 -->
 		<c:forEach items="<%=replyList%>" var="reply">
 			<div>
+				<h3>댓글</h3>
 				<p>게시판 번호 : ${reply.b_no}</p>
 				<p>댓글 번호 : ${reply.r_no}</p>
 				<p>작성자 : ${reply.id}</p>
@@ -49,8 +58,7 @@
 		</c:forEach>
 	</div> 
 	
-	<!-- 게시물 작성자와 댓글 작성자가 다르면 댓글쓰기창 보이게 설정 -->
-	<c:if test="${userId ne writerId}">
+		<!-- 댓글쓰기창 -->
 		<div>
 			<form action="./registerReply.reply" method="post">
 				<input type="hidden" name="id" value="${userId}"/>
@@ -59,7 +67,7 @@
 				<button type="submit">등록</button>
 			</form>
 		</div>
-	</c:if>
+	
 	
 	
 </body>

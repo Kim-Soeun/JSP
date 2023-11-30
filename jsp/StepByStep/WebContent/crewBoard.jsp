@@ -1,16 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="loginCheck.jsp" %>
+<%
+	String crewName = request.getParameter("crewName");
+
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판 업로드</title>
 </head>
 <body>
 
 	<form action="CrewBoardServlet" name="frm" method="post" onsubmit="return categoryCheck()" enctype="multipart/form-data">
+		<input type="hidden" name="crewName" value="<%=crewName%>"/>
+		
 		<label>카테고리</label>
 		<select name="category">
 			<option id="choice">게시판을 선택해주세요</option>

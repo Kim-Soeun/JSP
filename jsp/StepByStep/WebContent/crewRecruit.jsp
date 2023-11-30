@@ -7,8 +7,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="loginCheck.jsp" %>
 <%
-	MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
-	String userId = memberDTO.getId();
+	String userId = (String)session.getAttribute("userId");
 	CrewRecruitDAO dao = new CrewRecruitDAO();
 	List<CrewRecruitDTO> cNameList = dao.selectCrewName();
 %>
@@ -52,7 +51,7 @@
 		<button type="submit">등록</button>
 	</form>
 	
-<script type="text/javascript" src="./resources/js/crew.js?ver=11"></script>
+<script type="text/javascript" src="./resources/js/crew.js"></script>
 
 </body>
 </html>
