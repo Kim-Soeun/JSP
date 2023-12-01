@@ -3,7 +3,7 @@ package model;
 public class LongCrewMemberDTO {
 
 	private String crewName, memId, joinDate;
-	private int memberNum;
+	private int memberNum, totalCount;
 	private boolean isAdmin;
 	
 	
@@ -30,6 +30,12 @@ public class LongCrewMemberDTO {
 	}
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
+	}
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 	public boolean isAdmin() {
 		return isAdmin;

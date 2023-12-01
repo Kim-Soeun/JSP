@@ -134,7 +134,7 @@ public class CrewRecruitDAO extends DBConnector {
 	// 기존 크루명 모두 가져오기
 	public List<CrewRecruitDTO> selectCrewName() {
 		List<CrewRecruitDTO> cNameList = new ArrayList<CrewRecruitDTO>();
-		String SELECT_CREWNAME = "select crewName from crewRecruit";
+		String SELECT_CREWNAME = "select crewName from crewRecruit where isCrew = true";
 		
 		try {
 			stmt = con.createStatement();
@@ -159,7 +159,7 @@ public class CrewRecruitDAO extends DBConnector {
 	// 방장 제외 인원 0명이면서 한달 지난 크루 삭제(장기크루에서 사용)
 	public void deleteCrew(String crewName, String created) {
 		int result = 0;
-		String DELETE_CREW_SQL = "delete from crewRecruit where crewName = ? and (select count(*) from crew where crewName = ?) <= 1";
+		String DELETE_CREW_SQL = "delete from longCrewRecruit where crewName = ? and (select count(*) from longCrewMember where crewName = ?) <= 1;";
 		
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -183,6 +183,7 @@ public class CrewRecruitDAO extends DBConnector {
 				psmt.setString(1, crewName);
 				psmt.setString(2, crewName);
 				result = psmt.executeUpdate();
+				
 			}
 			
 			System.out.println("deleteCrew 성공");
@@ -514,5 +515,81 @@ public class CrewRecruitDAO extends DBConnector {
 		}
 		
 		return result;
+	}
+	
+	
+	// 장기크루 일정 모두 불러오기
+	public List<CrewRecruitDTO> selectAllSchedule() {
+		List<CrewRecruitDTO> scheduleList = new ArrayList<CrewRecruitDTO>();
+		String SELECT_ALL_SCHEDULE = "select *, (select count(memId) from crewSchedule where no = crewRecruit.no)"
+				+ " as totalCount from crewRecruit where isCrew = false order by created desc";
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SELECT_ALL_SCHEDULE);
+			
+			while(rs.next()) {
+				CrewRecruitDTO dto = new CrewRecruitDTO();
+				dto.setNo(rs.getInt(1));
+				dto.setCrewName(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setLocation(rs.getString(5));
+				dto.setMemberNum(rs.getInt(6));
+				dto.setCreated(rs.getString(7));
+				dto.setGatherDate(rs.getString(8));
+				dto.setAdminId(rs.getString(9));
+				dto.setCrew(rs.getBoolean(10));
+				dto.setTotalCount(rs.getInt(11));
+				scheduleList.add(dto);
+			}
+			
+			
+			System.out.println("selectAllSchedule 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectAllSchedule 실패");
+		}
+		
+		
+		return scheduleList;
+	}
+	
+	// 방장 제외 0명이면서 모임일 지난 장기크루 일정 삭제
+	public void deleteSchedule(int no, String gatherDate) {
+		int result = 0;
+		String DELETE_SCHEDULE = "delete from crewRecruit where no = ? and (select count(*) from crewSchedule where no = ?) <= 1 and isCrew = false";
+		
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			
+			// 크루 모집일 날짜
+			Date gatherDate2 = formatter.parse(gatherDate);
+			
+			// 오늘 날짜
+			Date now = new Date();
+			String today = formatter.format(now);
+			Date today2 = formatter.parse(today);
+		
+			// 모집일이 지났는지 확인
+			int result2 = gatherDate2.compareTo(today2);
+			
+			// 오늘 날짜 지났으면 삭제
+			if(result2 < 0) {
+			
+			psmt = con.prepareStatement(DELETE_SCHEDULE);
+			psmt.setInt(1, no);
+			psmt.setInt(2, no);
+			result = psmt.executeUpdate();
+			System.out.println("deleteSchedule 성공");
+		}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("deleteSchedule 실패");
+		}
+	
+	
 	}
 }

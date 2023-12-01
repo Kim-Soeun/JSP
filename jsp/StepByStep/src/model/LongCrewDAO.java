@@ -35,7 +35,8 @@ public class LongCrewDAO extends DBConnector {
 	public List<LongCrewRecruitDTO> selectAllRecruit() {
 		List<LongCrewRecruitDTO> crewList = new ArrayList<LongCrewRecruitDTO>();
 		String SELECT_ALL_LONGCREW = "select *, (select count(memId) from longCrewMember where crewName = longCrewRecruit.crewName) as totalCount "
-				+ "from longCrewRecruit order by created desc;";
+				+ "from longCrewRecruit order by created desc";
+
 		
 		try {
 			stmt = con.createStatement();
@@ -140,5 +141,35 @@ public class LongCrewDAO extends DBConnector {
 			System.out.println("장기크루 regiterSchedule 실패");
 		}
 	}
+	
+	
+	// 장기 크루 모든 크루이름 가져오기
+	public List<LongCrewRecruitDTO> selectLongCrewName() {
+		List<LongCrewRecruitDTO> crewNames = new ArrayList<LongCrewRecruitDTO>();
+		String SELECT_CREWNAMES = "select crewName from longCrewRecruit"; 
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SELECT_CREWNAMES);
+			
+			while(rs.next()) {
+				LongCrewRecruitDTO dto = new LongCrewRecruitDTO();
+				dto.setCrewName(rs.getString(1));
+				crewNames.add(dto);
+			}
+			
+			System.out.println("selectLongCrewName 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectLongCrewName 실패");
+		}
+		
+		return crewNames;
+	}
+	
+	
+	
+	
 	
 }
