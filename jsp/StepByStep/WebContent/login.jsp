@@ -1,3 +1,5 @@
+<%@page import="model.LongCrewRecruitDTO"%>
+<%@page import="model.LongCrewDAO"%>
 <%@page import="model.CrewRecruitDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="model.CrewRecruitDAO"%>
@@ -7,12 +9,31 @@
 <%
 // 홈화면에서 아래 dao 실행하는 것으로 수정필요 -> 화면접속할 때마다 새로고침되어서 필요없는 크루 삭제해야하기 때문에
 
+	// 단기 크루 생성 후 방장제외 0명이면서 모집일 지나면 크루 삭제
 	CrewRecruitDAO dao = new CrewRecruitDAO();
-	List<CrewRecruitDTO> crewList = dao.selectAllRecruit();
+	List<CrewRecruitDTO> crewList = dao.selectAllRecruit();	// 단기크루 모두 불러와서
 	for(int i=0; i<crewList.size(); i++) {
 		CrewRecruitDTO dto = crewList.get(i);
-		dao.deleteCrew2(dto.getCrewName(), dto.getGatherDate());
+		dao.deleteCrew2(dto.getCrewName(), dto.getGatherDate());	// 멤버0명에 모집일 지나면 삭제
 	}
+	// 장기크루 한달 지났는데 방장 제외 0명이하이면 삭제
+	LongCrewDAO dao2 = new LongCrewDAO();
+	List<LongCrewRecruitDTO> crewList2 = dao2.selectAllRecruit();	// 장기크루 모두 불러와서
+	for(int i=0; i<crewList2.size(); i++) {
+		LongCrewRecruitDTO dto2 = crewList2.get(i);
+		dao.deleteCrew(dto2.getCrewName(), dto2.getCreated());		// 멤버 1명이하이면서 한달이상 지난 크루 삭제
+	}
+	
+	// 장기크루 일정이 모임일 지났는데 0명이면 삭제
+	List<CrewRecruitDTO> crewList3 = dao.selectAllSchedule();
+	for(int i=0; i<crewList3.size(); i++) {
+		CrewRecruitDTO dto3 = crewList3.get(i);
+		dao.deleteSchedule(dto3.getNo(), dto3.getGatherDate());
+	}
+		dao.close();
+		dao2.close();
+	
+	
 %>
 <!DOCTYPE html>
 <html>
