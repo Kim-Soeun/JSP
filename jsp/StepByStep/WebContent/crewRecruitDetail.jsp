@@ -20,7 +20,7 @@
 </head>
 <body>
 	
-	<!-- 방장에게는 크루참여 버튼 안보이게 설정하기 -->
+	
 	<!-- 이미 참여신청 했으면 크루참여버튼 비활성화하기 -->
 		<form action="./joinCrew.crew" method="post">
 			<div style="display: flex; flex-direction: column; justify-content: center; align-content: center;">

@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<form action="./crewBoard.board" name="frm" method="post" onsubmit="return categoryCheck()" enctype="multipart/form-data">
+	<form action="./longCrewBoard.board" name="frm" method="post" onsubmit="return categoryCheck()" enctype="multipart/form-data">
 		<input type="hidden" name="crewName" value="<%=crewName%>"/>
 		
 		<label>카테고리</label>

@@ -17,13 +17,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>특정 단기크루 게시판</title>
+<title>특정 장기크루 게시판</title>
 </head>
 <body>
 	
 	<c:forEach items="<%=boardList%>" var="board">
 		<div style="display: flex; flex-direction: column; justify-content: center; align-content: center;">
-			<div><a href="crewBoardPage.jsp?no=${board.no}">게시판넘버 : ${board.no}</a></div>
+			<div><a href="longCrewBoardPage.jsp?no=${board.no}">게시판넘버 : ${board.no}</a></div>
 			<div>게시판 넘버 : ${board.no}</div>
 			<div>작성자 아이디 : ${board.id}</div>
 			<div>작성자 닉네임 : ${board.nickname }</div>
@@ -45,6 +45,6 @@
 		</div>
 	</c:forEach>
 	
-	<h3><a href="crewBoard.jsp?crewName=<%=crewName%>">게시판 등록</a></h3>
+	<h3><a href="longCrewBoard.jsp?crewName=<%=crewName%>">게시판 등록</a></h3>
 </body>
 </html>

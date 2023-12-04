@@ -79,7 +79,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CrewBoardServlet</servlet-name>
-		<url-pattern>/CrewBoardServlet</url-pattern>
+		<url-pattern>*.board</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

@@ -1,6 +1,6 @@
 <%@page import="model.LongCrewRecruitDTO"%>
-<%@page import="model.CrewRecruitDAO"%>
 <%@page import="model.CrewRecruitDTO"%>
+<%@page import="model.CrewRecruitDAO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,19 +9,20 @@
 <%
 	String userId = (String)session.getAttribute("userId");
 	CrewRecruitDAO dao = new CrewRecruitDAO();
-	List<CrewRecruitDTO> mycrewList = dao.selectCrewById(userId);
-	List<LongCrewRecruitDTO> longCrewList = dao.selectLongCrewById(userId);
+	List<CrewRecruitDTO> crewList = dao.selectCrewsByAdmin(userId);
+	List<LongCrewRecruitDTO> longCrewList = dao.selectLongCrewsByAdmin(userId);
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내가 참여중인 크루 리스트</title>
+<title>내가 개설한 크루</title>
 </head>
 <body>
-	
-	<h3>참여중인 단기크루 리스트</h3>
-	<c:forEach items="<%=mycrewList%>" var="crew">
+
+	<h3>개설한 단기크루 리스트</h3>
+	<c:forEach items="<%=crewList%>" var="crew">
 		<div style="border: 1px solid black; width:300px; display: flex; flex-direction: column; justify-content: center; align-content: center;">
 			<div><a href="crewRecruitDetail.jsp?crewName=${crew.crewName}">크루명 : ${crew.crewName}</a></div>
 			<div>크루장 : ${crew.adminId}</div>
@@ -31,7 +32,7 @@
 		</div>
 	</c:forEach>
 	
-	<h3>참여중인 장기크루 리스트</h3>
+	<h3>개설한 장기크루 리스트</h3>
 	<c:forEach items="<%=longCrewList%>" var="longCrew">
 		<div style="border: 1px solid black; width:300px; display: flex; flex-direction: column; justify-content: center; align-content: center;">
 			<div><a href="longcrewRecruitDetail.jsp?crewName=${longCrew.crewName}">크루명 : ${longCrew.crewName}</a></div>
@@ -42,6 +43,7 @@
 		</div>
 	</c:forEach>
 	
-	
+
+
 </body>
 </html>

@@ -26,7 +26,7 @@
 				<p>현재크루원 : <%=crew.getTotalCount()%></p>
 				<p>작성일 : <%=crew.getCreated()%></p>
 				<p>방장ID : <%=crew.getAdminId()%></p>
-				<p><a href="crewBoardList.jsp?crewName=<%=crew.getCrewName()%>">특정 크루 게시판으로 이동</a></p>
+				<p><a href="longCrewBoardList.jsp?crewName=<%=crew.getCrewName()%>">특정 크루 게시판으로 이동</a></p>
 				<p><a href="registerLongcrewSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 일정 등록하기</a></p>
 				<p><a href="crewPlannedSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 예정된 일정으로 이동</a></p>
 				<p><a href="crewClosedSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 마감된 일정으로 이동</a></p>
@@ -35,6 +35,7 @@
 				<input type="hidden" name="crewName" value="<%=crew.getCrewName()%>">
 				<input type="hidden" name="memberNum" value="<%=crew.getMemberNum()%>">
 				<input type="hidden" name="userId" value="${userId}">
+				<input type="hidden" name="adminId" value="<%=crew.getAdminId()%>">
 				
 				<!-- 접속자와 크루 방장이 같으면 크루참여 버튼 안보임 -->
 				<c:if test="${userId ne adminId}">
