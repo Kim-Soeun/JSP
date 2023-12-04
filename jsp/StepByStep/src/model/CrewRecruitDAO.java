@@ -459,7 +459,7 @@ public class CrewRecruitDAO extends DBConnector {
 	public List<CrewRecruitDTO> selectCrewById(String memId) {
 		List<CrewRecruitDTO> crewList = new ArrayList<CrewRecruitDTO>();
 		String SELECT_CREW_BY_ID = "select crewRecruit.*, (select count(memId) from crewSchedule where crewName = crewRecruit.crewName) as totalCount from crewRecruit "
-				+ "join crewSchedule on crewSchedule.crewName = crewRecruit.crewName where crewSchedule.memId = ?"; 
+				+ "join crewSchedule on crewSchedule.crewName = crewRecruit.crewName where crewSchedule.memId = ? and isCrew = true"; 
 		
 		try {
 			psmt = con.prepareStatement(SELECT_CREW_BY_ID);
@@ -487,6 +487,39 @@ public class CrewRecruitDAO extends DBConnector {
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("selectCrewById 실패");
+		}
+		
+		return crewList;
+	}
+
+	
+	// 특정 id가 참여중인 모든 장기 크루 불러오기
+	public List<LongCrewRecruitDTO> selectLongCrewById(String memId) {
+		List<LongCrewRecruitDTO> crewList = new ArrayList<LongCrewRecruitDTO>();
+		String SELECT_CREW_BY_ID = "select longCrewRecruit.*, (select count(memId) from longCrewMember where crewName = longCrewRecruit.crewName) as totalCount from longCrewRecruit "
+				+ "join longCrewMember on longCrewMember.crewName = longCrewRecruit.crewName where longCrewMember.memId = ?"; 
+		
+		try {
+			psmt = con.prepareStatement(SELECT_CREW_BY_ID);
+			psmt.setString(1, memId);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				LongCrewRecruitDTO dto = new LongCrewRecruitDTO();
+				dto.setCrewName(rs.getString(1));
+				dto.setContent(rs.getString(2));
+				dto.setMemberNum(rs.getInt(3));
+				dto.setCreated(rs.getString(4));
+				dto.setAdminId(rs.getString(5));
+				dto.setTotalCount(rs.getInt(6));
+				crewList.add(dto);
+			}
+			
+			System.out.println("selectLongCrewById 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectLongCrewById 실패");
 		}
 		
 		return crewList;
@@ -590,6 +623,99 @@ public class CrewRecruitDAO extends DBConnector {
 			System.out.println("deleteSchedule 실패");
 		}
 	
+	}
 	
+	
+	// 특정 id가 개설한 단기 크루 모두 가져오기
+	public List<CrewRecruitDTO> selectCrewsByAdmin(String memId) {
+		List<CrewRecruitDTO> crewList = new ArrayList<CrewRecruitDTO>();
+		String SELECT_CREWS_BY_ADMIN = "select crewRecruit.*, (select count(memId) from crewSchedule where crewName = crewRecruit.crewName) as totalCount from crewRecruit "
+				+ "join crewSchedule on crewSchedule.crewName = crewRecruit.crewName where crewSchedule.memId = ? and memAdmin = true and isCrew = true";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_CREWS_BY_ADMIN);
+			psmt.setString(1, memId);
+			rs = psmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				CrewRecruitDTO dto = new CrewRecruitDTO();
+				dto.setNo(rs.getInt(1));
+				dto.setCrewName(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setLocation(rs.getString(5));
+				dto.setMemberNum(rs.getInt(6));
+				dto.setCreated(rs.getString(7));
+				dto.setGatherDate(rs.getString(8));
+				dto.setAdminId(rs.getString(9));
+				dto.setCrew(rs.getBoolean(10));
+				dto.setTotalCount(rs.getInt(11));
+				crewList.add(dto);
+			}
+			
+			System.out.println("selectCrewsByAdmin 성공");
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectCrewsByAdmin 실패");
+		}
+		
+		return crewList;
+	}
+
+	
+	// 특정 id가 개설한 장기 크루 모두 가져오기
+	public List<LongCrewRecruitDTO> selectLongCrewsByAdmin(String memId) {
+		List<LongCrewRecruitDTO> crewList = new ArrayList<LongCrewRecruitDTO>();
+		String SELECT_LONGCREWS_BY_ADMIN = "select longCrewRecruit.*, (select count(memId) from longCrewMember where crewName = longCrewRecruit.crewName) as totalCount from longCrewRecruit "
+				+ "join longCrewMember on longCrewMember.crewName = longCrewRecruit.crewName where longCrewMember.memId = ? and isAdmin = true";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_LONGCREWS_BY_ADMIN);
+			psmt.setString(1, memId);
+			rs = psmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				LongCrewRecruitDTO dto = new LongCrewRecruitDTO();
+				dto.setCrewName(rs.getString(1));
+				dto.setContent(rs.getString(2));
+				dto.setMemberNum(rs.getInt(3));
+				dto.setCreated(rs.getString(4));
+				dto.setAdminId(rs.getString(5));
+				dto.setTotalCount(rs.getInt(6));
+				crewList.add(dto);
+			}
+			
+			System.out.println("selectLongCrewsByAdmin 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectLongCrewsByAdmin 실패");
+		}
+		
+		return crewList;
+	}
+	
+	//특정 크루의 방장 id 가져오기(단기 크루)
+	public String selectAdminId(String crewName) {
+		String adminId = "";
+		String SELECT_ADMINID = "select adminId from crewRecruit where crewName = ?";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_ADMINID);
+			psmt.setString(1, crewName);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				adminId = rs.getString(1);
+			}
+			System.out.println("selectAdminId 성공");
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectAdminId 실패");
+		}
+		return adminId;
 	}
 }

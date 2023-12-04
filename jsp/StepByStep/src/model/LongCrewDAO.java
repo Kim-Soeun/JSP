@@ -169,7 +169,26 @@ public class LongCrewDAO extends DBConnector {
 	}
 	
 	
-	
+	// 특정 크루 방장 id 가져오기(장기 크루)
+	public String selectAdminId(String crewName) {
+		String adminId = "";
+		String SELECT_ADMINID = "select adminId from longCrewRecruit where crewName = ?";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_ADMINID);
+			psmt.setString(1, crewName);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				adminId = rs.getString(1);
+			}
+			System.out.println("selectAdminId 성공");
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectAdminId 실패");
+		}
+		return adminId;
+	}
 	
 	
 }

@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import common.JSFunction;
 import model.CrewDAO;
 import model.CrewDTO;
+import model.CrewJoinDAO;
+import model.CrewJoinDTO;
 import model.CrewRecruitDAO;
 import model.CrewRecruitDTO;
 import model.CrewScheduleMemberDAO;
@@ -93,28 +95,44 @@ public class LongCrewServlet extends HttpServlet {
 	// 장기크루에 가입하기
 	public void joinCrew(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 	
-	String crewName = req.getParameter("crewName");
-	int memberNum = Integer.parseInt(req.getParameter("memberNum"));
-	String memId = req.getParameter("userId");
-	
-	Date now = new Date();
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-	String joinDate = formatter.format(now);
-	
-	
-	LongCrewMemberDTO dto = new LongCrewMemberDTO();
-	dto.setCrewName(crewName);
-	dto.setMemId(memId);
-	dto.setMemberNum(memberNum);
-	dto.setJoinDate(joinDate);
-	dto.setAdmin(false);
-	
-	LongCrewDAO dao = new LongCrewDAO();
-	dao.joinLongCrew(dto);
-	dao.close();
-	
-	crewName = URLEncoder.encode(crewName, "UTF-8");
-	JSFunction.alertLocation(resp, "참여신청이 완료되었습니다", "crewRecruitDetail.jsp?crewName=" + crewName);
+		String crewName = req.getParameter("crewName");
+		int memberNum = Integer.parseInt(req.getParameter("memberNum"));
+		String memId = req.getParameter("userId");
+		String adminId = req.getParameter("adminId");
+		
+		// 장기크루 승인대기상태(임시가입정보 테이블인 join테이블에 데이터 넣음)
+		CrewJoinDTO dto = new CrewJoinDTO();
+		dto.setCrewName(crewName);
+		dto.setMemberNum(memberNum);
+		dto.setMemId(memId);
+		dto.setAdminId(adminId);
+		CrewJoinDAO dao = new CrewJoinDAO();
+		dao.insertJoinInfo(dto);
+		dao.close();
+		
+		String encodedCrewName = URLEncoder.encode(crewName, "UTF-8");
+		JSFunction.alertLocation(resp, "참여신청이 완료되었습니다", "longcrewRecruitDetail.jsp?crewName=" + encodedCrewName);
+		
+		/*
+		 * Date now = new Date(); SimpleDateFormat formatter = new
+		 * SimpleDateFormat("yyyy-MM-dd"); String joinDate = formatter.format(now);
+		 */
+		
+		
+		
+		/*
+		 * LongCrewMemberDTO dto = new LongCrewMemberDTO(); dto.setCrewName(crewName);
+		 * dto.setMemId(memId); dto.setMemberNum(memberNum); dto.setJoinDate(joinDate);
+		 * dto.setAdmin(false);
+		 * 
+		 * 
+		 * LongCrewDAO dao = new LongCrewDAO(); dao.joinLongCrew(dto); dao.close();
+		 * 
+		 * crewName = URLEncoder.encode(crewName, "UTF-8");
+		 * JSFunction.alertLocation(resp, "참여신청이 완료되었습니다",
+		 * "crewRecruitDetail.jsp?crewName=" + crewName);
+		 */
+	 
 }
 	
 	// 장기크루 일정 등록하기

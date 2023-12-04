@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import common.JSFunction;
 import model.CrewDAO;
 import model.CrewDTO;
+import model.CrewJoinDAO;
+import model.CrewJoinDTO;
 import model.CrewRecruitDAO;
 import model.CrewRecruitDTO;
 
@@ -93,19 +95,28 @@ public class CrewServlet extends HttpServlet {
 		String userId = req.getParameter("userId");
 		boolean memAdmin = false;
 		
-		
-		CrewDTO dto = new CrewDTO();
-		dto.setNo(no);
+		// 단기크루 승인대기상태(임시가입정보 테이블인 join테이블에 데이터 넣음)
+		CrewJoinDTO dto = new CrewJoinDTO();
 		dto.setCrewName(crewName);
-		dto.setMemberNum(memberNum);
 		dto.setMemId(userId);
-		dto.setMemAdmin(false);
-		
-		CrewDAO dao = new CrewDAO();
-		dao.joinCrew(dto);
+		dto.setAdminId(adminId);
+		dto.setMemberNum(memberNum);
+		CrewJoinDAO dao = new CrewJoinDAO();
+		dao.insertJoinInfo(dto);
 		dao.close();
+		
 		String encodedCrewName = URLEncoder.encode(crewName, "UTF-8");
-		JSFunction.alertLocation(resp, "참여신청이 완료되었습니다", "crewRecruitDetail.jsp?crewName=" + crewName);
+		JSFunction.alertLocation(resp, "참여신청이 완료되었습니다", "crewRecruitDetail.jsp?crewName=" + encodedCrewName);
+		
+		/*
+		 * CrewDTO dto = new CrewDTO(); dto.setNo(no); dto.setCrewName(crewName);
+		 * dto.setMemberNum(memberNum); dto.setMemId(userId); dto.setMemAdmin(false);
+		 * 
+		 * CrewDAO dao = new CrewDAO(); dao.joinCrew(dto); dao.close(); String
+		 * encodedCrewName = URLEncoder.encode(crewName, "UTF-8");
+		 * JSFunction.alertLocation(resp, "참여신청이 완료되었습니다",
+		 * "crewRecruitDetail.jsp?crewName=" + crewName);
+		 */
 	}
 	
 }
