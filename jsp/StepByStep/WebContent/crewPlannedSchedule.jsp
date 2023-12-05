@@ -20,7 +20,6 @@
 
 	<c:forEach items="<%=scheduleList%>" var="schedule">
 		<div style="border: 1px solid black; width:300px; display: flex; flex-direction: column; justify-content: center; align-content: center;">
-			<div><a href="longcrewRecruitDetail.jsp?crewName=${schedule.crewName}">크루명 : ${schedule.crewName}</a></div>
 			<div>크루명 : ${schedule.crewName}</div>
 			<div>일정 제목 : ${schedule.title}</div>
 			<div>모임일자 : ${schedule.gatherDate}</div>

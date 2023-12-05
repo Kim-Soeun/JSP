@@ -21,7 +21,7 @@
 	
 	<c:forEach items="<%=closedList%>" var="crew">
 		<div style="border: 1px solid black; width:300px; display: flex; flex-direction: column; justify-content: center; align-content: center;">
-			<div><a href="crewRecruitDetail.jsp?crewName=${crew.crewName}">크루명 : ${crew.crewName}</a></div>
+			<div>크루명 : ${crew.crewName}</div>
 			<div>일정 제목 : ${crew.title}</div>
 			<div>모임일자 : ${crew.gatherDate}</div>
 			<div>모임장소: ${crew.location}</div>

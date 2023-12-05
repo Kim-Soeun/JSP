@@ -1,3 +1,5 @@
+<%@page import="model.LongCrewMemberDTO"%>
+<%@page import="model.LongCrewDAO"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="model.BoardDTO"%>
 <%@page import="java.util.List"%>
@@ -10,7 +12,8 @@
 	crewName = URLDecoder.decode(crewName, "UTF-8");
 	BoardDAO dao = new BoardDAO();
 	List<BoardDTO> boardList = dao.selectCrewBoardList(crewName);
-	
+	LongCrewDAO dao2 = new LongCrewDAO();			// 특정 장기크루의 모든 memId + adminId 가져오기
+	List<LongCrewMemberDTO> memberList = dao2.selectMemid(crewName);
 %> 
    
 <!DOCTYPE html>
@@ -45,6 +48,12 @@
 		</div>
 	</c:forEach>
 	
-	<h3><a href="longCrewBoard.jsp?crewName=<%=crewName%>">게시판 등록</a></h3>
+	<!-- 크루의 방장과 크루원만 게시판 등록 할 수 있게 설정 -->
+	
+	<c:forEach items="<%=memberList%>" var="member">
+		<c:if test="${userId eq member.memId}">
+			<h3><a href="longCrewBoard.jsp?crewName=<%=crewName%>">게시판 등록</a></h3>
+		</c:if>
+	</c:forEach>
 </body>
 </html>

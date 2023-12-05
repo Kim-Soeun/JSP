@@ -1,3 +1,5 @@
+<%@page import="model.CrewScheduleMemberDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="model.CrewRecruitDAO"%>
 <%@page import="model.CrewRecruitDTO"%>
 <%@ page import="java.net.URLDecoder" %>
@@ -11,6 +13,9 @@
 	String userId = (String)session.getAttribute("userId");	// 로그인된 아이디
 	String adminId = crew.getAdminId();
 	pageContext.setAttribute("adminId", adminId);			// 크루방장 아이디
+	CrewRecruitDAO dao = new CrewRecruitDAO();				// 특정 단기크루의 모든 memId 가져오기
+	List<CrewScheduleMemberDTO> memberList = dao.selectMemid(crewName);
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -34,7 +39,6 @@
 				<p>작성일 : <%=crew.getCreated()%></p>
 				<p>모임날짜 : <%=crew.getGatherDate()%></p>
 				<p>방장ID : <%=crew.getAdminId()%></p>
-				<p><a href="crewBoardList.jsp?crewName=<%=crew.getCrewName()%>">특정 크루 게시판으로 이동</a></p>
 				<p><a href="crewPlannedSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 예정된 일정으로 이동</a></p>
 				<p><a href="crewClosedSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 마감된 일정으로 이동</a></p>
 				<p><a href="crewPhotobook.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 앨범으로 이동</a></p>
@@ -46,9 +50,12 @@
 				<input type="hidden" name="userId" value="<%=userId%>">
 				
 				<!-- 접속자와 크루 방장이 같으면 크루참여 버튼 안보임 -->
-				<c:if test="${userId ne adminId}">
-					<button type="submit" style="width: 80px;">크루참여</button>
-				</c:if>
+				<c:forEach items="<%=memberList%>" var="member">
+					<c:if test="${userId ne adminId || userId ne member.memId}">
+						<button type="submit" style="width: 80px;">크루참여</button>
+					</c:if>	
+				</c:forEach>
+				
 			</div>
 		</form>
 	
