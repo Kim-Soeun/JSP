@@ -718,4 +718,34 @@ public class CrewRecruitDAO extends DBConnector {
 		}
 		return adminId;
 	}
+	
+	
+	// 특정 단기크루의 모든 memId 가져오기
+	public List<CrewScheduleMemberDTO> selectMemid(String crewName) {
+		List<CrewScheduleMemberDTO> memberList = new ArrayList<CrewScheduleMemberDTO>();
+		String SELECT_MEMID = "select memId from crewSchedule where crewName = ?";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_MEMID);
+			psmt.setString(1, crewName);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				CrewScheduleMemberDTO dto = new CrewScheduleMemberDTO();
+				dto.setMemId(rs.getString(1));
+				memberList.add(dto);
+			}
+			
+			System.out.println("selectMemid 성공");
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectMemid 실패");
+		}
+		
+		
+		return memberList;
+	}
+	
+	
 }

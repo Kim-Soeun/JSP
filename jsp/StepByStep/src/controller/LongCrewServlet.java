@@ -106,6 +106,8 @@ public class LongCrewServlet extends HttpServlet {
 		dto.setMemberNum(memberNum);
 		dto.setMemId(memId);
 		dto.setAdminId(adminId);
+		dto.setIsCheck(1);
+		dto.setIsShortCrew(false);
 		CrewJoinDAO dao = new CrewJoinDAO();
 		dao.insertJoinInfo(dto);
 		dao.close();

@@ -2,56 +2,61 @@ package model;
 
 public class CrewJoinDTO {
 
-	private int no, memberNum, totalCount;
+	private int no, memberNum, isCheck, crewNum;
 	private String crewName, memId, adminId;
-	private boolean isCheck;
-	
+	private Boolean isShortCrew;
 	
 	public int getNo() {
 		return no;
 	}
-	public void setNo(int no) {
-		this.no = no;
-	}
 	public int getMemberNum() {
 		return memberNum;
 	}
-	public void setMemberNum(int memberNum) {
-		this.memberNum = memberNum;
-	}
-	public int getTotalCount() {
-		return totalCount;
-	}
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
+	public int getIsCheck() {
+		return isCheck;
 	}
 	public String getCrewName() {
 		return crewName;
 	}
-	public void setCrewName(String crewName) {
-		this.crewName = crewName;
-	}
 	public String getMemId() {
 		return memId;
-	}
-	public void setMemId(String memId) {
-		this.memId = memId;
 	}
 	public String getAdminId() {
 		return adminId;
 	}
+	public Boolean getIsShortCrew() {
+		return isShortCrew;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
+	}
+	public void setIsCheck(int isCheck) {
+		this.isCheck = isCheck;
+	}
+	public void setCrewName(String crewName) {
+		this.crewName = crewName;
+	}
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
 	public void setAdminId(String adminId) {
 		this.adminId = adminId;
 	}
-	public boolean isCheck() {
-		return isCheck;
+	public void setIsShortCrew(Boolean isShortCrew) {
+		this.isShortCrew = isShortCrew;
 	}
-	public void setCheck(boolean isCheck) {
-		this.isCheck = isCheck;
+	public int getCrewNum() {
+		return crewNum;
+	}
+	public void setCrewNum(int crewNum) {
+		this.crewNum = crewNum;
 	}
 	
 	
 	
-	
+
 	
 }

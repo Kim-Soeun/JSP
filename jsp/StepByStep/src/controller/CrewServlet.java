@@ -100,7 +100,9 @@ public class CrewServlet extends HttpServlet {
 		dto.setCrewName(crewName);
 		dto.setMemId(userId);
 		dto.setAdminId(adminId);
+		dto.setIsCheck(1);
 		dto.setMemberNum(memberNum);
+		dto.setIsShortCrew(true);
 		CrewJoinDAO dao = new CrewJoinDAO();
 		dao.insertJoinInfo(dto);
 		dao.close();

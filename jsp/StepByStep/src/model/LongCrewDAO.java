@@ -190,5 +190,32 @@ public class LongCrewDAO extends DBConnector {
 		return adminId;
 	}
 	
+	// 특정 장기크루의 모든 memId 가져오기
+	public List<LongCrewMemberDTO> selectMemid(String crewName) {
+		List<LongCrewMemberDTO> memberList = new ArrayList<LongCrewMemberDTO>();
+		String SELECT_MEMID = "select memId from longCrewMember where crewName = ?";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_MEMID);
+			psmt.setString(1, crewName);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				LongCrewMemberDTO dto = new LongCrewMemberDTO();
+				dto.setMemId(rs.getString(1));
+				memberList.add(dto);
+			}
+			
+			System.out.println("selectMemid 성공");
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectMemid 실패");
+		}
+		
+		
+		return memberList;
+	}
+	
 	
 }

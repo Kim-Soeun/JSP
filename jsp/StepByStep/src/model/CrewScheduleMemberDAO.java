@@ -4,7 +4,7 @@ import common.DBConnector;
 
 public class CrewScheduleMemberDAO extends DBConnector {
 
-	// 크루 일정에 멤버 등록하기
+	// 장기크루 일정에 멤버 등록하기(단기크루에 멤버 추가하기)
 	public void joinSchedule(CrewScheduleMemberDTO dto) {
 		int result = 0;
 		String JOIN_SCHEDULE = "insert into crewSchedule values(?,?,?,?,?)";
@@ -24,6 +24,32 @@ public class CrewScheduleMemberDAO extends DBConnector {
 			System.out.println("joinSchedule 실패");
 		}
 		
+	}
+	
+	
+
+	// 크루명으로 단기크루 넘버 가져오기(장기크루면 일정넘버 가져오기)
+	public int selectCrewNum(String crewName) {
+		int result = 0;
+		String SELECT_CREWNUM = "select * from crewSchedule where crewName = ?";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_CREWNUM);
+			psmt.setString(1, crewName);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+			System.out.println("selectCrewNum 성공");
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectCrewNum 실패");
+		}
+		
+		return result;
 	}
 	
 	
