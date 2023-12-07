@@ -16,6 +16,15 @@
 	CrewRecruitDAO dao = new CrewRecruitDAO();				// 특정 단기크루의 모든 memId 가져오기
 	List<CrewScheduleMemberDTO> memberList = dao.selectMemid(crewName);
 	
+	boolean boo = true;
+	for(CrewScheduleMemberDTO mem : memberList) {
+		if(mem.getMemId().equals(userId)) {
+			boo = false;
+		}
+	}
+	if(adminId.equals(userId)) {
+		boo = false;
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -50,12 +59,10 @@
 				<input type="hidden" name="userId" value="<%=userId%>">
 				
 				<!-- 접속자와 크루 방장이 같으면 크루참여 버튼 안보임 -->
-				<c:forEach items="<%=memberList%>" var="member">
-					<c:if test="${userId ne adminId || userId ne member.memId}">
-						<button type="submit" style="width: 80px;">크루참여</button>
-					</c:if>	
-				</c:forEach>
 				
+				<c:if test="<%=boo%>">
+					<button type="submit" style="width: 80px;">크루참여</button>
+				</c:if>
 			</div>
 		</form>
 	

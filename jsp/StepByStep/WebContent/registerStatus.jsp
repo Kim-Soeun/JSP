@@ -26,50 +26,46 @@
 	
 	<h3>단기크루</h3>
 	<c:forEach items="<%=joinList%>" var="join">
-		<form action="./joinCrew.join" method="post" name="frm">
-			<div style="display: flex; flex-direction: column; justify-content: center; align-content: center; border: 1px solid black; width: 250px;">
-				<p>크루명 : ${join.crewName}</p>
-				<p>방장ID : ${join.adminId}</p>
-				<p>신청ID : ${join.memId}</p>
-				<p>모집인원 : ${join.memberNum}</p>
-				
-				<input type="hidden" name="crewName" value="${join.crewName}">
-				<input type="hidden" name="adminId" value="${join.adminId}">
-				<input type="hidden" name="memId" value="${join.memId}">
-				<input type="hidden" name="memberNum" value="${join.memberNum}">
-				<input type="hidden" name="isShortCrew" value="${join.isShortCrew}">
-				<input type="hidden" name="isPermit" value="">
-				
-				
-				<c:if test="${join.isCheck eq 1}">
-					<button type="submit" onsubmit="check(true)" style="width: 50px; height: 30px;">수락</button>
-					<button type="submit" onsubmit="check(false)" style="width: 50px; height: 30px;">거절</button>
-				</c:if>
-			</div>
+		<form action="./joinCrew.join" method="post" name="frm" style="display: flex; flex-direction: column; justify-content: center; align-content: center; border: 1px solid black; width: 250px;">
+			<p>크루명 : ${join.crewName}</p>
+			<p>방장ID : ${join.adminId}</p>
+			<p>신청ID : ${join.memId}</p>
+			<p>모집인원 : ${join.memberNum}</p>
+			
+			<input type="hidden" name="crewName" value="${join.crewName}">
+			<input type="hidden" name="adminId" value="${join.adminId}">
+			<input type="hidden" name="memId" value="${join.memId}">
+			<input type="hidden" name="memberNum" value="${join.memberNum}">
+			<input type="hidden" name="isShortCrew" value="${join.isShortCrew}">
+			<input type="hidden" name="isPermit">
+			
+			
+			<c:if test="${join.isCheck eq 1}">
+				<button type="button" onclick="check(this, true)" style="width: 50px; height: 30px;">수락</button>
+				<button type="button" onclick="check(this, false)" style="width: 50px; height: 30px;">거절</button>
+			</c:if>
 		</form>
 	</c:forEach>
 	
 	<h3>장기크루</h3>
 	<c:forEach items="<%=longList%>" var="join">
-		<form action="./joinCrew.join" method="post" name="frm">
-			<div style="display: flex; flex-direction: column; justify-content: center; align-content: center; border: 1px solid black; width: 250px;">
-				<p>크루명 : ${join.crewName}</p>
-				<p>방장ID : ${join.adminId}</p>
-				<p>신청ID : ${join.memId}</p>
-				<p>모집인원 : ${join.memberNum}</p>
-				
-				<input type="hidden" name="crewName" value="${join.crewName}">
-				<input type="hidden" name="adminId" value="${join.adminId}">
-				<input type="hidden" name="memId" value="${join.memId}">
-				<input type="hidden" name="memberNum" value="${join.memberNum}">
-				<input type="hidden" name="isShortCrew" value="${join.isShortCrew}">
-				<input type="hidden" name="isPermit" value="">
-				
-				<c:if test="${join.isCheck eq 1}">
-					<button type="submit" onsubmit="check(true)" style="width: 50px; height: 30px;">수락</button>
-					<button type="submit" onsubmit="check(false)" style="width: 50px; height: 30px;">거절</button>
-				</c:if>
-			</div>
+		<form action="./joinCrew.join" method="post" name="frm" style="display: flex; flex-direction: column; justify-content: center; align-content: center; border: 1px solid black; width: 250px;">
+			<p>크루명 : ${join.crewName}</p>
+			<p>방장ID : ${join.adminId}</p>
+			<p>신청ID : ${join.memId}</p>
+			<p>모집인원 : ${join.memberNum}</p>
+			
+			<input type="text" name="crewName" value="${join.crewName}">
+			<input type="text" name="adminId" value="${join.adminId}">
+			<input type="text" name="memId" value="${join.memId}">
+			<input type="text" name="memberNum" value="${join.memberNum}">
+			<input type="text" name="isShortCrew" value="${join.isShortCrew}">
+			<input type="text" name="isPermit">
+			
+			<c:if test="${join.isCheck eq 1}">
+				<button type="button" onclick="check(this, true);" style="width: 50px; height: 30px;">수락</button>
+				<button type="button" onclick="check(this, false);" style="width: 50px; height: 30px;">거절</button>
+			</c:if>
 		</form>
 	</c:forEach>
 	
@@ -127,10 +123,12 @@
 	
 	<!-- 수락 or 거절 버튼 확인 -->
 	<script>
-		function check(bool) {
-			console.log("Button Clicked");
-			var fr = document.frm;
-			fr.isPermit.value = bool;
+		var fr;
+		function check(th, bool) {
+			fr = th.parentNode;
+			console.log(fr);
+			fr.querySelector('input[name=isPermit]').value = bool;
+			console.log(fr);
 			fr.submit();
 		}
 	</script>

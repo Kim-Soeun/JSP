@@ -14,6 +14,16 @@
 	pageContext.setAttribute("adminId", adminId);
 	LongCrewDAO dao2 = new LongCrewDAO();			// 특정 장기크루의 모든 memId + adminId 가져오기
 	List<LongCrewMemberDTO> memberList = dao2.selectMemid(crewName);
+	
+	boolean boo = true;
+	for (LongCrewMemberDTO mem : memberList){
+		if (mem.getMemId().equals(userId)){
+			boo = false;
+		}
+	}
+	if (adminId.equals(userId)){
+		boo = false;
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -43,11 +53,11 @@
 				<input type="hidden" name="adminId" value="<%=crew.getAdminId()%>">
 				
 				<!-- 접속자와 크루 방장이 같으면 크루참여 버튼 안보임 -->
-				<c:forEach items="<%=memberList%>" var="member">
-					<c:if test="${userId ne adminId || userId ne member.memId}">
-						<button type="submit" style="width: 80px;">크루참여</button>
-					</c:if>
-				</c:forEach>
+				
+				<c:if test="<%=boo%>">
+					<button type="submit" style="width: 80px;">크루참여</button>
+				</c:if>
+
 			</div>
 		</form>
 

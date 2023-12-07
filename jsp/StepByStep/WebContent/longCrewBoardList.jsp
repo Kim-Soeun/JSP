@@ -12,8 +12,8 @@
 	crewName = URLDecoder.decode(crewName, "UTF-8");
 	BoardDAO dao = new BoardDAO();
 	List<BoardDTO> boardList = dao.selectCrewBoardList(crewName);
-	LongCrewDAO dao2 = new LongCrewDAO();			// 특정 장기크루의 모든 memId + adminId 가져오기
-	List<LongCrewMemberDTO> memberList = dao2.selectMemid(crewName);
+	LongCrewDAO dao2 = new LongCrewDAO();			
+	List<LongCrewMemberDTO> memberList = dao2.selectMemid(crewName);  // 특정 장기크루의 모든 memId + adminId 가져오기
 %> 
    
 <!DOCTYPE html>
