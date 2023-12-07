@@ -34,6 +34,48 @@ public class CrewJoinDAO extends DBConnector {
 	
 	}
 	
+	// 방장이 크루 참여신청을 거절하면 join 테이블에서 승인거절 상태로 바뀜
+	public void updateJoinInfo(String crewName, String memId) {
+		int result = 0;
+		String INSERT_JOIN_INFO = "update crewJoin set isCheck = 3 where crewName = ? and memId = ?";
+		
+		try {
+			psmt = con.prepareStatement(INSERT_JOIN_INFO);
+			psmt.setString(1, crewName);
+			psmt.setString(2, memId);
+			result = psmt.executeUpdate();
+			
+			System.out.println("updateJoinInfo 성공");
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("updateJoinInfo 실패");
+		}
+	
+	}
+
+	
+	// 방장이 크루 참여신청을 거절하면 join 테이블에서 승인완료 상태로 바뀜
+	public void updateJoinInfo2(String crewName, String memId) {
+		int result = 0;
+		String INSERT_JOIN_INFO = "update crewJoin set isCheck = 2 where crewName = ? and memId = ?";
+		
+		try {
+			psmt = con.prepareStatement(INSERT_JOIN_INFO);
+			psmt.setString(1, crewName);
+			psmt.setString(2, memId);
+			result = psmt.executeUpdate();
+			
+			System.out.println("updateJoinInfo2 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("updateJoinInfo2 실패");
+		}
+		
+	}
+	
+	
 	
 	// 특정 id의 승인현황 가져오기(단기크루)
 	public List<CrewJoinDTO> selectCrewJoin(String memId) {

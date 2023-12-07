@@ -42,14 +42,16 @@ public class CrewJoinServlet extends HttpServlet {
 	public void joinCrew(HttpServletRequest req, HttpServletResponse resp) {
 		
 		boolean isPermit = Boolean.parseBoolean(req.getParameter("isPermit"));
-		System.out.println("승낙 or 거절 : " + isPermit);
-		
 		String crewName = req.getParameter("crewName");
 		String adminId = req.getParameter("adminId");
 		String memId = req.getParameter("memId");
 		int memberNum = Integer.parseInt(req.getParameter("memberNum"));
 		boolean isShortCrew = Boolean.parseBoolean(req.getParameter("isShortCrew"));
 		
+		System.out.println("크루명 : " + crewName);
+		System.out.println("멤버 아이디 : " + memId);
+		System.out.println("멤버수 : " + memberNum);
+		System.out.println("단기크루여부 : " + isShortCrew);
 		
 		if(isPermit) {			// 승낙 버튼 눌렀을 경우 
 			
@@ -68,6 +70,11 @@ public class CrewJoinServlet extends HttpServlet {
 				dao.joinSchedule(dto);
 				dao.close();
 				
+				// 멤버 추가후 join 테이블에서 승인완료 상태로 바꿔줌
+				CrewJoinDAO dao2 = new CrewJoinDAO();
+				dao2.updateJoinInfo2(crewName, memId);
+				dao2.close();
+				
 				// 멤버 추가 후 승인현황으로 이동
 				JSFunction.alertLocation(resp, "멤버 승인이 완료되었습니다", "registerStatus.jsp");
 				
@@ -81,6 +88,8 @@ public class CrewJoinServlet extends HttpServlet {
 				dto.setMemberNum(memberNum);
 				dto.setAdmin(false);
 				
+				
+				
 				Date today = new Date();
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				String joinDate = formatter.format(today);
@@ -88,6 +97,11 @@ public class CrewJoinServlet extends HttpServlet {
 				
 				dao.joinLongCrew(dto);
 				dao.close();
+				
+				// 멤버 추가후 join 테이블에서 승인완료 상태로 바꿔줌
+				CrewJoinDAO dao2 = new CrewJoinDAO();
+				dao2.updateJoinInfo2(crewName, memId);
+				dao2.close();
 				
 				// 멤버 추가 후 승인현황으로 이동
 				JSFunction.alertLocation(resp, "멤버 승인이 완료되었습니다", "registerStatus.jsp");
@@ -98,27 +112,14 @@ public class CrewJoinServlet extends HttpServlet {
 			
 			if(isShortCrew == true) {			// 단기크루 승인 거절 됐을 경우
 				CrewJoinDAO dao = new CrewJoinDAO();
-				CrewJoinDTO dto = new CrewJoinDTO();
-				dto.setCrewName(crewName);
-				dto.setMemId(memId);
-				dto.setAdminId(adminId);
-				dto.setIsCheck(3);
-				dto.setMemberNum(memberNum);
-				dto.setIsShortCrew(true);
-				dao.insertJoinInfo(dto);		// join 테이블에서 isCheck 3으로 변경(승인거절 상태로 변경)
-				
+				dao.updateJoinInfo(crewName, memId);		// join 테이블에서 isCheck 3으로 변경(승인거절 상태로 변경)
+				dao.close();
 				JSFunction.alertLocation(resp, "승인거절 되었습니다", "registerStatus.jsp");
 			
 			} else {							// 장기크루 승인 거절 됐을 경우
 				CrewJoinDAO dao = new CrewJoinDAO();
-				CrewJoinDTO dto = new CrewJoinDTO();
-				dto.setCrewName(crewName);
-				dto.setMemId(memId);
-				dto.setAdminId(adminId);
-				dto.setIsCheck(3);
-				dto.setMemberNum(memberNum);
-				dto.setIsShortCrew(false);
-				dao.insertJoinInfo(dto);		// join 테이블에서 isCheck 3으로 변경(승인거절 상태로 변경)
+				dao.updateJoinInfo(crewName, memId);
+				dao.close();
 				JSFunction.alertLocation(resp, "승인거절 되었습니다", "registerStatus.jsp");
 
 			}
