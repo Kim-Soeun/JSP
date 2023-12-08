@@ -42,7 +42,12 @@
 				<p>작성일 : <%=crew.getCreated()%></p>
 				<p>방장ID : <%=crew.getAdminId()%></p>
 				<p><a href="longCrewBoardList.jsp?crewName=<%=crew.getCrewName()%>">특정 크루 게시판으로 이동</a></p>
-				<p><a href="registerLongcrewSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 일정 등록하기</a></p>
+				
+				<!-- 사용자가 크루의 방장이면 등록버튼 보이게 함 -->
+				<c:if test="${adminId eq userId}">
+					<p><a href="registerLongcrewSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 일정 등록하기</a></p>
+				</c:if>
+				
 				<p><a href="crewPlannedSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 예정된 일정으로 이동</a></p>
 				<p><a href="crewClosedSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 마감된 일정으로 이동</a></p>
 				<p><a href="crewPhotobook.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 앨범으로 이동</a></p>

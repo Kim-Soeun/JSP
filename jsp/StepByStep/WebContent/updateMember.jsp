@@ -22,6 +22,9 @@
 
 		<label>비밀번호</label>
 		<input type="password" id="pw" name="pw" value="<%=memberDTO.getPassword()%>" required><br>
+
+		<label>비밀번호 확인</label>
+		<input type="password" id="pwCheck" name="pwCheck" required><br>
 		
 		<label>이름</label>
 		<input type="text" name="name" value="<%=memberDTO.getName()%>" required><br>
@@ -66,7 +69,7 @@
 		<input type="hidden" name="originalEmail" value="<%=memberDTO.getEmail()%>">
 		<p><%=memberDTO.getEmail()%></p>
 		<input type="text" name="email1"/>@
-		<input type="text" name="email2"/>
+		<input type="text" name="email2" value=""/>
 		<select name="emailList" size="1" onchange="email_check()">
 			<option id="write">직접입력</option>
 			<option value="naver.com">naver.com</option>

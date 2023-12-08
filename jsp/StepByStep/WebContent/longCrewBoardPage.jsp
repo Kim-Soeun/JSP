@@ -1,3 +1,4 @@
+<%@page import="model.LongCrewMemberDTO"%>
 <%@page import="model.LongCrewDAO"%>
 <%@page import="model.ReplyDAO"%>
 <%@page import="model.ReplyDTO"%>
@@ -11,6 +12,7 @@
 <%@ include file="loginCheck.jsp" %>
 
 <%
+	String userId = (String)session.getAttribute("userId");
 	int no = Integer.parseInt(request.getParameter("no"));		// 게시글 넘버
 	BoardDTO board = new BoardDAO().selectBoard(no);			// 특정 게시물 불러오기
 	pageContext.setAttribute("board", board);
@@ -21,6 +23,16 @@
 	LongCrewDAO dao = new LongCrewDAO();
 	String adminId = dao.selectAdminId(crewName);				// 크루 방장 id
 	pageContext.setAttribute("adminId", adminId);
+	List<LongCrewMemberDTO> memberList = dao.selectMemid(crewName);	// 특정 장기크루의 모든 memId + adminId 가져오기
+	
+	
+	boolean boo = false;
+	for(LongCrewMemberDTO mem : memberList) {
+		if(mem.getMemId().equals(userId)) {
+			boo = true;
+		}
+	}
+
 	
 %>
 <!DOCTYPE html>
@@ -68,16 +80,16 @@
 	</div> 
 	
 		<!-- 댓글쓰기창 -->
-		<div>
+		<!-- 크루의 멤버가 맞으면 댓글쓰기창 보임 -->
+		<c:if test="<%=boo%>">
 			<form action="./registerReplyLong.reply" method="post">
 				<input type="hidden" name="id" value="${userId}"/>
 				<input type="hidden" name="b_no" value="<%=no%>"/>
 				<textarea name="content" rows="8" cols="50" placeholder="댓글" required></textarea>
 				<button type="submit">등록</button>
 			</form>
-		</div>
+		</c:if>
 	
-	
-	
+
 </body>
 </html>
