@@ -45,11 +45,8 @@ public class RegisterServlet extends HttpServlet {
 		String email2 = mr.getParameter("email2");
 		String emailList = mr.getParameter("emailList");
 		
-		if(email2 == null) {
-			email += email1 + "@" + emailList;
-		} else {
-			email += email1 + "@" + email2;
-		}
+		email += email1 + "@" + email2;
+		
 		
 		String nickname = mr.getParameter("nickname");
 		if(nickname == "") {

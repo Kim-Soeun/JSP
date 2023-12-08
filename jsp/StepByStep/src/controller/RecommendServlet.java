@@ -22,21 +22,19 @@ public class RecommendServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int no =  Integer.parseInt(request.getParameter("no"));
-		MemberDTO member = (MemberDTO)request.getSession().getAttribute("memberDTO");
-		String id = member.getId();
-		String crewName = request.getParameter("crewName");
-		
+		String id = (String) request.getSession().getAttribute("userId");
 		int result = new RecommendDAO().updateRecommendCount(no, id);
 		
-		if(result == 1) {
-			crewName = URLEncoder.encode(crewName, "UTF-8");
-			response.sendRedirect("crewBoardList.jsp?crewName=" + crewName);
-			System.out.println("추천 업데이트 성공");
-		} else {
-			crewName = URLEncoder.encode(crewName, "UTF-8");
-			response.sendRedirect("crewBoardList.jsp?crewName=" + crewName);
-			System.out.println("추천 업데이트 실패");
-		}
+		
+//		if(result == 1) {
+//			crewName = URLEncoder.encode(crewName, "UTF-8");
+//			// response.sendRedirect("crewBoardList.jsp?crewName=" + crewName);
+//			System.out.println("추천 업데이트 성공");
+//		} else {
+//			crewName = URLEncoder.encode(crewName, "UTF-8");
+//			// response.sendRedirect("crewBoardList.jsp?crewName=" + crewName);
+//			System.out.println("추천 업데이트 실패");
+//		}
 		
 	}
 

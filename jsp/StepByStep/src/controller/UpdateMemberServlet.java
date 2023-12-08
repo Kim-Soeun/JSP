@@ -42,18 +42,27 @@ public class UpdateMemberServlet extends HttpServlet {
 		String email2 = mr.getParameter("email2");
 		String emailList = mr.getParameter("emailList");
 		
-		if(email1.equals("")) {
-			newEmail = mr.getParameter("originalEmail");
-		} else {
-			if(email2.equals("")) {
-				newEmail += email1 + "@" + emailList;
-			} else {
-				newEmail += email1 + "@" + email2;
-			}
-			
-			
-		}
+		System.out.println("이메일1 : " + email1);
+		System.out.println("이메일2 : " + email2);
 		
+	  if(email1 == null) { 
+		  newEmail = mr.getParameter("originalEmail"); 
+	  } else {
+	  
+		  newEmail += email1 + "@" + email2; 
+  
+	  
+	  }
+		 
+		
+		/*
+		 * if(email1 == null || email2 == null) { newEmail =
+		 * mr.getParameter("originalEmail"); } else { newEmail += email1 + "@" + email2;
+		 * }
+		 */
+		
+		
+		 		
 		String phone = mr.getParameter("phone");
 		String nickname = mr.getParameter("nickname");
 		

@@ -65,7 +65,7 @@ public class EditBoardServlet extends HttpServlet {
 		int result = new BoardDAO().editBoard(dto);
 		if (userId.equals(id)) { // 로그인 유저와 작성자가 같으면 수정 실행
 			if (result == 1) {
-				JSFunction.alertLocation(resp, "게시글이 수정되었습니다", "boardPage.jsp?id=" + id + "&no=" + no);
+				JSFunction.alertLocation(resp, "게시글이 수정되었습니다", "longCrewBoardPage.jsp?id=" + id + "&no=" + no);
 				req.getSession().removeAttribute("boardDTO");
 				System.out.println("게시판 수정 성공");
 			} else {

@@ -67,13 +67,19 @@ public class BoardDAO extends DBConnector {
 	}
 	
 	// 특정 크루의 모든 게시판 불러오기
-	public List<BoardDTO> selectCrewBoardList(String crewName) {
+	public List<BoardDTO> selectCrewBoardList(String crewName, int start) {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
-		String SELECT_CREW_BOARD = "select *, (select count(*) from recommend where no=crewboard.no) as count from crewboard where crewName = ?";
+		//int totalNum = selectCount(crewName) - start + 1;
+		String SELECT_CREW_BOARD = "select *, (select count(*) from recommend where no=crewboard.no) as count from crewboard where crewName = ?"
+				+ " order by no desc";
+		
+		int limit = 0;
+		
 		try {
 			psmt = con.prepareStatement(SELECT_CREW_BOARD);
 			psmt.setString(1, crewName);
 			rs = psmt.executeQuery();
+			rs.absolute(start - 1);
 			
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();
@@ -87,6 +93,11 @@ public class BoardDAO extends DBConnector {
 				dto.setCrewName(rs.getString(8));
 				dto.setCount(rs.getInt(9));
 				list.add(dto);
+				//totalNum--;
+				limit++;
+				if(limit == 8) {
+					break;
+				}
 			}
 			
 			System.out.println("selectCrewBoardList 성공");
@@ -96,6 +107,31 @@ public class BoardDAO extends DBConnector {
 		}
 		
 		return list;
+	}
+	
+	
+	// 특정크루의 모든 게시물 개수 가져오기
+	public int selectCount(String crewName) {
+		int result = 0;
+		String SELECT_COUNT = "select count(*) from crewboard where crewName = ?";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_COUNT);
+			psmt.setString(1, crewName);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+			System.out.println("selectCount 성공");
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectCount 실패");
+		}
+		
+		
+		return result;
 	}
 
 	
