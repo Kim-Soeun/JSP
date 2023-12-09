@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+/* 구글 폰트 임포트(NotoSansKr) */
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500&display=swap')
+	;
+
+html, body {
+	width: 100%;
+	height: 100vh;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+}
+
+/* div별 구간을 어디까지 나눴는지 확인하는 절차 
+div mid 코드 작성시에는 27번 코드를 지우면 됩니다.*/
+.container>* {
+	border: 1px solid black;
+}
+
+.top {
+	position: sticky;
+	width: 100%;
+	height: 10%;
+}
+
+.top .top-logo {
+	display: inline-block;
+	width: 5rem;
+	height: 5rem;
+	background-image: url(../../resources/images/img_logo.png);
+	background-size: contain;
+	background-position: center;
+}
+
+.top-inner {
+	padding-left: 5vw;
+	padding-right: 5vw;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.top-list {
+	display: flex;
+	justify-content: space-between;
+	list-style: none;
+	width: 50vw;
+}
+
+.top-menu {
+	display: inline-block;
+	width: max-content;
+}
+
+.top-menu a {
+	display: block;
+	width: 100%;
+}
+
+.top-menu a span {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 1.1vw;
+}
+
+.top-right {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 0.9vw;
+}
+
+#sec {
+	height: 2vh;
+}
+
+/* top, bottom 높이 고정 
+mid는 contents 내용에 따라 유동적으로 
+변동하기 때문에 높이를 따로 설정하지 않음 */
+.mid {
+	width: 100%;
+}
+
+/* mid-inner영역에 여백 줌 */
+.mid-inner {
+	padding-left: 5vw;
+	padding-right: 5vw;
+}
+
+.bottom {
+	width: 100%;
+	height: 10%;
+}
+
+.bottom-inner {
+	padding-left: 5vw;
+	padding-right: 5vw;
+}
+
+.bottom .footer-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.bottom .footer-logo {
+	display: inline-block;
+	width: 3rem;
+	height: 3rem;
+	background-image: url(../../resources/images/img_logo.png);
+	background-size: contain;
+	background-position: center;
+}
+
+.bottom .footer-menu {
+	display: flex;
+	padding: 0;
+	justify-content: space-between;
+	list-style: none;
+}
+
+.footer-menu li {
+	display: inline-block;
+	margin: 0 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.bottom .footer-sns {
+	display: flex;
+	list-style: none;
+	width: 3rem;
+	height: 3rem;
+}
+
+.bottom .footer-bottom {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.bottom .footer-bottom p {
+	font-family: 'Noto Sans KR', sans-serif;
+}
