@@ -23,7 +23,9 @@ import model.CrewScheduleMemberDTO;
 import model.LongCrewDAO;
 import model.LongCrewMemberDTO;
 import model.LongCrewRecruitDTO;
+import model.MemberDAO;
 import model.crewRecruitDTO;
+import model.memberDAO;
 
 public class LongCrewServlet extends HttpServlet {
 
@@ -100,6 +102,10 @@ public class LongCrewServlet extends HttpServlet {
 		String memId = req.getParameter("userId");
 		String adminId = req.getParameter("adminId");
 		
+		// 성별 가져오기
+		MemberDAO dao = new MemberDAO();
+		String gender = dao.selectGender(memId);
+		
 		// 장기크루 승인대기상태(임시가입정보 테이블인 join테이블에 데이터 넣음)
 		CrewJoinDTO dto = new CrewJoinDTO();
 		dto.setCrewName(crewName);
@@ -108,9 +114,10 @@ public class LongCrewServlet extends HttpServlet {
 		dto.setAdminId(adminId);
 		dto.setIsCheck(1);
 		dto.setIsShortCrew(false);
-		CrewJoinDAO dao = new CrewJoinDAO();
-		dao.insertJoinInfo(dto);
-		dao.close();
+		dto.setGender(gender);
+		CrewJoinDAO dao2 = new CrewJoinDAO();
+		dao2.insertJoinInfo(dto);
+		dao2.close();
 		
 		String encodedCrewName = URLEncoder.encode(crewName, "UTF-8");
 		JSFunction.alertLocation(resp, "참여신청이 완료되었습니다", "longcrewRecruitDetail.jsp?crewName=" + encodedCrewName);

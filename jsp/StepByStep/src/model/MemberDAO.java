@@ -70,7 +70,7 @@ public class MemberDAO extends DBConnector {
 	// 회원가입
 	public int registerMember(MemberDTO dto) {
 		int result = 0;
-		String INSERT_MEMBER_SQL = "insert into member values (?, ? ,?, ?, ?, ?, ?, ?, ?, null, null, null, ?)";
+		String INSERT_MEMBER_SQL = "insert into member values (?, ? ,?, ?, ?, ?, ?, ?, ?, null, null, null, null, ?)";
 		
 		try {
 			psmt = con.prepareStatement(INSERT_MEMBER_SQL);
@@ -83,7 +83,7 @@ public class MemberDAO extends DBConnector {
 			psmt.setString(7, dto.getPhone());
 			psmt.setString(8, dto.getRegisterDate());
 			psmt.setString(9, dto.getLastVisitDate());
-			psmt.setString(10, dto.getProfileImg());
+			psmt.setString(10, dto.getGender());
 			result = psmt.executeUpdate();
 			
 			System.out.println("RegisterMember 성공");
@@ -318,5 +318,22 @@ public class MemberDAO extends DBConnector {
 		}
 		
 		return result;
+	}
+	
+	// 특정 id의 성별 가져오기
+	public String selectGender(String memId) {
+		String gender = "";
+		String SELECT_GENDER = "select gender from member where id = ?";
+		
+		try {
+			
+			System.out.println("selectGender 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectGender 실패");
+		}
+		
+		return gender;
 	}
 }

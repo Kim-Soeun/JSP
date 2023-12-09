@@ -26,33 +26,43 @@ public class RegisterServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
 		
-		ServletContext application = req.getServletContext();
+		/*
+		 * ServletContext application = req.getServletContext();
+		 * 
+		 * String saveDirectory = application.getRealPath("./resources/img"); int
+		 * maxPostSize = 5 * 1024 * 1024; String encoding = "UTF-8";
+		 * 
+		 * MultipartRequest mr = new MultipartRequest(req, saveDirectory, maxPostSize,
+		 * encoding, new DefaultFileRenamePolicy());
+		 */
 		
-		String saveDirectory = application.getRealPath("./resources/img");
-		int maxPostSize = 5 * 1024 * 1024;
-		String encoding = "UTF-8";
+		String id = req.getParameter("id");
+		String pw = req.getParameter("pw");
+		String name = req.getParameter("name");
 		
-		MultipartRequest mr = new MultipartRequest(req, saveDirectory, maxPostSize, encoding, new DefaultFileRenamePolicy());
+		// 성별
+		String sex = req.getParameter("sex");
 		
-		String id = mr.getParameter("id");
-		String pw = mr.getParameter("pw");
-		String name = mr.getParameter("name");
-		String birthDate = mr.getParameter("birthDate");
+		// 생년월일 하나로 합치기
+		String birthyear = req.getParameter("birthyear");
+		String birthmonth = req.getParameter("birthmonth");
+		String birthdate = req.getParameter("birthdate");
+		String birthDay = birthyear + birthmonth + birthdate;
 		
 		// 이메일 한 주소로 합치기(직접입력 or 선택)
 		String email = "";
-		String email1 = mr.getParameter("email1");
-		String email2 = mr.getParameter("email2");
-		String emailList = mr.getParameter("emailList");
+		String email1 = req.getParameter("email1");
+		String email2 = req.getParameter("email2");
+		String emailList = req.getParameter("emailList");
 		
 		email += email1 + "@" + email2;
 		
 		
-		String nickname = mr.getParameter("nickname");
+		String nickname = req.getParameter("nickname");
 		if(nickname == "") {
 			nickname = id;
 		}
-		String phone = mr.getParameter("phone");
+		String phone = req.getParameter("phone");
 		
 		// 가입날짜 설정
 		Date now = new Date();
@@ -65,28 +75,29 @@ public class RegisterServlet extends HttpServlet {
 		String lastVisitDate = formatter2.format(date);
 		
 		// 프로필 사진
-		String imgName = mr.getFilesystemName("profileImg");
-		File file = new File(saveDirectory + File.separator + imgName);
-		String profileImg = "";
+		/*
+		 * String imgName = mr.getFilesystemName("profileImg"); File file = new
+		 * File(saveDirectory + File.separator + imgName); String profileImg = "";
+		 */
 		
 		// 프로필사진 설정안하면 자동으로 기본이미지 들어감
-		if(imgName == null) {
-			profileImg = "zzanggu.jpg";
-		} else {
-			profileImg = imgName;
-		}
+		/*
+		 * if(imgName == null) { profileImg = "zzanggu.jpg"; } else { profileImg =
+		 * imgName; }
+		 */
 		
 		MemberDTO dto = new MemberDTO();
 		dto.setId(id);
 		dto.setPassword(pw);
 		dto.setName(name);
-		dto.setBirthDate(birthDate);
+		dto.setBirthDate(birthDay);
 		dto.setEmail(email);
 		dto.setNickname(nickname);
 		dto.setPhone(phone);
 		dto.setRegisterDate(registerDate);
 		dto.setLastVisitDate(lastVisitDate);
-		dto.setProfileImg(profileImg);
+		dto.setGender(sex);
+		// dto.setProfileImg(profileImg);
 		
 		int result = new MemberDAO().registerMember(dto);
 		

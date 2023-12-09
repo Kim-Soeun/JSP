@@ -13,7 +13,7 @@ public class CrewJoinDAO extends DBConnector {
 	// 크루 참여신청하면 join 테이블에 데이터 들어감 
 	public void insertJoinInfo(CrewJoinDTO dto) {
 		int result = 0;
-		String INSERT_JOIN_INFO = "insert into crewJoin values(null, ?, ?, ?, ?, ?, ?)";
+		String INSERT_JOIN_INFO = "insert into crewJoin values(null, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			psmt = con.prepareStatement(INSERT_JOIN_INFO);
@@ -23,6 +23,7 @@ public class CrewJoinDAO extends DBConnector {
 			psmt.setInt(4, dto.getIsCheck());
 			psmt.setInt(5, dto.getMemberNum());
 			psmt.setBoolean(6, dto.getIsShortCrew());
+			psmt.setString(7, dto.getGender());
 			result = psmt.executeUpdate();
 			
 			System.out.println("insertJoinInfo 성공");
