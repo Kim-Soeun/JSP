@@ -135,54 +135,24 @@
 						</select>
 					</div>
 					<div class="crew-card">
+					<!-- 게시물 반복 출력 -->
+					
+					<c:forEach items="<%=boardList%>" var="board">
 						<div class="card">
 							<img class="card-img" src="./resources/images/card1.jpg" alt="">
-							<div class="card-title">제목1</div>
-							<div class="card-contents">내용1</div>
+							<div class="card-title">${board.created}</div>
+							<div class="card-contents"> ${board.content}</div>
 						</div>
-						<div class="card">
-							<img class="card-img" src="./resources/images/card2.jpg" alt="">
-							<div class="card-title">제목2</div>
-							<div class="card-contents">내용2</div>
-						</div>
-						<div class="card">
-							<img class="card-img" src="./resources/images/card3.jpg" alt="">
-							<div class="card-title">제목3</div>
-							<div class="card-contents">내용3</div>
-						</div>
-						<div class="card">
-							<img class="card-img" src="./resources/images/card4.jpg" alt="">
-							<div class="card-title">제목4</div>
-							<div class="card-contents">내용4</div>
-						</div>
-						<div class="card">
-							<img class="card-img" src="./resources/images/winter.png" alt="">
-							<div class="card-title">제목5</div>
-							<div class="card-contents">내용5</div>
-						</div>
-						<div class="card">
-							<img class="card-img" src="./resources/images/chrismas.jpg"
-								alt="">
-							<div class="card-title">제목6</div>
-							<div class="card-contents">내용6</div>
-						</div>
-						<div class="card">
-							<img class="card-img" src="./resources/images/running.jpg" alt="">
-							<div class="card-title">제목7</div>
-							<div class="card-contents">내용7</div>
-						</div>
-						<div class="card">
-							<img class="card-img" src="./resources/images/chrismas2.jpeg"
-								alt="">
-							<div class="card-title">제목8</div>
-							<div class="card-contents">내용8</div>
-						</div>
+					</c:forEach>
+					<input type="hidden" name="crewName" value="<%=crewName%>"/>
+					
+						
 						<!-- 페이지 처리 -->
 						<div id="pagination">
 							<c:set var="pageNum" value="<%=pageNum%>"/>
 							<div>
 								<c:forEach var="i" begin="1" end="<%=blockSize%>">
-									<c:url value="/longCrewBoardList.jsp" var="url"/>
+									<c:url value="/board.jsp" var="url"/>
 									<c:choose>
 										<c:when test="${pageNum==i}">
 											<a style="text-decoration: none;" href="${url}?pageNum=${i}&crewName=${crewName}"><font color='black'>${i}</font></a>
