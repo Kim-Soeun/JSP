@@ -14,8 +14,8 @@
 		<div class="app">
 			<div class="container">
 				<!-- header.jsp 시작 -->
-<%-- 				<%@ include file="header.jsp"%>
- --%>				<!-- header.jsp 끝 -->
+				<%@ include file="header.jsp"%>
+				<!-- header.jsp 끝 -->
 
 				<div id="mm_body" class="mm_page">
 					<!-- 본문 감싸기 -->
@@ -346,8 +346,8 @@
 						</div>
 					</div>
 				</div>
-<%-- 				<%@ include file="footer.jsp"%>
- --%>			</div>
+				<%@ include file="footer.jsp"%>
+			</div>
 		</div>
 	</div>
 
