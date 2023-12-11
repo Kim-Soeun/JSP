@@ -181,6 +181,15 @@
 		<url-pattern>*.join</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>CourseServlet</servlet-name>
+		<servlet-class>controller.CourseServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CourseServlet</servlet-name>
+		<url-pattern>/CourseServlet</url-pattern>
+	</servlet-mapping>
+	
 	
 	<context-param>
 		<param-name>POST_PAGE</param-name>

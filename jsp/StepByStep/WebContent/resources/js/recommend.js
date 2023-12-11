@@ -1,11 +1,12 @@
-function updateCount(th) {
+function updateCount(th , no) {
 	
+	console.log(no);
 	$.ajax({
 		url: "RecommendServlet",
 		type: "post",
 		dataType: "json",
 		data: {
-			"no" : th.previousElementSibling.value,
+			"no" : no,
 		}
 	});
 

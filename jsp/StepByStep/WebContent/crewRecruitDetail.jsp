@@ -49,7 +49,6 @@
 				<p>모임날짜 : <%=crew.getGatherDate()%></p>
 				<p>방장ID : <%=crew.getAdminId()%></p>
 				<p><a href="crewPlannedSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 예정된 일정으로 이동</a></p>
-				<p><a href="crewClosedSchedule.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 마감된 일정으로 이동</a></p>
 				<p><a href="crewPhotobook.jsp?crewName=<%=crew.getCrewName()%>">특정 크루의 앨범으로 이동</a></p>
 				
 				<input type="hidden" name="no" value="<%=crew.getNo()%>">

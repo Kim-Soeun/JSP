@@ -9,7 +9,7 @@
  	String crewName = request.getParameter("crewName");
 	crewName = URLDecoder.decode(crewName, "UTF-8");
 	BoardDAO dao = new BoardDAO();
-	List<BoardDTO> boardList = dao.selectCrewBoardList(crewName);
+	//List<BoardDTO> boardList = dao.selectCrewBoardList(crewName);
 	
 %> 
    
@@ -21,7 +21,7 @@
 </head>
 <body>
 	
-	<c:forEach items="<%=boardList%>" var="board">
+	<c:forEach items="<%=%>" var="board">
 		<div style="display: flex; flex-direction: column; justify-content: center; align-content: center;">
 			<div><a href="crewBoardPage.jsp?no=${board.no}">게시판넘버 : ${board.no}</a></div>
 			<div>게시판 넘버 : ${board.no}</div>

@@ -1,4 +1,3 @@
-<%@page import="model.CrewDAO"%>
 <%@page import="model.MemberDTO"%>
 <%@page import="model.CrewRecruitDTO"%>
 <%@page import="java.util.List"%>

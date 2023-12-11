@@ -55,8 +55,8 @@
 				</c:if>
 				
 				<input type="hidden" name="crewName" value="<%=crewName%>">
-				<input type="hidden" value="${board.no}" name="no">
-				<button type="button" onclick="updateCount(this)"><img alt="하트" src="./resources/img/하트.jpg"></button>
+				<%-- <input type="hidden" value="${board.no}" name="no"> --%>
+				<button type="button" onclick="updateCount(this, ${board.no})"><img alt="하트" src="./resources/img/하트.jpg"></button>
 			</div>
 		</form>
 	</c:forEach>

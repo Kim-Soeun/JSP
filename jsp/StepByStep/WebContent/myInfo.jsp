@@ -13,6 +13,9 @@
 	<a href="myCrew.jsp">참여중인 크루(단기&장기)</a>
 	<a href="crewsByadmin.jsp">내가 개설한 크루</a>
 	<a href="registerStatus.jsp">가입신청현황</a>
+	<a href="myPlannedSchedule.jsp">예정된 일정</a>
+	<a href="myClosedSchedule.jsp">마감된 일정</a>
+	
 	
 </body>
 </html>

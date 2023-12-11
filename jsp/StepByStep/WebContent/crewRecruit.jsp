@@ -56,6 +56,11 @@
 		<label>모임날짜</label>
 		<input type="text" name="gatherDate" required><br>
 
+		<!-- 실제 페이지에서는 코스를 선택해야함 -->
+		<label>코스아이디</label>
+		<input type="text" name="courseId" required><br>
+		
+
 		<input type="hidden" name="adminId" value="<%=userId%>">
 
 		<button type="submit">등록</button>

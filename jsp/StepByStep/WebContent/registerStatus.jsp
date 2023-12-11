@@ -31,6 +31,7 @@
 			<p>방장ID : ${join.adminId}</p>
 			<p>신청ID : ${join.memId}</p>
 			<p>모집인원 : ${join.memberNum}</p>
+			<p>신청인 성별 : ${join.gender}</p>
 			
 			<input type="hidden" name="crewName" value="${join.crewName}">
 			<input type="hidden" name="adminId" value="${join.adminId}">
@@ -54,6 +55,8 @@
 			<p>방장ID : ${join.adminId}</p>
 			<p>신청ID : ${join.memId}</p>
 			<p>모집인원 : ${join.memberNum}</p>
+			<p>신청인 성별 : ${join.gender}</p>
+			
 			
 			<input type="text" name="crewName" value="${join.crewName}">
 			<input type="text" name="adminId" value="${join.adminId}">
@@ -82,6 +85,8 @@
 				<p>방장ID : ${join.adminId}</p>
 				<p>신청ID : ${join.memId}</p>
 				<p>모집인원 : ${join.memberNum}</p>
+				<p>신청인 성별 : ${join.gender}</p>
+				
 				<c:choose>
 					<c:when test="${join.isCheck eq 1}">
 						<p>승인상태 : 승인대기중</p>
@@ -105,6 +110,8 @@
 				<p>방장ID : ${join.adminId}</p>
 				<p>신청ID : ${join.memId}</p>
 				<p>모집인원 : ${join.memberNum}</p>
+				<p>신청인 성별 : ${join.gender}</p>
+				
 				<c:choose>
 					<c:when test="${join.isCheck eq 1}">
 						<p>승인상태 : 승인대기중</p>
