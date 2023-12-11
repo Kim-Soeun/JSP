@@ -281,6 +281,7 @@ public class MemberDAO extends DBConnector {
 				member.setPhone(rs.getString("phone"));
 				member.setLocation(rs.getString("location"));
 				member.setProfileImg(rs.getString("profileImg"));
+				member.setGender(rs.getString("gender"));
 				System.out.println(rs.getString("birthDate"));
 			}
 			 
@@ -296,18 +297,18 @@ public class MemberDAO extends DBConnector {
 	// 회원정보 수정
 	public int updateMember(MemberDTO dto) {
 		int result = 0;
-		String UPDATE_MEMBER_SQL = "update member set password=?, name=?, birthDate=?, email=?,"
-				+ " nickname=?, phone=?, location=?, profileImg=?  where id=?";
+		String UPDATE_MEMBER_SQL = "update member set password=?, birthDate=?, email=?,"
+				+ " nickname=?, phone=?, location=?, profileImg=?, gender=?  where id=?";
 		try {
 			psmt = con.prepareStatement(UPDATE_MEMBER_SQL);
 			psmt.setString(1, dto.getPassword());
-			psmt.setString(2, dto.getName());
-			psmt.setString(3, dto.getBirthDate());
-			psmt.setString(4, dto.getEmail());
-			psmt.setString(5, dto.getNickname());
-			psmt.setString(6, dto.getPhone());
-			psmt.setString(7, dto.getLocation());
-			psmt.setString(8, dto.getProfileImg());
+			psmt.setString(2, dto.getBirthDate());
+			psmt.setString(3, dto.getEmail());
+			psmt.setString(4, dto.getNickname());
+			psmt.setString(5, dto.getPhone());
+			psmt.setString(6, dto.getLocation());
+			psmt.setString(7, dto.getProfileImg());
+			psmt.setString(8, dto.getGender());
 			psmt.setString(9, dto.getId());
 			result = psmt.executeUpdate();
 			

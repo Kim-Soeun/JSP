@@ -4,6 +4,7 @@ public class MemberDTO {
 
 	private String id, password, name, birthDate, email, nickname, phone, registerDate, lastVisitDate, location, total, profileImg, gender;
 	private int score;
+	
 	public String getId() {
 		return id;
 	}

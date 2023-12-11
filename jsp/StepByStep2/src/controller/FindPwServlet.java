@@ -22,24 +22,19 @@ public class FindPwServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		String name = req.getParameter("name");
 		String birthDate = req.getParameter("birthDate");
-		
-		// 이메일 한 주소로 합치기(직접입력 or 선택)
-		String email = "";
-		String email1 = req.getParameter("email1");
-		String email2 = req.getParameter("email2");
-		String emailList = req.getParameter("emailList");
-		
-		if(email2 == null) {
-			email += email1 + "@" + emailList;
-		} else {
-			email += email1 + "@" + email2;
-		}
-		
+		String email = req.getParameter("email");
+
+		// 생년월일 하나로 합치기
+		String birthyear = req.getParameter("birthyear");
+		String birthmonth = req.getParameter("birthmonth");
+		String birthdate = req.getParameter("birthdate");
+		String birthDay = birthyear + birthmonth + birthdate;
+
 		MemberDTO dto = new MemberDTO();
 		dto.setId(id);
 		dto.setName(name);
 		dto.setEmail(email);
-		dto.setBirthDate(birthDate);
+		dto.setBirthDate(birthDay);
 		
 		
 		String pw = new MemberDAO().findPw(dto);
@@ -49,7 +44,7 @@ public class FindPwServlet extends HttpServlet {
 		} else {				// 정보와 맞는 비밀번호 찾을 경우 페이지 이동 후 비밀번호 알려줌
 			req.setAttribute("id", id);
 			req.setAttribute("pw", pw);
-			req.getRequestDispatcher("FindResult.jsp").forward(req, resp);
+			req.getRequestDispatcher("pwFinder-RS.jsp").forward(req, resp);
 		}
 		
 		

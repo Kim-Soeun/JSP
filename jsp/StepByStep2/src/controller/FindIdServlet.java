@@ -20,25 +20,19 @@ public class FindIdServlet extends HttpServlet {
 		
 		String name = req.getParameter("name");
 		String birthDate = req.getParameter("birthDate");
+		String email = req.getParameter("email");
 		
-		// 이메일 한 주소로 합치기(직접입력 or 선택)
-		String email = "";
-		String email1 = req.getParameter("email1");
-		String email2 = req.getParameter("email2");
-		String emailList = req.getParameter("emailList");
-		
-		if(email2 == null) {
-			email += email1 + "@" + emailList;
-		} else {
-			email += email1 + "@" + email2;
-		}
-		
-		String id = new MemberDAO().findId(name, email, birthDate);
+		// 생년월일 하나로 합치기
+		String birthyear = req.getParameter("birthyear");
+		String birthmonth = req.getParameter("birthmonth");
+		String birthdate = req.getParameter("birthdate");
+		String birthDay = birthyear + birthmonth + birthdate;
+		String id = new MemberDAO().findId(name, email, birthDay);
 		
 		if(id == null) {	// 정보와 맞는 아이디가 없을 경우 뒤로 페이지 이동하고 메시지 출력
 			JSFunction.alertBack(resp, "다시 입력해주세요");
 		} else {			// 정보와 맞는 아이디가 있을 경우 페이지 이동 후 아이디 알려줌
-			resp.sendRedirect("FindResult.jsp?id=" + id);
+			resp.sendRedirect("idFinder-RS.jsp?id=" + id);
 		}
 	}
 	

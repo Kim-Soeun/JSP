@@ -25,77 +25,77 @@ public class UpdateMemberServlet extends HttpServlet {
 		
 		ServletContext application = req.getServletContext();
 		
-		String saveDirectory = application.getRealPath("./resources/img");
+		String saveDirectory = application.getRealPath("./resources/images");
 		int maxPostSize = 5 * 1024 * 1024;
 		String encoding = "UTF-8";
 		
 		MultipartRequest mr = new MultipartRequest(req, saveDirectory, maxPostSize, encoding, new DefaultFileRenamePolicy());
 		
+		// 아이디
 		String id = mr.getParameter("id");
-		String pw = mr.getParameter("pw");
-		String name = mr.getParameter("name");
-		String birthDate = mr.getParameter("birthDate");
 		
+		// 비밀번호
+		String pw = mr.getParameter("pw");
+
 		// 이메일 수정하지 않으면 기존 이메일 주소 그대로 db에 넣고 아니면 수정된 이메일 넣음
 		String newEmail = "";
 		String email1 = mr.getParameter("email1");
 		String email2 = mr.getParameter("email2");
-		String emailList = mr.getParameter("emailList");
 		
-		System.out.println("이메일1 : " + email1);
-		System.out.println("이메일2 : " + email2);
+		if(email1.equals("")) { 
+			  newEmail = mr.getParameter("originalEmail"); 
+		 } else {
+			  newEmail += email1 + "@" + email2; 
+		 }
 		
-	  if(email1 == null) { 
-		  newEmail = mr.getParameter("originalEmail"); 
-	  } else {
-	  
-		  newEmail += email1 + "@" + email2; 
-  
-	  
-	  }
-		 
-		
-		/*
-		 * if(email1 == null || email2 == null) { newEmail =
-		 * mr.getParameter("originalEmail"); } else { newEmail += email1 + "@" + email2;
-		 * }
-		 */
-		
-		
-		 		
 		String phone = mr.getParameter("phone");
+		
+		// 생년월일 합치기
+		String newBirthday = "";
+		String birthyear = mr.getParameter("birthyear");
+		String birthmonth = mr.getParameter("birthmonth");
+		String birthdate = mr.getParameter("birthdate");
+		System.out.println("원래 생일 : " + mr.getParameter("originalBirthday"));
+		System.out.println("새로 입력한 생일 : " + birthyear + birthmonth + birthdate);
+		
+		if(birthyear.equals("") || birthmonth.equals("") || birthdate.equals("")) {
+			newBirthday = mr.getParameter("originalBirthday");
+		} else {
+			newBirthday = birthyear + birthmonth + birthdate;
+		}
+	 
+		
 		String nickname = mr.getParameter("nickname");
 		
-		// 위치 정보가 수정되지 않았으면 기존 위치 db에 넣음
-		String newLocation = "";
-		String location = mr.getParameter("location");
-		if(location == null) {
-			newLocation = mr.getParameter("originalLocation");
-		} else {
-			newLocation = location;
-		}
-		
-		// 프로필 사진 수정 안했으면 기존 파일 db에 넣음
+		// 프로필 사진 수정 안했으면 강아지 사진 기본으로 설정
 		String newProfileImg = "";
 		String newImg = mr.getParameter("newImg");
+		String defaultImg = "dog.png"; 
 		
 		if(newImg == null) {
-			newProfileImg = mr.getParameter("originalImg");
+			newProfileImg = defaultImg;
 		} else {
 			newProfileImg = newImg;
+		}
+		
+		String newGender = "";
+		String gender = mr.getParameter("sex");
+		if(gender == null) {
+			newGender = mr.getParameter("originalGender");
+		} else {
+			newGender = gender;
 		}
 		
 		
 		MemberDTO dto = new MemberDTO();
 		dto.setId(id);
 		dto.setPassword(pw);
-		dto.setName(name);
-		dto.setBirthDate(birthDate);
+		dto.setBirthDate(newBirthday);
 		dto.setEmail(newEmail);
 		dto.setPhone(phone);
 		dto.setNickname(nickname);
-		dto.setLocation(newLocation);
 		dto.setProfileImg(newProfileImg);
+		dto.setGender(newGender);
 		
 		int result = new MemberDAO().updateMember(dto);
 		if(result == 1) {
