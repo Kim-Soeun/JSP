@@ -97,6 +97,7 @@ public class CrewJoinDAO extends DBConnector {
 				dto.setIsCheck(rs.getInt(5));
 				dto.setMemberNum(rs.getInt(6));
 				dto.setIsShortCrew(rs.getBoolean(7));
+				dto.setGender(rs.getString(8));
 				joinList.add(dto);
 			}
 			System.out.println("selectCrewJoin 성공");
@@ -129,6 +130,7 @@ public class CrewJoinDAO extends DBConnector {
 				dto.setIsCheck(rs.getInt(5));
 				dto.setMemberNum(rs.getInt(6));
 				dto.setIsShortCrew(rs.getBoolean(7));
+				dto.setGender(rs.getString(8));
 				joinList.add(dto);
 			}
 			
@@ -180,6 +182,7 @@ public class CrewJoinDAO extends DBConnector {
 				dto.setIsCheck(rs.getInt(5));
 				dto.setMemberNum(rs.getInt(6));
 				dto.setIsShortCrew(rs.getBoolean(7));
+				dto.setGender(rs.getString(8));
 				joinList.add(dto);
 			}
 			System.out.println("selectLongCrewJoin 성공");
@@ -211,6 +214,7 @@ public class CrewJoinDAO extends DBConnector {
 				dto.setIsCheck(rs.getInt(5));
 				dto.setMemberNum(rs.getInt(6));
 				dto.setIsShortCrew(rs.getBoolean(7));
+				dto.setGender(rs.getString(8));
 				joinList.add(dto);
 			}
 			

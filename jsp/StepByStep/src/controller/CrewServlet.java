@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.JSFunction;
-import model.CrewDAO;
-import model.CrewDTO;
 import model.CrewJoinDAO;
 import model.CrewJoinDTO;
 import model.CrewRecruitDAO;
 import model.CrewRecruitDTO;
+import model.CrewScheduleMemberDAO;
+import model.CrewScheduleMemberDTO;
+import model.MemberDAO;
 
 public class CrewServlet extends HttpServlet {
 
@@ -50,7 +51,8 @@ public class CrewServlet extends HttpServlet {
 		int memberNum = Integer.parseInt(req.getParameter("memberNum"));// 모집인원
 		String gatherDate = req.getParameter("gatherDate");				// 모임날짜
 		String adminId = req.getParameter("adminId");					// 방장(크루장)
-			
+		String courseId = req.getParameter("courseId");
+		
 		// 크루 생성날짜
 		Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,6 +67,7 @@ public class CrewServlet extends HttpServlet {
 		dto.setGatherDate(gatherDate);
 		dto.setAdminId(adminId);
 		dto.setCreated(created);
+		dto.setCourseId(courseId);
 		
 		// 크루 만들기 dao
 		CrewRecruitDAO dao = new CrewRecruitDAO();
@@ -74,13 +77,13 @@ public class CrewServlet extends HttpServlet {
 		int no = dao.selectNo();
 		
 		// 방장은 자동으로 크루에 가입됨
-		CrewDTO crew = new CrewDTO();
+		CrewScheduleMemberDTO crew = new CrewScheduleMemberDTO();
 		crew.setNo(no);
 		crew.setCrewName(crewName);
 		crew.setMemberNum(memberNum);
 		crew.setMemId(adminId);
 		crew.setMemAdmin(true);
-		new CrewDAO().joinCrew(crew);
+		new CrewScheduleMemberDAO().joinCrew(crew);
 		dao.close();
 		resp.sendRedirect("crewRecruitList.jsp");
 	}
@@ -92,8 +95,12 @@ public class CrewServlet extends HttpServlet {
 		String crewName = req.getParameter("crewName");
 		int memberNum = Integer.parseInt(req.getParameter("memberNum"));
 		String adminId = req.getParameter("adminId");
-		String userId = req.getParameter("userId");
+		String userId = (String)req.getSession().getAttribute("userId");
 		boolean memAdmin = false;
+		MemberDAO member = new MemberDAO();
+		String gender = member.selectGender(userId);
+		System.out.println("아이디 : " + userId);
+		System.out.println("성별 : " + gender);
 		
 		// 단기크루 승인대기상태(임시가입정보 테이블인 join테이블에 데이터 넣음)
 		CrewJoinDTO dto = new CrewJoinDTO();
@@ -103,6 +110,7 @@ public class CrewServlet extends HttpServlet {
 		dto.setIsCheck(1);
 		dto.setMemberNum(memberNum);
 		dto.setIsShortCrew(true);
+		dto.setGender(gender);
 		CrewJoinDAO dao = new CrewJoinDAO();
 		dao.insertJoinInfo(dto);
 		dao.close();

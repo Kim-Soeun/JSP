@@ -13,7 +13,7 @@ public class CrewRecruitDAO extends DBConnector {
 	// 단기크루만들기
 	public void makeCrew(CrewRecruitDTO dto) {
 		int result = 0;
-		String MAKE_CREW_SQL = "insert into crewRecruit values(null,?,?,?,?,?,?,?,?,true)";
+		String MAKE_CREW_SQL = "insert into crewRecruit values(null,?,?,?,?,?,?,?,?,true,?)";
 
 		try {
 			psmt = con.prepareStatement(MAKE_CREW_SQL);
@@ -25,6 +25,7 @@ public class CrewRecruitDAO extends DBConnector {
 			psmt.setString(6, dto.getCreated());
 			psmt.setString(7, dto.getGatherDate());
 			psmt.setString(8, dto.getAdminId());
+			psmt.setString(9, dto.getCourseId());
 			result = psmt.executeUpdate();
 			
 			System.out.println("makeCrew 성공");
@@ -58,7 +59,8 @@ public class CrewRecruitDAO extends DBConnector {
 				dto.setGatherDate(rs.getString(8));
 				dto.setAdminId(rs.getString(9));
 				dto.setCrew(rs.getBoolean(10));
-				dto.setTotalCount(rs.getInt(11));
+				dto.setCourseId(rs.getString(11));
+				dto.setTotalCount(rs.getInt(12));
 				crewList.add(dto);
 			}
 			
@@ -92,14 +94,14 @@ public class CrewRecruitDAO extends DBConnector {
 				dto.setGatherDate(rs.getString(8));
 				dto.setAdminId(rs.getString(9));
 				dto.setCrew(rs.getBoolean(10));
-				dto.setTotalCount(rs.getInt(11));
+				dto.setCourseId(rs.getString(11));
+				dto.setTotalCount(rs.getInt(12));
 			}
 			
 			System.out.println("selectRecruitDetail 성공");
 			
 		} catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("selectRecruitDetail 실패");
 			System.out.println("selectRecruitDetail 실패");
 		}
 		return dto;
@@ -236,7 +238,7 @@ public class CrewRecruitDAO extends DBConnector {
 	public List<CrewRecruitDTO> selectPlannedSchedule(String id) {
 		List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
 		String PLANNED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where crewName = crewRecruit.crewName) totalCount "
-				+ "from crewRecruit join crewSchedule on crewSchedule.crewName = crewRecruit.crewName where crewSchedule.memId = ? and isCrew = true";
+				+ "from crewRecruit join crewSchedule on crewSchedule.crewName = crewRecruit.crewName where crewSchedule.memId = ?";
 		
 		try {
 			
@@ -257,7 +259,8 @@ public class CrewRecruitDAO extends DBConnector {
 					dto.setGatherDate(rs.getString(8));
 					dto.setAdminId(rs.getString(9));
 					dto.setCrew(rs.getBoolean(10));
-					dto.setTotalCount(rs.getInt(11));
+					dto.setCourseId(rs.getString(11));
+					dto.setTotalCount(rs.getInt(12));
 					
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -346,7 +349,7 @@ public class CrewRecruitDAO extends DBConnector {
 	public List<CrewRecruitDTO> selectClosedSchedule(String id) {
 	List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
 	String CLOSED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where crewName = crewRecruit.crewName) totalCount "
-			+ "from crewRecruit join crewSchedule on crewSchedule.crewName = crewRecruit.crewName where crewSchedule.memId = ? and isCrew = true";
+			+ "from crewRecruit join crewSchedule on crewSchedule.crewName = crewRecruit.crewName where crewSchedule.memId = ?";
 			
 	
 			try {
@@ -368,7 +371,8 @@ public class CrewRecruitDAO extends DBConnector {
 						dto.setGatherDate(rs.getString(8));
 						dto.setAdminId(rs.getString(9));
 						dto.setCrew(rs.getBoolean(10));
-						dto.setTotalCount(rs.getInt(11));
+						dto.setCourseId(rs.getString(11));
+						dto.setTotalCount(rs.getInt(12));
 						
 						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -425,7 +429,8 @@ public class CrewRecruitDAO extends DBConnector {
 				dto.setGatherDate(rs.getString(8));
 				dto.setAdminId(rs.getString(9));
 				dto.setCrew(rs.getBoolean(10));
-				dto.setTotalCount(rs.getInt(11));
+				dto.setCourseId(rs.getString(11));
+				dto.setTotalCount(rs.getInt(12));
 				
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				

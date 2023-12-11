@@ -326,6 +326,12 @@ public class MemberDAO extends DBConnector {
 		String SELECT_GENDER = "select gender from member where id = ?";
 		
 		try {
+			psmt = con.prepareStatement(SELECT_GENDER);
+			psmt.setString(1, memId);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				gender = rs.getString(1);
+			}
 			
 			System.out.println("selectGender 성공");
 			
@@ -336,4 +342,6 @@ public class MemberDAO extends DBConnector {
 		
 		return gender;
 	}
+	
+	
 }

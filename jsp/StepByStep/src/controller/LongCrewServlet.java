@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.JSFunction;
-import model.CrewDAO;
-import model.CrewDTO;
 import model.CrewJoinDAO;
 import model.CrewJoinDTO;
 import model.CrewRecruitDAO;
@@ -24,8 +22,6 @@ import model.LongCrewDAO;
 import model.LongCrewMemberDTO;
 import model.LongCrewRecruitDTO;
 import model.MemberDAO;
-import model.crewRecruitDTO;
-import model.memberDAO;
 
 public class LongCrewServlet extends HttpServlet {
 
