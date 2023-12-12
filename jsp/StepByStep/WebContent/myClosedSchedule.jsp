@@ -11,8 +11,6 @@
 	String userId = (String)session.getAttribute("userId");
 	CrewRecruitDAO dao = new CrewRecruitDAO();
 	List<CrewRecruitDTO> scheduleList = dao.selectClosedSchedule(userId);
-	CourseDAO dao2 = new CourseDAO();
-	List<CourseDTO> courseList = dao2.selectNo(userId);		// 이미 참여완료한 course 테이블 리스트
 
 %>
 <!DOCTYPE html>
@@ -28,6 +26,7 @@
 			<div style="border: 1px solid black; width:300px; display: flex; flex-direction: column; justify-content: center; align-content: center;">
 				<div><a href="crewRecruitDetail.jsp?crewName=${schedule.crewName}">크루명 : ${schedule.crewName}</a></div>
 				<div>크루명 : ${schedule.crewName}</div>
+				<div>일정 넘버 : ${schedule.no}</div>
 				<div>일정 제목 : ${schedule.title}</div>
 				<div>모임일자 : ${schedule.gatherDate}</div>
 				<div>모임장소: ${schedule.location}</div>
@@ -39,13 +38,16 @@
 				<input type="hidden" name="no" value="${schedule.no}">
 				<input type="hidden" name="courseId" value="${schedule.courseId}">
 				
-				<c:forEach items="<%=courseList%>" var="list">
+				<c:if test="${schedule.complete eq true}">
+					<button type="submit">참여완료</button>
+				</c:if>
+				
+				<%-- <c:forEach items="<%=courseList%>" var="list">
 				<p>일정 넘버 : ${schedule.no}</p>
 				<p>넘버 : ${list.no}</p>
 					<c:if test="${list.no ne schedule.no}">
-						<button type="submit">참여완료</button>
 					</c:if>
-				</c:forEach>
+				</c:forEach> --%>
 			</div>
 		</form>
 	</c:forEach>
