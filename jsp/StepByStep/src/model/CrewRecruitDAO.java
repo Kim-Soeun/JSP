@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,7 +14,7 @@ public class CrewRecruitDAO extends DBConnector {
 	// 단기크루만들기
 	public void makeCrew(CrewRecruitDTO dto) {
 		int result = 0;
-		String MAKE_CREW_SQL = "insert into crewRecruit values(null,?,?,?,?,?,?,?,?,true,?)";
+		String MAKE_CREW_SQL = "insert into crewRecruit values(null,?,?,?,?,?,?,?,?,true,?,null)";
 
 		try {
 			psmt = con.prepareStatement(MAKE_CREW_SQL);
@@ -237,8 +238,8 @@ public class CrewRecruitDAO extends DBConnector {
 	// 특정 id에 예정된 단기크루 스케쥴 모두 가져오기
 	public List<CrewRecruitDTO> selectPlannedSchedule(String id) {
 		List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
-		String PLANNED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where crewName = crewRecruit.crewName) totalCount "
-				+ "from crewRecruit join crewSchedule on crewSchedule.crewName = crewRecruit.crewName where crewSchedule.memId = ?";
+		String PLANNED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where crewSchedule.no = crewRecruit.no) totalCount "
+				+ "from crewRecruit join crewSchedule on crewSchedule.no = crewRecruit.no where crewSchedule.memId = ?";
 		
 		try {
 			
@@ -260,7 +261,7 @@ public class CrewRecruitDAO extends DBConnector {
 					dto.setAdminId(rs.getString(9));
 					dto.setCrew(rs.getBoolean(10));
 					dto.setCourseId(rs.getString(11));
-					dto.setTotalCount(rs.getInt(12));
+					dto.setTotalCount(rs.getInt("totalCount"));
 					
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -291,10 +292,10 @@ public class CrewRecruitDAO extends DBConnector {
 
 	
 	// 특정 crewName의 예정된 스케쥴 모두 가져오기
-	public List<CrewRecruitDTO> selectPlannedSchedule2(String crewName) {
+	public List<CrewRecruitDTO> selectPlannedSchedule2(String crewName, String memId) {
 		List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
-		String PLANNED_SCHEDULE_LIST2 = "select crewRecruit.*, (select count(memId) from crewSchedule where crewName = crewRecruit.crewName) as totalCount "
-				+ "from crewRecruit where crewRecruit.crewName = ?";
+		String PLANNED_SCHEDULE_LIST2 = "select *, (select count(memId) from crewSchedule where crewSchedule.no = crewRecruit.no) as totalCount "
+				+ "from crewRecruit where crewName = ?";
 		
 		try {
 			
@@ -306,21 +307,41 @@ public class CrewRecruitDAO extends DBConnector {
 			while(rs.next()) {
 				CrewRecruitDTO dto = new CrewRecruitDTO();
 				dto.setNo(rs.getInt(1));
-				dto.setCrewName(rs.getString(2));
+				String crewName2 = rs.getString("crewName");
+				dto.setCrewName(crewName2);
 				dto.setTitle(rs.getString(3));
 				dto.setContent(rs.getString(4));
 				dto.setLocation(rs.getString(5));
 				dto.setMemberNum(rs.getInt(6));
 				dto.setCreated(rs.getString(7));
-				dto.setGatherDate(rs.getString(8));
+				String gather = rs.getString("gatherDate");
+				dto.setGatherDate(gather);
 				dto.setAdminId(rs.getString(9));
-				dto.setCrew(rs.getBoolean(10));
-				dto.setTotalCount(rs.getInt(11));
+				boolean isCrew = rs.getBoolean("isCrew");
+				dto.setCrew(isCrew);
+				dto.setTotalCount(rs.getInt("totalCount"));
 				
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				// 유저가 일정테이블에 이미 들어가있는지 확인하고 불린값 받아서 예정된일정 페이지에서 일정참여 버튼 출력
+				boolean check = memberCheck(rs.getInt("no"), memId);
+				
+				// 유저가 특정 크루에 포함되어있는지 확인하고 불린값 받아서 예정된일정 페이지에서 일정참여 버튼 출력
+				boolean memCheck = true;
+				if(isCrew == true) {		// 단기크루면 단기크루에 멤버 이름 있는지 확인
+					memCheck = memberCheckInCrew(crewName2, memId);
+				}							// 장기크루면 장기크루에 멤버 이름 있는지 확인
+					memCheck = memberCheckInCrew2(crewName2, memId);
+					
+				// 유저가 크루의 멤버인데 일정에 속해있지 않으면 일정참여 버튼 보이게 boolean 값 true로 반환
+				if(check==false && memCheck==true) {
+					dto.setMember(true);
+				} else {
+					dto.setMember(false);
+				}
+					
 				
 				// 크루 생성 날짜(Date로 변환)
-				Date gatherDate = formatter.parse(rs.getString("gatherDate"));
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				Date gatherDate = formatter.parse(gather);
 				
 				// 오늘 날짜
 				Date now = new Date();
@@ -335,21 +356,43 @@ public class CrewRecruitDAO extends DBConnector {
 					list.add(dto);
 				}
 			}	
-			System.out.println("selectPlannedSchedule 성공");
+			System.out.println("selectPlannedSchedule2 성공");
 		} catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("selectPlannedSchedule 실패");
+			System.out.println("selectPlannedSchedule2 실패");
 		}
 		
 		return list;
 	}
 	
 	
+	// 일정에 있는 모든 멤버 가져오기
+	/*
+	 * public List<CrewScheduleMemberDTO> selectScheduleMembers(int no) {
+	 * List<CrewScheduleMemberDTO> memberList = new
+	 * ArrayList<CrewScheduleMemberDTO>(); String SELECT_SCHEDULE_MEMBERS =
+	 * "select memId from crewSchedule where no = ?";
+	 * 
+	 * try { psmt = con.prepareStatement(SELECT_SCHEDULE_MEMBERS); psmt.setInt(1,
+	 * no); ResultSet rs2 = psmt.executeQuery();
+	 * 
+	 * while(rs2.next()) { CrewScheduleMemberDTO dto = new CrewScheduleMemberDTO();
+	 * dto.setMemId(rs.getString(1)); memberList.add(dto); }
+	 * 
+	 * System.out.println("selectScheduleMembers 성공");
+	 * 
+	 * } catch(Exception e) { e.printStackTrace();
+	 * System.out.println("selectScheduleMembers 실패"); }
+	 * 
+	 * 
+	 * return memberList; }
+	 */
+	
 	// 특정 id의 마감된 크루 스케쥴 모두 가져오기
 	public List<CrewRecruitDTO> selectClosedSchedule(String id) {
 	List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
-	String CLOSED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where crewName = crewRecruit.crewName) totalCount "
-			+ "from crewRecruit join crewSchedule on crewSchedule.crewName = crewRecruit.crewName where crewSchedule.memId = ?";
+	String CLOSED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where crewSchedule.no = crewRecruit.no) totalCount "
+			+ "from crewRecruit join crewSchedule on crewSchedule.no = crewRecruit.no where crewSchedule.memId = ?";
 			
 	
 			try {
@@ -372,7 +415,10 @@ public class CrewRecruitDAO extends DBConnector {
 						dto.setAdminId(rs.getString(9));
 						dto.setCrew(rs.getBoolean(10));
 						dto.setCourseId(rs.getString(11));
-						dto.setTotalCount(rs.getInt(12));
+						dto.setTotalCount(rs.getInt("totalCount"));
+						
+						boolean complete = completeCheck(id, rs.getInt("no"));
+						dto.setComplete(complete);
 						
 						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -393,6 +439,7 @@ public class CrewRecruitDAO extends DBConnector {
 					}
 			}	
 				System.out.println("selectClosedSchedule 성공");
+			
 			} catch(Exception e) {
 				e.printStackTrace();
 				System.out.println("selectClosedSchedule 실패");
@@ -400,13 +447,114 @@ public class CrewRecruitDAO extends DBConnector {
 			
 			return list;
 		}
+	
+		// 특정 일정(no)에 memId가 있는지 확인
+		public boolean memberCheck(int no, String memId) {
+			boolean check = false;			// 일정 멤버 테이블에 멤버가 없으면 false 반환
+			String CHECK_MEMBER_IN_SCHEDULE = "select * from crewSchedule where no = ? and memId = ?";
+			
+			try {
+				psmt = con.prepareStatement(CHECK_MEMBER_IN_SCHEDULE);
+				psmt.setInt(1, no);
+				psmt.setString(2, memId);
+				ResultSet rs2 = psmt.executeQuery();
+				
+				if(rs2.next()) {
+					check = true;			// 일정 멤버 테이블에 이미 멤버가 있으면 true 반환
+				}
+				rs2.close();
+				System.out.println("memberCheck 성공");
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("memberCheck 실패");
+			}
+			return check;
+		}
+		
+		// 특정 단기크루에 멤버가 있는지 확인
+		public boolean memberCheckInCrew(String crewName, String memId) {
+			boolean check = false;		// 단기 크루에 멤버 이름 없으면 false;
+			String MEMBER_CHECK_INCREW = "select * from crewSchedule where crewName = ? and memId = ?";
+			
+			try {
+				psmt = con.prepareStatement(MEMBER_CHECK_INCREW);
+				psmt.setString(1, crewName);
+				psmt.setString(2, memId);
+				ResultSet rs3 = psmt.executeQuery();
+				
+				if(rs3.next()) {	// 단기 크루에 멤버 이름 있으면 true;
+					check = true;
+				}
+				
+				System.out.println("memberCheckInCrew 성공");
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("memberCheckInCrew 싫패");
+			}
+			
+			return check;
+		}
+		
+		// 특정 단기크루에 멤버가 있는지 확인
+		public boolean memberCheckInCrew2(String crewName, String memId) {
+			boolean check = false;			// 장기크루에 멤버 이름 없으면 false 반환
+			String MEMBER_CHECK_INCREW2 = "select * from longCrewMember where crewName = ? and memId = ?";
 
+			try {
+				psmt = con.prepareStatement(MEMBER_CHECK_INCREW2);
+				psmt.setString(1, crewName);
+				psmt.setString(2, memId);
+				ResultSet rs4 = psmt.executeQuery();
+				
+				if(rs4.next()) {			// 장기크루에 멤버 이름 있으면 true 반환
+					check = true;		
+				}
+				
+				System.out.println("memberCheckInCrew2 성공");
+
+			} catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("memberCheckInCrew2 실패");
+			}
+			return check;
+		}
+	
+		
+		  // 특정 id와 일정 no가 course테이블에 있는지 확인 
+		  public boolean completeCheck(String memId, int no) { 
+			  boolean complete = true; // 테이블에 없으면 true 반환 
+			  String COMPLETE_CHECK = "select * from course where memId=? and no=?";
+		  
+			  try {
+				  psmt = con.prepareStatement(COMPLETE_CHECK);
+				  psmt.setString(1, memId);
+				  psmt.setInt(2, no); 
+				  ResultSet rs2= psmt.executeQuery(); 
+				  
+				  if(rs2.next()) { //일치하는 아이디와 일정넘버가 있으면 false 반환 
+					  complete = false; 
+				} 
+				  rs2.close();
+			  
+			  	  System.out.println("completeCheck 성공");
+			  
+			  } catch(Exception e) { 
+				  e.printStackTrace();
+				  System.out.println("completeCheck 실패");
+			  }
+			  
+			  
+			  return complete;
+		 }
+		 
 	
 	
 	// 특정 crewName의 마감된 크루 스케쥴 모두 가져오기(단기크루)
 	public List<CrewRecruitDTO> selectClosedSchedule2(String crewName) {
 		List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
-		String CLOSED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where crewName = crewRecruit.crewName) as totalCount "
+		String CLOSED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where no = crewRecruit.no) as totalCount "
 				+ "from crewRecruit where crewRecruit.crewName = ?";
 		
 		
@@ -430,7 +578,7 @@ public class CrewRecruitDAO extends DBConnector {
 				dto.setAdminId(rs.getString(9));
 				dto.setCrew(rs.getBoolean(10));
 				dto.setCourseId(rs.getString(11));
-				dto.setTotalCount(rs.getInt(12));
+				dto.setTotalCount(rs.getInt("totalCount"));
 				
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				
@@ -516,7 +664,7 @@ public class CrewRecruitDAO extends DBConnector {
 				dto.setMemberNum(rs.getInt(3));
 				dto.setCreated(rs.getString(4));
 				dto.setAdminId(rs.getString(5));
-				dto.setTotalCount(rs.getInt(6));
+				dto.setTotalCount(rs.getInt("totalCount"));
 				crewList.add(dto);
 			}
 			
@@ -578,7 +726,7 @@ public class CrewRecruitDAO extends DBConnector {
 				dto.setGatherDate(rs.getString(8));
 				dto.setAdminId(rs.getString(9));
 				dto.setCrew(rs.getBoolean(10));
-				dto.setTotalCount(rs.getInt(11));
+				dto.setTotalCount(rs.getInt("totalCount"));
 				scheduleList.add(dto);
 			}
 			
@@ -655,7 +803,7 @@ public class CrewRecruitDAO extends DBConnector {
 				dto.setGatherDate(rs.getString(8));
 				dto.setAdminId(rs.getString(9));
 				dto.setCrew(rs.getBoolean(10));
-				dto.setTotalCount(rs.getInt(11));
+				dto.setTotalCount(rs.getInt("totalCount"));
 				crewList.add(dto);
 			}
 			
@@ -689,7 +837,7 @@ public class CrewRecruitDAO extends DBConnector {
 				dto.setMemberNum(rs.getInt(3));
 				dto.setCreated(rs.getString(4));
 				dto.setAdminId(rs.getString(5));
-				dto.setTotalCount(rs.getInt(6));
+				dto.setTotalCount(rs.getInt("totalCount"));
 				crewList.add(dto);
 			}
 			

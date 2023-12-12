@@ -49,7 +49,7 @@ public class LongCrewDAO extends DBConnector {
 				dto.setMemberNum(rs.getInt(3));
 				dto.setCreated(rs.getString(4));
 				dto.setAdminId(rs.getString(5));
-				dto.setTotalCount(rs.getInt(6));
+				dto.setTotalCount(rs.getInt("totalCount"));
 				crewList.add(dto);
 			}
 			
@@ -80,7 +80,7 @@ public class LongCrewDAO extends DBConnector {
 				dto.setMemberNum(rs.getInt(3));
 				dto.setCreated(rs.getString(4));
 				dto.setAdminId(rs.getString(5));
-				dto.setTotalCount(rs.getInt(6));
+				dto.setTotalCount(rs.getInt("totalCount"));
 			}
 			
 			System.out.println("selectRecruitDetail 성공");
@@ -120,7 +120,7 @@ public class LongCrewDAO extends DBConnector {
 	// 장기크루 일정 등록하기
 	public void regiterSchedule(CrewRecruitDTO dto) {
 		int result = 0;
-		String REGISTER_SCHEDULE = "insert into crewRecruit values(null,?,?,?,?,?,?,?,?,false)";
+		String REGISTER_SCHEDULE = "insert into crewRecruit values(null,?,?,?,?,?,?,?,?,false,null,null)";
 		
 		try {
 			psmt = con.prepareStatement(REGISTER_SCHEDULE);

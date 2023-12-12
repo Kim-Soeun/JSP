@@ -1,10 +1,14 @@
 package model;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 import common.DBConnector;
 
 public class CrewScheduleMemberDAO extends DBConnector {
 
-	// 단기크루 멤버로 등록하기
+	// 단기크루 멤버로 등록하기 or 장기크루 일정등록하기
 	public void joinCrew(CrewScheduleMemberDTO dto) {
 		int result = 0;
 		String JOIN_CREW_SQL = "insert into crewSchedule values(?, ?, ?, ?, ?)";
@@ -29,7 +33,7 @@ public class CrewScheduleMemberDAO extends DBConnector {
 	
 	
 	// 장기크루 일정에 멤버 등록하기(단기크루에 멤버 추가하기)
-	public void joinSchedule(CrewScheduleMemberDTO dto) {
+	public int joinSchedule(CrewScheduleMemberDTO dto) {
 		int result = 0;
 		String JOIN_SCHEDULE = "insert into crewSchedule values(?,?,?,?,?)";
 		
@@ -48,6 +52,7 @@ public class CrewScheduleMemberDAO extends DBConnector {
 			System.out.println("joinSchedule 실패");
 		}
 		
+		return result;
 	}
 	
 	
@@ -75,6 +80,8 @@ public class CrewScheduleMemberDAO extends DBConnector {
 		
 		return result;
 	}
+	
+	
 	
 	
 }

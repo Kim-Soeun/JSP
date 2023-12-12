@@ -16,7 +16,6 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.JSFunction;
 import model.PhotoDAO;
-import model.PhotoDTO;
 
 public class UpdatePhotoServlet extends HttpServlet {
 
@@ -46,12 +45,10 @@ public class UpdatePhotoServlet extends HttpServlet {
 		
 		File file = new File(saveDirectory + File.separator + imgName);
 		
-		PhotoDTO dto = new PhotoDTO();
-		dto.setId(id);
-		dto.setTitle(title);
-		dto.setContent(content);
-		dto.setCreated(created);
-		dto.setImgName(imgName);
+		/*
+		 * PhotoDTO dto = new PhotoDTO(); dto.setId(id); dto.setTitle(title);
+		 * dto.setContent(content); dto.setCreated(created); dto.setImgName(imgName);
+		 */
 		
 		/*
 		 * int result = new photoDAO().insertPhoto(dto);

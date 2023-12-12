@@ -4,7 +4,8 @@ public class CrewRecruitDTO {
 	
 	private String crewName, title, content, location, created, gatherDate, adminId, courseId;
 	private int no, memberNum, totalCount;
-	private boolean isCrew;
+	private boolean isCrew, complete, member;		// isMember : 일정에 유저가 참여되어있는지 확인하기 위해 만듦
+													// crewPlannedSchedule에서 일정참여 버튼 출력 여부를 위해 사용
 	
 	
 	public String getCrewName() {
@@ -79,8 +80,18 @@ public class CrewRecruitDTO {
 	public void setCrew(boolean isCrew) {
 		this.isCrew = isCrew;
 	}
-	
-	
+	public boolean isComplete() {
+		return complete;
+	}
+	public void setComplete(boolean complete) {
+		this.complete = complete;
+	}
+	public boolean isMember() {
+		return member;
+	}
+	public void setMember(boolean member) {
+		this.member = member;
+	}
 	
 	
 	
