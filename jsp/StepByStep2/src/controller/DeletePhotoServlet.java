@@ -19,7 +19,7 @@ public class DeletePhotoServlet extends HttpServlet {
 		int result = new PhotoDAO().deletePhoto(no);
 		
 		if(result == 1) {
-			JSFunction.alertLocation(resp, "사진이 삭제되었습니다", "photobook.jsp");
+			JSFunction.alertLocation(resp, "사진이 삭제되었습니다", "album.jsp");
 			System.out.println("사진 삭제 성공");
 		} else {
 			System.out.println("사진 삭제 실패");

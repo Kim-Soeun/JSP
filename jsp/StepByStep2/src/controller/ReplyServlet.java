@@ -53,7 +53,7 @@ public class ReplyServlet extends HttpServlet {
 			ReplyDAO dao = new ReplyDAO();
 			dao.registerReply(dto);
 			dao.close();
-			resp.sendRedirect("crewBoardPage.jsp?no=" + b_no);
+			resp.sendRedirect("CrewBoardPage.jsp?no=" + b_no);
 		}
 
 		// 게시판 댓글 등록(장기 크루)
@@ -75,7 +75,7 @@ public class ReplyServlet extends HttpServlet {
 			ReplyDAO dao = new ReplyDAO();
 			dao.registerReply(dto);
 			dao.close();
-			resp.sendRedirect("longCrewBoardPage.jsp?no=" + b_no);
+			resp.sendRedirect("CrewBoardPage.jsp?no=" + b_no);
 		}
 		
 		

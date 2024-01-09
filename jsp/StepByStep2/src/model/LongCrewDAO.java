@@ -1,6 +1,8 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import common.DBConnector;
@@ -10,7 +12,7 @@ public class LongCrewDAO extends DBConnector {
 	// 장기크루 만들기
 	public void makeLongCrew(LongCrewRecruitDTO dto) {
 		int result = 0;
-		String MAKE_LONGCREW_SQL = "insert into longCrewRecruit values(?,?,?,?,?)";
+		String MAKE_LONGCREW_SQL = "insert into longCrewRecruit values(?,?,?,?,?,?)";
 
 		try {
 			psmt = con.prepareStatement(MAKE_LONGCREW_SQL);
@@ -19,6 +21,7 @@ public class LongCrewDAO extends DBConnector {
 			psmt.setInt(3, dto.getMemberNum());
 			psmt.setString(4, dto.getCreated());
 			psmt.setString(5, dto.getAdminId());
+			psmt.setString(6, dto.getDueDate());
 			result = psmt.executeUpdate();
 			
 			System.out.println("makeLongCrew 성공");
@@ -49,7 +52,8 @@ public class LongCrewDAO extends DBConnector {
 				dto.setMemberNum(rs.getInt(3));
 				dto.setCreated(rs.getString(4));
 				dto.setAdminId(rs.getString(5));
-				dto.setTotalCount(rs.getInt(6));
+				dto.setTotalCount(rs.getInt("totalCount"));
+				dto.setDueDate(rs.getString("dueDate"));
 				crewList.add(dto);
 			}
 			
@@ -62,6 +66,114 @@ public class LongCrewDAO extends DBConnector {
 		
 		return crewList;
 	}
+	
+	
+	// 모집중인 장기크루 리스트 불러오기
+	public List<LongCrewRecruitDTO> selectNowRecruit() {
+		List<LongCrewRecruitDTO> crewList = new ArrayList<LongCrewRecruitDTO>();
+		String SELECT_ALL_LONGCREW = "select *, (select count(memId) from longCrewMember where crewName = longCrewRecruit.crewName) as totalCount "
+				+ "from longCrewRecruit order by dueDate desc";
+		
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SELECT_ALL_LONGCREW);
+			
+			while(rs.next()) {
+				LongCrewRecruitDTO dto = new LongCrewRecruitDTO();
+				dto.setCrewName(rs.getString(1));
+				dto.setContent(rs.getString(2));
+				dto.setMemberNum(rs.getInt(3));
+				dto.setCreated(rs.getString(4));
+				dto.setAdminId(rs.getString(5));
+				String dueDate = rs.getString("dueDate");
+				dto.setDueDate(dueDate);
+				dto.setTotalCount(rs.getInt("totalCount"));
+				
+				
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				
+				// 크루 모임일자(Date로 변환해서 오늘 날짜와 비교)
+				Date dueDate2 = formatter.parse(dueDate);
+				Date now = new Date();
+				String today = formatter.format(now);
+				Date today2 = formatter.parse(today);
+				
+				int result = dueDate2.compareTo(today2);
+				
+				// 모일일자가 아직 지나지 않았으면 list에 넣음
+				if(result > 0) {
+					crewList.add(dto);
+				}
+				
+				
+				
+			}
+			
+			System.out.println("selectNowRecruit 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectNowRecruit 실패");
+		}
+		
+		return crewList;
+	}
+
+	
+	
+	// 모집중인 장기크루 리스트 불러오기
+	public List<LongCrewRecruitDTO> selectDoneRecruit() {
+		List<LongCrewRecruitDTO> crewList = new ArrayList<LongCrewRecruitDTO>();
+		String SELECT_ALL_LONGCREW = "select *, (select count(memId) from longCrewMember where crewName = longCrewRecruit.crewName) as totalCount "
+				+ "from longCrewRecruit order by dueDate desc";
+		
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SELECT_ALL_LONGCREW);
+			
+			while(rs.next()) {
+				LongCrewRecruitDTO dto = new LongCrewRecruitDTO();
+				dto.setCrewName(rs.getString(1));
+				dto.setContent(rs.getString(2));
+				dto.setMemberNum(rs.getInt(3));
+				dto.setCreated(rs.getString(4));
+				dto.setAdminId(rs.getString(5));
+				String dueDate = rs.getString("dueDate");
+				dto.setDueDate(dueDate);
+				dto.setTotalCount(rs.getInt("totalCount"));
+				
+				
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				
+				// 크루 모임일자(Date로 변환해서 오늘 날짜와 비교)
+				Date dueDate2 = formatter.parse(dueDate);
+				Date now = new Date();
+				String today = formatter.format(now);
+				Date today2 = formatter.parse(today);
+				
+				int result = dueDate2.compareTo(today2);
+				
+				// 모일일자가 아직 지나지 않았으면 list에 넣음
+				if(result < 0) {
+					crewList.add(dto);
+				}
+				
+				
+				
+			}
+			
+			System.out.println("selectDoneRecruit 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectDoneRecruit 실패");
+		}
+		
+		return crewList;
+	}
+	
 	
 	// 특정 장기크루 모집글 상세정보 가져오기
 	public LongCrewRecruitDTO selectRecruitDetail(String crewName) {
@@ -80,7 +192,8 @@ public class LongCrewDAO extends DBConnector {
 				dto.setMemberNum(rs.getInt(3));
 				dto.setCreated(rs.getString(4));
 				dto.setAdminId(rs.getString(5));
-				dto.setTotalCount(rs.getInt(6));
+				dto.setTotalCount(rs.getInt("totalCount"));
+				dto.setDueDate(rs.getString("dueDate"));
 			}
 			
 			System.out.println("selectRecruitDetail 성공");
@@ -120,7 +233,7 @@ public class LongCrewDAO extends DBConnector {
 	// 장기크루 일정 등록하기
 	public void regiterSchedule(CrewRecruitDTO dto) {
 		int result = 0;
-		String REGISTER_SCHEDULE = "insert into crewRecruit values(null,?,?,?,?,?,?,?,?,false)";
+		String REGISTER_SCHEDULE = "insert into crewRecruit values(null,?,?,?,?,?,?,?,?,false,null,null)";
 		
 		try {
 			psmt = con.prepareStatement(REGISTER_SCHEDULE);

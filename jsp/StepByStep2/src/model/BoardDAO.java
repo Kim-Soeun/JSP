@@ -10,17 +10,18 @@ public class BoardDAO extends DBConnector {
 	// 게시판 등록
 	public int insertBoard(BoardDTO dto) {
 		int result = 0;
-		String INSERT_BOARD_SQL = "insert into crewboard values(0, ?, ?, ?, ?, ?, ?, ?)";
+		String INSERT_BOARD_SQL = "insert into crewboard values(0, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			psmt = con.prepareStatement(INSERT_BOARD_SQL);
 			psmt.setString(1, dto.getId());
 			psmt.setString(2, dto.getNickname());
 			psmt.setString(3, dto.getCreated());
-			psmt.setString(4, dto.getContent());
-			psmt.setString(5, dto.getCategory());
-			psmt.setString(6, dto.getImgName());
-			psmt.setString(7, dto.getCrewName());
+			psmt.setString(4, dto.getTitle());
+			psmt.setString(5, dto.getContent());
+			psmt.setString(6, dto.getCategory());
+			psmt.setString(7, dto.getImgName());
+			psmt.setString(8, dto.getCrewName());
 			result = psmt.executeUpdate();
 			
 			System.out.println("InsertBoard 성공");
@@ -48,6 +49,7 @@ public class BoardDAO extends DBConnector {
 				dto.setId(rs.getString("id"));
 				dto.setNickname(rs.getString("nickname"));
 				dto.setCreated(rs.getString("created"));
+				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setCategory(rs.getString("category"));
 				dto.setImgName(rs.getString("imgName"));
@@ -71,7 +73,7 @@ public class BoardDAO extends DBConnector {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		//int totalNum = selectCount(crewName) - start + 1;
 		String SELECT_CREW_BOARD = "select *, (select count(*) from recommend where no=crewboard.no) as count from crewboard where crewName = ?"
-				+ " order by no desc";
+				+ " order by created desc";
 		
 		int limit = 0;
 		
@@ -83,15 +85,16 @@ public class BoardDAO extends DBConnector {
 			
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();
-				dto.setNo(rs.getInt(1));
-				dto.setId(rs.getString(2));
-				dto.setNickname(rs.getString(3));
-				dto.setCreated(rs.getString(4));
-				dto.setContent(rs.getString(5));
-				dto.setCategory(rs.getString(6));
-				dto.setImgName(rs.getString(7));
-				dto.setCrewName(rs.getString(8));
-				dto.setCount(rs.getInt(9));
+				dto.setNo(rs.getInt("no"));
+				dto.setId(rs.getString("id"));
+				dto.setNickname(rs.getString("nickname"));
+				dto.setCreated(rs.getString("created"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setCategory(rs.getString("category"));
+				dto.setImgName(rs.getString("imgName"));
+				dto.setCrewName(rs.getString("crewName"));
+				dto.setCount(rs.getInt("count"));
 				list.add(dto);
 				//totalNum--;
 				limit++;
@@ -151,6 +154,7 @@ public class BoardDAO extends DBConnector {
 				dto.setId(rs.getString("id"));
 				dto.setNickname(rs.getString("nickname"));
 				dto.setCreated(rs.getString("created"));
+				dto.setTitle(rs.getString("title"));
 				dto.setCreated(rs.getString("content"));
 				dto.setCreated(rs.getString("category"));
 				dto.setCreated(rs.getString("imgName"));
@@ -183,6 +187,7 @@ public class BoardDAO extends DBConnector {
 				dto.setId(rs.getString("id"));
 				dto.setNickname(rs.getString("nickname"));
 				dto.setCreated(rs.getString("created"));
+				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setCategory(rs.getString("category"));
 				dto.setImgName(rs.getString("imgName"));
@@ -222,11 +227,12 @@ public class BoardDAO extends DBConnector {
 	
 	public int editBoard(BoardDTO dto) {
 		int result = 0;
-		String EDIT_BOARD_SQL = "update crewboard set created = ?, content = ?, category = ?, imgName = ? where no = ?";
+		String EDIT_BOARD_SQL = "update crewboard set created = ?, title = ?, content = ?, category = ?, imgName = ? where no = ?";
 	
 		try {
 			psmt = con.prepareStatement(EDIT_BOARD_SQL);
 			psmt.setString(1, dto.getCreated());
+			psmt.setString(2, dto.getTitle());
 			psmt.setString(2, dto.getContent());
 			psmt.setString(3, dto.getCategory());
 			psmt.setString(4, dto.getImgName());

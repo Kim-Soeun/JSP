@@ -76,7 +76,7 @@ public class CrewJoinServlet extends HttpServlet {
 				dao2.close();
 				
 				// 멤버 추가 후 승인현황으로 이동
-				JSFunction.alertLocation(resp, "멤버 승인이 완료되었습니다", "registerStatus.jsp");
+				JSFunction.alertLocation(resp, "멤버 승인이 완료되었습니다", "MyPage-sub4.jsp");
 				
 				
 			} else {						// 장기크루에 가입할 경우
@@ -104,7 +104,7 @@ public class CrewJoinServlet extends HttpServlet {
 				dao2.close();
 				
 				// 멤버 추가 후 승인현황으로 이동
-				JSFunction.alertLocation(resp, "멤버 승인이 완료되었습니다", "registerStatus.jsp");
+				JSFunction.alertLocation(resp, "멤버 승인이 완료되었습니다", "MyPage-sub4-longCrew.jsp");
 			
 			} 
 			
@@ -114,13 +114,13 @@ public class CrewJoinServlet extends HttpServlet {
 				CrewJoinDAO dao = new CrewJoinDAO();
 				dao.updateJoinInfo(crewName, memId);		// join 테이블에서 isCheck 3으로 변경(승인거절 상태로 변경)
 				dao.close();
-				JSFunction.alertLocation(resp, "승인거절 되었습니다", "registerStatus.jsp");
+				JSFunction.alertLocation(resp, "승인거절 되었습니다", "MyPage-sub4.jsp");
 			
 			} else {							// 장기크루 승인 거절 됐을 경우
 				CrewJoinDAO dao = new CrewJoinDAO();
 				dao.updateJoinInfo(crewName, memId);
 				dao.close();
-				JSFunction.alertLocation(resp, "승인거절 되었습니다", "registerStatus.jsp");
+				JSFunction.alertLocation(resp, "승인거절 되었습니다", "MyPage-sub4-longCrew.jsp");
 
 			}
 		

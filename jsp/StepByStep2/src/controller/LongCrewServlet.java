@@ -189,7 +189,7 @@ public class LongCrewServlet extends HttpServlet {
 		dao2.close();
 		dao3.close();
 		String encodedCrewName = URLEncoder.encode(crewName, "UTF-8");
-		JSFunction.alertLocation(resp, "일정이 등록되었습니다", "crewPlannedSchedule.jsp?crewName=" + encodedCrewName);
+		JSFunction.alertLocation(resp, "일정이 등록되었습니다", "plannedSchedule-longcrew.jsp?crewName=" + encodedCrewName);
 	}
 	
 	

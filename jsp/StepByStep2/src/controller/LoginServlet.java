@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +22,16 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
+		String loginChk = req.getParameter("loginChk");
 		
 		// 마지막 접속일
 		Date date = new Date();
-		SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
 		String lastVisitDate = formatter.format(date);
 		
 		MemberDAO dao = new MemberDAO();
@@ -37,6 +42,15 @@ public class LoginServlet extends HttpServlet {
 			dao.update_LastVisitDate(id, lastVisitDate);
 			req.getSession().setAttribute("memberDTO", dto);
 			req.getSession().setAttribute("userId", id);
+			
+			// 사용자의 로그인 유지 여부를 null 체크로 확인 
+			if (loginChk != null) { // 체크한 경우
+				Cookie c = new Cookie("id", id);
+				c.setMaxAge(60 * 5);
+				c.setPath("/");
+				resp.addCookie(c);
+			}
+			
 			resp.sendRedirect("main.jsp");
 			System.out.println("로그인 성공");
 			

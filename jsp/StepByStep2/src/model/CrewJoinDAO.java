@@ -129,6 +129,7 @@ public class CrewJoinDAO extends DBConnector {
 				dto.setIsCheck(rs.getInt(5));
 				dto.setMemberNum(rs.getInt(6));
 				dto.setIsShortCrew(rs.getBoolean(7));
+				dto.setGender(rs.getString("gender"));
 				joinList.add(dto);
 			}
 			
@@ -180,6 +181,7 @@ public class CrewJoinDAO extends DBConnector {
 				dto.setIsCheck(rs.getInt(5));
 				dto.setMemberNum(rs.getInt(6));
 				dto.setIsShortCrew(rs.getBoolean(7));
+				dto.setGender(rs.getString(8));
 				joinList.add(dto);
 			}
 			System.out.println("selectLongCrewJoin 성공");
@@ -211,6 +213,7 @@ public class CrewJoinDAO extends DBConnector {
 				dto.setIsCheck(rs.getInt(5));
 				dto.setMemberNum(rs.getInt(6));
 				dto.setIsShortCrew(rs.getBoolean(7));
+				dto.setGender(rs.getString("gender"));
 				joinList.add(dto);
 			}
 			
@@ -223,8 +226,72 @@ public class CrewJoinDAO extends DBConnector {
 		
 		return joinList;
 	}
+	
+	
+	// 특정 id가 방장인 크루의 승인대기 리스트 모두 가져오기
+	public List<CrewJoinDTO> selectAllJoin(String adminId) {
+		List<CrewJoinDTO> joinList = new ArrayList<CrewJoinDTO>();
+		String SELECT_JOIN_BYADMIN = "select * from crewJoin where adminId = ? and isCheck = 1";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_JOIN_BYADMIN);
+			psmt.setString(1, adminId);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				CrewJoinDTO dto = new CrewJoinDTO();
+				dto.setNo(rs.getInt(1));
+				dto.setCrewName(rs.getString(2));
+				dto.setMemId(rs.getString(3));
+				dto.setAdminId(rs.getString(4));
+				dto.setIsCheck(rs.getInt(5));
+				dto.setMemberNum(rs.getInt(6));
+				dto.setIsShortCrew(rs.getBoolean(7));
+				dto.setGender(rs.getString("gender"));
+				joinList.add(dto);
+			}
+			
+			System.out.println("selectAllJoin 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectAllJoin 실패");
+		}
+		
+		return joinList;
+	}
 		
 	
+	// 특정 id의 모든 승인현황 가져오기(MyPage용)
+	public List<CrewJoinDTO> selectAllCrewJoin(String memId) {
+		List<CrewJoinDTO> joinList = new ArrayList<CrewJoinDTO>();
+		String SELECT_CREW_JOIN = "select * from crewJoin where memId = ?";
+		
+		try {
+			psmt = con.prepareStatement(SELECT_CREW_JOIN);
+			psmt.setString(1, memId);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				CrewJoinDTO dto = new CrewJoinDTO();
+				dto.setNo(rs.getInt(1));
+				dto.setCrewName(rs.getString(2));
+				dto.setMemId(rs.getString(3));
+				dto.setAdminId(rs.getString(4));
+				dto.setIsCheck(rs.getInt(5));
+				dto.setMemberNum(rs.getInt(6));
+				dto.setIsShortCrew(rs.getBoolean(7));
+				dto.setGender(rs.getString(8));
+				joinList.add(dto);
+			}
+			System.out.println("selectAllCrewJoin 성공");
+
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectAllCrewJoin 실패");
+		}
+		
+		return joinList;
+	}
 
 	
 }

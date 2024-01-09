@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +21,13 @@ public class LogoutServlet extends HttpServlet {
 	public void processRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		HttpSession session = req.getSession();
 		if(session != null) {
+			
+			Cookie c = new Cookie("id", "");
+			c.setMaxAge(0);
+			resp.addCookie(c);             //쿠키에 초기화된 c 정보를 보냄
 			session.invalidate();
 		}
-		JSFunction.alertLocation(resp, "로그아웃 되었습니다", "login.jsp");
+		JSFunction.alertLocation(resp, "로그아웃 되었습니다", "login3.jsp");
 	}
 
 }
