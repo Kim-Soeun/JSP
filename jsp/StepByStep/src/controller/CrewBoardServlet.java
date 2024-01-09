@@ -60,9 +60,10 @@ public class CrewBoardServlet extends HttpServlet {
 			String crewName = mr.getParameter("crewName"); // 크루명
 			
 			LocalDateTime today = LocalDateTime.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			String created = today.format(formatter);	// 작성일자
 			
+			String title = mr.getParameter("title");		// 제목
 			String content = mr.getParameter("content");	// 내용
 			String category = mr.getParameter("category");	// 카테고리
 			
@@ -74,6 +75,7 @@ public class CrewBoardServlet extends HttpServlet {
 			board.setId(id);
 			board.setNickname(nickname);
 			board.setCreated(created);
+			board.setTitle(title);
 			board.setContent(content);
 			board.setCategory(category);
 			board.setImgName(imgName);
@@ -116,6 +118,7 @@ public class CrewBoardServlet extends HttpServlet {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String created = today.format(formatter);	// 작성일자
 			
+			String title = mr.getParameter("title");
 			String content = mr.getParameter("content");	// 내용
 			String category = mr.getParameter("category");	// 카테고리
 			
@@ -127,6 +130,7 @@ public class CrewBoardServlet extends HttpServlet {
 			board.setId(id);
 			board.setNickname(nickname);
 			board.setCreated(created);
+			board.setTitle(title);
 			board.setContent(content);
 			board.setCategory(category);
 			board.setImgName(imgName);

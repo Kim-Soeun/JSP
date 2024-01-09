@@ -27,8 +27,6 @@ public class DeleteBoardServlet extends HttpServlet {
 		String userId = req.getParameter("userId");
 		String writerId = req.getParameter("writerId");
 		String crewName = req.getParameter("crewName");
-		System.out.println(userId);
-		System.out.println(writerId);
 		int no = Integer.parseInt(req.getParameter("no"));
 		
 		if(userId.equals(writerId)) {	// 로그인 아이디와 작성자가 같으면 삭제 가능
@@ -36,7 +34,7 @@ public class DeleteBoardServlet extends HttpServlet {
 
 			if(result == 1) {		// 게시물 삭제 성공
 				String encodedCrewName = URLEncoder.encode(crewName, "UTF-8");
-				JSFunction.alertLocation(resp, "게시물이 삭제되었습니다", "longCrewBoardList.jsp?crewName=" + encodedCrewName);
+				JSFunction.alertLocation(resp, "게시물이 삭제되었습니다", "crewBoardList.jsp?crewName=" + encodedCrewName);
 				System.out.println("게시물 삭제 성공");
 			} else {				// 게시물 삭제 실패
 				JSFunction.alertBack(resp, "게시물 삭제에 실패했습니다");

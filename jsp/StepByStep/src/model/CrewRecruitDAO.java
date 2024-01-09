@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.print.attribute.PrintServiceAttribute;
+
 import common.DBConnector;
 
 public class CrewRecruitDAO extends DBConnector {
@@ -72,6 +74,66 @@ public class CrewRecruitDAO extends DBConnector {
 		}
 		return crewList;
 	}
+	
+	
+	
+	
+	// 단기크루 모집중인 리스트 가져오기
+	public List<CrewRecruitDTO> selectNowRecruit() {
+		List<CrewRecruitDTO> crewList = new ArrayList<CrewRecruitDTO>();
+		String SELECT_NOW_RECRUIT = "select *, (select count(memId) from crewSchedule where crewName = crewRecruit.crewName)"
+				+ " as totalCount from crewRecruit where isCrew = true order by created desc";
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SELECT_NOW_RECRUIT);
+			
+			while(rs.next()) {
+				CrewRecruitDTO dto = new CrewRecruitDTO();
+				dto.setNo(rs.getInt("no"));
+				dto.setCrewName(rs.getString("crewName"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setLocation(rs.getString("location"));
+				dto.setMemberNum(rs.getInt("memberNum"));
+				dto.setCreated(rs.getString("created"));
+				String gatherDate = rs.getString("gatherDate");
+				dto.setGatherDate(gatherDate);
+				dto.setAdminId(rs.getString("adminId"));
+				dto.setCrew(rs.getBoolean("isCrew"));
+				dto.setCourseId(rs.getString("courseId"));
+				dto.setTotalCount(rs.getInt("totalCount"));
+				
+				
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				
+				// 크루 모임일자(Date로 변환해서 오늘 날짜와 비교)
+				Date gatherDate2 = formatter.parse(gatherDate);
+				Date now = new Date();
+				String today = formatter.format(now);
+				Date today2 = formatter.parse(today);
+				
+				int result = gatherDate2.compareTo(today2);
+				
+				// 모일일자가 아직 지나지 않았으면 list에 넣음
+				if(result > 0) {
+					crewList.add(dto);
+				}
+				
+				
+			}
+			
+			System.out.println("selectNowRecruit 성공");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectNowRecruit 실패");
+		}
+		
+		return crewList;
+	}
+	
+	
 	
 	// 특정 크루 상세보기 불러오기
 	public CrewRecruitDTO selectRecruitDetail(String crewName) {
@@ -239,7 +301,7 @@ public class CrewRecruitDAO extends DBConnector {
 	public List<CrewRecruitDTO> selectPlannedSchedule(String id) {
 		List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
 		String PLANNED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where crewSchedule.no = crewRecruit.no) totalCount "
-				+ "from crewRecruit join crewSchedule on crewSchedule.no = crewRecruit.no where crewSchedule.memId = ?";
+				+ "from crewRecruit join crewSchedule on crewSchedule.no = crewRecruit.no where crewSchedule.memId = ? order by gatherDate desc";
 		
 		try {
 			
@@ -257,7 +319,8 @@ public class CrewRecruitDAO extends DBConnector {
 					dto.setLocation(rs.getString(5));
 					dto.setMemberNum(rs.getInt(6));
 					dto.setCreated(rs.getString(7));
-					dto.setGatherDate(rs.getString(8));
+					String gatherDate = rs.getString("gatherDate");
+					dto.setGatherDate(gatherDate);
 					dto.setAdminId(rs.getString(9));
 					dto.setCrew(rs.getBoolean(10));
 					dto.setCourseId(rs.getString(11));
@@ -265,8 +328,8 @@ public class CrewRecruitDAO extends DBConnector {
 					
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-					// 크루 생성 날짜(Date로 변환)
-					Date gatherDate = formatter.parse(rs.getString("gatherDate"));
+					// 크루 모임 날짜(Date로 변환)
+					Date gatherDate2 = formatter.parse(gatherDate);
 					
 					// 오늘 날짜
 					Date now = new Date();
@@ -274,7 +337,7 @@ public class CrewRecruitDAO extends DBConnector {
 					Date today2 = formatter.parse(today);
 					
 					// 오늘 날짜 이전인지 확인
-					int result = gatherDate.compareTo(today2);
+					int result = gatherDate2.compareTo(today2);
 					
 					
 					if(result > 0) {
@@ -295,7 +358,7 @@ public class CrewRecruitDAO extends DBConnector {
 	public List<CrewRecruitDTO> selectPlannedSchedule2(String crewName, String memId) {
 		List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
 		String PLANNED_SCHEDULE_LIST2 = "select *, (select count(memId) from crewSchedule where crewSchedule.no = crewRecruit.no) as totalCount "
-				+ "from crewRecruit where crewName = ?";
+				+ "from crewRecruit where crewName = ? order by gatherDate desc";
 		
 		try {
 			
@@ -392,7 +455,7 @@ public class CrewRecruitDAO extends DBConnector {
 	public List<CrewRecruitDTO> selectClosedSchedule(String id) {
 	List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
 	String CLOSED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where crewSchedule.no = crewRecruit.no) totalCount "
-			+ "from crewRecruit join crewSchedule on crewSchedule.no = crewRecruit.no where crewSchedule.memId = ?";
+			+ "from crewRecruit join crewSchedule on crewSchedule.no = crewRecruit.no where crewSchedule.memId = ? order by gatherDate desc";
 			
 	
 			try {
@@ -551,7 +614,7 @@ public class CrewRecruitDAO extends DBConnector {
 		 
 	
 	
-	// 특정 crewName의 마감된 크루 스케쥴 모두 가져오기(단기크루)
+	// 특정 crewName의 마감된 크루 스케쥴 모두 가져오기
 	public List<CrewRecruitDTO> selectClosedSchedule2(String crewName) {
 		List<CrewRecruitDTO> list = new ArrayList<CrewRecruitDTO>();
 		String CLOSED_SCHEDULE_LIST = "select crewRecruit.*, (select count(memId) from crewSchedule where no = crewRecruit.no) as totalCount "
