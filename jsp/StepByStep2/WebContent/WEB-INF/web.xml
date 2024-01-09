@@ -181,6 +181,23 @@
 		<url-pattern>*.join</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>CourseServlet</servlet-name>
+		<servlet-class>controller.CourseServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CourseServlet</servlet-name>
+		<url-pattern>/CourseServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>JoinScheduleServlet</servlet-name>
+		<servlet-class>controller.JoinScheduleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JoinScheduleServlet</servlet-name>
+		<url-pattern>/JoinScheduleServlet</url-pattern>
+	</servlet-mapping>
 	
 	<context-param>
 		<param-name>POST_PAGE</param-name>

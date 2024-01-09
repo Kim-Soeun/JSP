@@ -32,6 +32,19 @@
 		dao.close();
 		dao2.close();
 	
+		
+		
+	// 자동로그인
+	Cookie[] c = request.getCookies();
+	if (c != null) {
+		for (Cookie cf : c) {
+			out.print(cf.getName());
+			out.print(cf.getValue());
+			if (cf.getName().equals("id")) {
+				response.sendRedirect("main.jsp");
+			}
+		}
+	} 
 	
 %>
 <!DOCTYPE html>
@@ -86,20 +99,23 @@
 									<div class="log-sec">
 										<input type="password" name="pw" class="login-h2" placeholder="패스워드를 입력하세요">
 									</div>
+									<input type="checkbox" name="loginChk" value="true" >로그인 상태 유지<br/>
 									<input type="submit" value="로그인하기" class="log-btn">
+									<a href="LogoutServlet">로그아웃</a>
+									
 								</div>
 							</form>
 							<div class="log-bottom">
 								<div class="log-bottom-txt">
-									아직 회원이 아니신가요? <a href="">회원가입</a> <br> 
-									<a href="">아이디찾기</a>   |   <a href="">  비밀번호찾기</a>
+									아직 회원이 아니신가요? <a href="signUp3.jsp">회원가입</a> <br> 
+									<a href="IdFinder.jsp">아이디찾기</a>   |   <a href="pwFinder.jsp">  비밀번호찾기</a>
+									
 								</div>
 							</div>
 						</div>
 
 					</div>
 				</div>
-
 				<!-- footer.jsp 시작 -->
 				<!--  <div class="footer"></div> -->
 				<!-- footer.jsp 끝 -->

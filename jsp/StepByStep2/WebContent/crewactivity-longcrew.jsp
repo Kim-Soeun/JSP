@@ -1,3 +1,6 @@
+<%@page import="model.LongCrewMemberDTO"%>
+<%@page import="model.LongCrewDAO"%>
+<%@page import="model.LongCrewRecruitDTO"%>
 <%@page import="model.CrewScheduleMemberDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="model.CrewRecruitDAO"%>
@@ -9,21 +12,21 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="loginCheck.jsp" %>
 <%
+	String UserId = (String)session.getAttribute("userId");
 	String crewName = request.getParameter("crewName");
-	CrewRecruitDTO crew = new CrewRecruitDAO().selectRecruitDetail(crewName);
-	String UserId = (String)session.getAttribute("userId");	// 로그인된 아이디
+	LongCrewRecruitDTO crew = new LongCrewDAO().selectRecruitDetail(crewName);
 	String adminId = crew.getAdminId();
-	pageContext.setAttribute("adminId", adminId);			// 크루방장 아이디
-	CrewRecruitDAO dao = new CrewRecruitDAO();				// 특정 단기크루의 모든 memId 가져오기
-	List<CrewScheduleMemberDTO> memberList = dao.selectMemid(crewName);
+	pageContext.setAttribute("adminId", adminId);
+	LongCrewDAO dao2 = new LongCrewDAO();			// 특정 장기크루의 모든 memId + adminId 가져오기
+	List<LongCrewMemberDTO> memberList = dao2.selectMemid(crewName);
 	
 	boolean boo = true;
-	for(CrewScheduleMemberDTO mem : memberList) {
-		if(mem.getMemId().equals(userId)) {
+	for (LongCrewMemberDTO mem : memberList){
+		if (mem.getMemId().equals(userId)){
 			boo = false;
 		}
 	}
-	if(adminId.equals(userId)) {
+	if (adminId.equals(userId)){
 		boo = false;
 	}
 %>
@@ -32,7 +35,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>단기크루 모집글 상세보기</title>
+<title>장기크루 모집글 상세보기</title>
 <link href="./resources/css/crewactivity.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -55,13 +58,10 @@
 	<form action="./joinCrew.crew" method="post">
 	<div class="activity-details">
 		<p>크루명 : <%=crew.getCrewName() %></p>
-		<p>일정 : <%=crew.getGatherDate() %></p>
-		<p>장소 : <%=crew.getLocation()%></p>
 		<p>모집 인원 : <%=crew.getMemberNum() %></p>
 		<p>가입 조건 : <%=crew.getContent() %></p>
 		<p>방장 ID : <%=crew.getAdminId() %></p>
 		
-		<input type="hidden" name="no" value="<%=crew.getNo()%>">
 		<input type="hidden" name="crewName" value="<%=crew.getCrewName()%>">
 		<input type="hidden" name="memberNum" value="<%=crew.getMemberNum()%>">
 		<input type="hidden" name="adminId" value="<%=crew.getAdminId()%>">
