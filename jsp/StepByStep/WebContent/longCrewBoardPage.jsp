@@ -46,7 +46,6 @@
 	<!-- 작성자&방장에게만 삭제 수정 버튼이 보이게 하기 -->
 	
 	<div>
-		<div>게시판 넘버 : ${board.no}</div>
 		<div>크루명 : ${board.crewName}</div>
 		<div>작성자 아이디 : ${board.id}</div>
 		<div>작성자 닉네임 : ${board.nickname }</div>

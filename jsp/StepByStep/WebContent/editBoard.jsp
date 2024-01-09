@@ -8,6 +8,7 @@
 	BoardDTO board = new BoardDAO().selectBoard(no);
 	session.setAttribute("boardDTO", board);
 	String content = board.getContent();
+	String title = board.getTitle();
 %>
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,10 @@
 			<option value="board">자유게시판</option>
 			<option value="greeting">가입인사</option>
 		</select><br>
+	
+		<label>제목</label>
+		<input type="text" name="title" value="<%=title%>"><br>
+		
 	
 		<label>내용</label>
 		<textarea name="content" rows="8" cols="50" required><%=content%></textarea><br>

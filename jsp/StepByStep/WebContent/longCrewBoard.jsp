@@ -25,6 +25,9 @@
 			<option value="greeting">가입인사</option>
 		</select><br>
 	
+		<label>제목</label>
+		<input type="text" name="title" required><br>
+	
 		<label>내용</label>
 		<textarea name="content" rows="8" cols="50"  placeholder="내용을 입력하세요" required></textarea><br>
 		
